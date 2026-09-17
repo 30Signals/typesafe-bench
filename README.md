@@ -5,6 +5,8 @@ deployed on Azure AI Foundry — e.g. Claude Haiku/Sonnet/Opus and GPT
 Luna/Sol/Terra — on **cost** and **latency** for the same structured-decision
 task.
 
+Latest results: [RESULTS.md](RESULTS.md).
+
 Models are entirely config-driven: `config/models.yaml` holds one shared
 Azure AI Foundry resource (endpoint + key) and a plain list of deployment
 names to bench against it. Add, remove, or rename models by editing that
