@@ -21,9 +21,9 @@
 jev:
   api_key_env: TYPESAFE_API_KEY
   model_id: jev-latest
-  input_price_per_1m: 42.0     # $42 / 1B input tokens, per typesafe.ai pricing page
+  input_price_per_1m: 0.042    # $42 / 1B input tokens, per typesafe.ai pricing page
   cached_input_price_per_1m: null
-  output_price_per_1m: null    # not published as of 2026-09; fill in if known
+  output_price_per_1m: 0.0    # not published as of 2026-09; fill in if known
 
 azure:
   endpoint_env: AZURE_FOUNDRY_ENDPOINT
@@ -31,37 +31,37 @@ azure:
 
 models:
   - name: gpt-luna
-    deployment: gpt-luna
-    input_price_per_1m: null
-    cached_input_price_per_1m: null
-    output_price_per_1m: null
+    deployment: gpt-5.6-luna
+    input_price_per_1m: 0.20
+    cached_input_price_per_1m: 0.02
+    output_price_per_1m: 1.20
 
   - name: gpt-sol
-    deployment: gpt-sol
-    input_price_per_1m: null
-    cached_input_price_per_1m: null
-    output_price_per_1m: null
+    deployment: gpt-5.6-sol
+    input_price_per_1m: 5.0
+    cached_input_price_per_1m: 0.5
+    output_price_per_1m: 30.0
 
   - name: gpt-terra
-    deployment: gpt-terra
-    input_price_per_1m: null
-    cached_input_price_per_1m: null
-    output_price_per_1m: null
+    deployment: gpt-5.6-terra
+    input_price_per_1m: 2.0
+    cached_input_price_per_1m: 0.20
+    output_price_per_1m: 12.0
 
   - name: claude-haiku
-    deployment: claude-haiku
-    input_price_per_1m: null
-    cached_input_price_per_1m: null
-    output_price_per_1m: null
+    deployment: claude-haiku-4-5
+    input_price_per_1m: 1.0
+    cached_input_price_per_1m: 0.10
+    output_price_per_1m: 5
 
   - name: claude-sonnet
-    deployment: claude-sonnet
-    input_price_per_1m: null
-    cached_input_price_per_1m: null
-    output_price_per_1m: null
+    deployment: claude-sonnet-5
+    input_price_per_1m: 2.0
+    cached_input_price_per_1m: 0.20
+    output_price_per_1m: 10.0
 
-  - name: claude-opus
-    deployment: claude-opus
-    input_price_per_1m: null
-    cached_input_price_per_1m: null
-    output_price_per_1m: null
+  - name: kimi-k26
+    deployment: Kimi-K2.6
+    input_price_per_1m: 0.95
+    cached_input_price_per_1m: 0.16
+    output_price_per_1m: 4
