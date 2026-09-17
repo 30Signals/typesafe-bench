@@ -27,11 +27,26 @@ python scripts/build_banking77_task.py --n 30 --seed 42
 
 Options: `--n` (ticket count), `--split train|test`, `--seed`, `--out`.
 
-Also included: `tasks/ticket_triage.json`, a synthetic support-ticket task
-asking three judgments at once (a Noul, a Choice, and a Score) per ticket,
-matching typesafe.ai's own worked example. It has no ground truth (cost/
-latency only) but exercises multiple question types in one call, unlike
-BANKING77's single Choice question. Use it with `--task tasks/ticket_triage.json`.
+Also included:
+
+- `tasks/clinc150.json` — a sample of [CLINC150](https://github.com/clinc/oos-eval)
+  (Larson et al., 2019, CC BY 3.0): 150 intents across 10 broad domains
+  (banking, travel, utility, work, small talk, etc.) *plus* an explicit
+  out-of-scope ("oos") class for queries that don't match any listed intent.
+  Ground truth included, same as BANKING77. Where BANKING77 tests "pick the
+  right label," this also tests "recognize when no label fits" — directly
+  relevant to Jev's calibrated-decision pitch. Regenerate/resample with:
+  ```bash
+  python scripts/build_clinc150_task.py --n 30 --oos-n 3 --seed 42
+  ```
+  Options: `--n` (in-scope tickets), `--oos-n` (out-of-scope tickets,
+  default ~10% of `--n`), `--split val|test`, `--seed`, `--out`. Use with
+  `--task tasks/clinc150.json`.
+- `tasks/ticket_triage.json` — a synthetic support-ticket task asking three
+  judgments at once (a Noul, a Choice, and a Score) per ticket, matching
+  typesafe.ai's own worked example. No ground truth (cost/latency only) but
+  exercises multiple question types in one call, unlike BANKING77/CLINC150's
+  single Choice question. Use it with `--task tasks/ticket_triage.json`.
 
 Every model is asked the same question(s) over the same ticket text via one
 JSON structured-output call, for an apples-to-apples per-request comparison.

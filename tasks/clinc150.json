@@ -1,0 +1,396 @@
+{
+  "task_id": "clinc150",
+  "description": "CLINC150 intent classification with out-of-scope detection (Larson et al., 2019, CC BY 3.0): one Choice judgment per ticket picking the intent out of 150 categories across 10 domains, or 'oos' if none apply. Sampled from the test split, seed=42, n=30 in-scope + 3 oos. Source: https://github.com/clinc/oos-eval",
+  "questions": {
+    "intent": {
+      "type": "choice",
+      "instructions": "Which intent best matches this query? If it doesn't clearly match any listed intent, answer 'oos'.",
+      "criteria": {
+        "accept_reservations": "accept reservations",
+        "account_blocked": "account blocked",
+        "alarm": "alarm",
+        "application_status": "application status",
+        "apr": "apr",
+        "are_you_a_bot": "are you a bot",
+        "balance": "balance",
+        "bill_balance": "bill balance",
+        "bill_due": "bill due",
+        "book_flight": "book flight",
+        "book_hotel": "book hotel",
+        "calculator": "calculator",
+        "calendar": "calendar",
+        "calendar_update": "calendar update",
+        "calories": "calories",
+        "cancel": "cancel",
+        "cancel_reservation": "cancel reservation",
+        "car_rental": "car rental",
+        "card_declined": "card declined",
+        "carry_on": "carry on",
+        "change_accent": "change accent",
+        "change_ai_name": "change ai name",
+        "change_language": "change language",
+        "change_speed": "change speed",
+        "change_user_name": "change user name",
+        "change_volume": "change volume",
+        "confirm_reservation": "confirm reservation",
+        "cook_time": "cook time",
+        "credit_limit": "credit limit",
+        "credit_limit_change": "credit limit change",
+        "credit_score": "credit score",
+        "current_location": "current location",
+        "damaged_card": "damaged card",
+        "date": "date",
+        "definition": "definition",
+        "direct_deposit": "direct deposit",
+        "directions": "directions",
+        "distance": "distance",
+        "do_you_have_pets": "do you have pets",
+        "exchange_rate": "exchange rate",
+        "expiration_date": "expiration date",
+        "find_phone": "find phone",
+        "flight_status": "flight status",
+        "flip_coin": "flip coin",
+        "food_last": "food last",
+        "freeze_account": "freeze account",
+        "fun_fact": "fun fact",
+        "gas": "gas",
+        "gas_type": "gas type",
+        "goodbye": "goodbye",
+        "greeting": "greeting",
+        "how_busy": "how busy",
+        "how_old_are_you": "how old are you",
+        "improve_credit_score": "improve credit score",
+        "income": "income",
+        "ingredient_substitution": "ingredient substitution",
+        "ingredients_list": "ingredients list",
+        "insurance": "insurance",
+        "insurance_change": "insurance change",
+        "interest_rate": "interest rate",
+        "international_fees": "international fees",
+        "international_visa": "international visa",
+        "jump_start": "jump start",
+        "last_maintenance": "last maintenance",
+        "lost_luggage": "lost luggage",
+        "make_call": "make call",
+        "maybe": "maybe",
+        "meal_suggestion": "meal suggestion",
+        "meaning_of_life": "meaning of life",
+        "measurement_conversion": "measurement conversion",
+        "meeting_schedule": "meeting schedule",
+        "min_payment": "min payment",
+        "mpg": "mpg",
+        "new_card": "new card",
+        "next_holiday": "next holiday",
+        "next_song": "next song",
+        "no": "no",
+        "nutrition_info": "nutrition info",
+        "oil_change_how": "oil change how",
+        "oil_change_when": "oil change when",
+        "order": "order",
+        "order_checks": "order checks",
+        "order_status": "order status",
+        "pay_bill": "pay bill",
+        "payday": "payday",
+        "pin_change": "pin change",
+        "play_music": "play music",
+        "plug_type": "plug type",
+        "pto_balance": "pto balance",
+        "pto_request": "pto request",
+        "pto_request_status": "pto request status",
+        "pto_used": "pto used",
+        "recipe": "recipe",
+        "redeem_rewards": "redeem rewards",
+        "reminder": "reminder",
+        "reminder_update": "reminder update",
+        "repeat": "repeat",
+        "replacement_card_duration": "replacement card duration",
+        "report_fraud": "report fraud",
+        "report_lost_card": "report lost card",
+        "reset_settings": "reset settings",
+        "restaurant_reservation": "restaurant reservation",
+        "restaurant_reviews": "restaurant reviews",
+        "restaurant_suggestion": "restaurant suggestion",
+        "rewards_balance": "rewards balance",
+        "roll_dice": "roll dice",
+        "rollover_401k": "rollover 401k",
+        "routing": "routing",
+        "schedule_maintenance": "schedule maintenance",
+        "schedule_meeting": "schedule meeting",
+        "share_location": "share location",
+        "shopping_list": "shopping list",
+        "shopping_list_update": "shopping list update",
+        "smart_home": "smart home",
+        "spelling": "spelling",
+        "spending_history": "spending history",
+        "sync_device": "sync device",
+        "taxes": "taxes",
+        "tell_joke": "tell joke",
+        "text": "text",
+        "thank_you": "thank you",
+        "time": "time",
+        "timer": "timer",
+        "timezone": "timezone",
+        "tire_change": "tire change",
+        "tire_pressure": "tire pressure",
+        "todo_list": "todo list",
+        "todo_list_update": "todo list update",
+        "traffic": "traffic",
+        "transactions": "transactions",
+        "transfer": "transfer",
+        "translate": "translate",
+        "travel_alert": "travel alert",
+        "travel_notification": "travel notification",
+        "travel_suggestion": "travel suggestion",
+        "uber": "uber",
+        "update_playlist": "update playlist",
+        "user_name": "user name",
+        "vaccines": "vaccines",
+        "w2": "w2",
+        "weather": "weather",
+        "what_are_your_hobbies": "what are your hobbies",
+        "what_can_i_ask_you": "what can i ask you",
+        "what_is_your_name": "what is your name",
+        "what_song": "what song",
+        "where_are_you_from": "where are you from",
+        "whisper_mode": "whisper mode",
+        "who_do_you_work_for": "who do you work for",
+        "who_made_you": "who made you",
+        "yes": "yes",
+        "oos": "none of the above -- the query does not clearly match any other listed intent"
+      }
+    }
+  },
+  "tickets": [
+    {
+      "id": "clinc-0",
+      "state": "what did you just say",
+      "expected": {
+        "intent": "repeat"
+      }
+    },
+    {
+      "id": "clinc-1",
+      "state": "i am in need of new checks i'm completely out of mine",
+      "expected": {
+        "intent": "order_checks"
+      }
+    },
+    {
+      "id": "clinc-2",
+      "state": "please clean the car windows",
+      "expected": {
+        "intent": "oos"
+      }
+    },
+    {
+      "id": "clinc-3",
+      "state": "speak with a male british accent",
+      "expected": {
+        "intent": "change_accent"
+      }
+    },
+    {
+      "id": "clinc-4",
+      "state": "i need to use pto on october 5th to october 10th",
+      "expected": {
+        "intent": "pto_request"
+      }
+    },
+    {
+      "id": "clinc-5",
+      "state": "what do i do to order new checkbooks for my well's fargo account",
+      "expected": {
+        "intent": "order_checks"
+      }
+    },
+    {
+      "id": "clinc-6",
+      "state": "what's the cost of buying a sump pump",
+      "expected": {
+        "intent": "oos"
+      }
+    },
+    {
+      "id": "clinc-7",
+      "state": "what do my pto days amount to",
+      "expected": {
+        "intent": "pto_balance"
+      }
+    },
+    {
+      "id": "clinc-8",
+      "state": "i wanna know the carry-on rules for the flight i have",
+      "expected": {
+        "intent": "carry_on"
+      }
+    },
+    {
+      "id": "clinc-9",
+      "state": "what date is it tomorrow",
+      "expected": {
+        "intent": "date"
+      }
+    },
+    {
+      "id": "clinc-10",
+      "state": "what's the estimated travel time to get to dc via bus",
+      "expected": {
+        "intent": "distance"
+      }
+    },
+    {
+      "id": "clinc-11",
+      "state": "repeat what the weather will be like",
+      "expected": {
+        "intent": "transfer"
+      }
+    },
+    {
+      "id": "clinc-12",
+      "state": "i need my dinner reservation canceled",
+      "expected": {
+        "intent": "cancel_reservation"
+      }
+    },
+    {
+      "id": "clinc-13",
+      "state": "what are the rules for traveling with toothpaste",
+      "expected": {
+        "intent": "carry_on"
+      }
+    },
+    {
+      "id": "clinc-14",
+      "state": "what are the travel alerts for the us",
+      "expected": {
+        "intent": "travel_alert"
+      }
+    },
+    {
+      "id": "clinc-15",
+      "state": "is cheesecake factory busy right now",
+      "expected": {
+        "intent": "how_busy"
+      }
+    },
+    {
+      "id": "clinc-16",
+      "state": "what is the number of pto days i have left",
+      "expected": {
+        "intent": "pto_balance"
+      }
+    },
+    {
+      "id": "clinc-17",
+      "state": "i want the interest rate for my checking account",
+      "expected": {
+        "intent": "interest_rate"
+      }
+    },
+    {
+      "id": "clinc-18",
+      "state": "alter your accent",
+      "expected": {
+        "intent": "change_accent"
+      }
+    },
+    {
+      "id": "clinc-19",
+      "state": "find schematics for ikea desk assembly",
+      "expected": {
+        "intent": "oos"
+      }
+    },
+    {
+      "id": "clinc-20",
+      "state": "i need to know what 25 times 38 is",
+      "expected": {
+        "intent": "calculator"
+      }
+    },
+    {
+      "id": "clinc-21",
+      "state": "is my apr rate above average",
+      "expected": {
+        "intent": "apr"
+      }
+    },
+    {
+      "id": "clinc-22",
+      "state": "i'll be travelling to russia from april 1 through april 20 and need my financial institute apprised of it",
+      "expected": {
+        "intent": "travel_notification"
+      }
+    },
+    {
+      "id": "clinc-23",
+      "state": "i think i've misplaced my phone",
+      "expected": {
+        "intent": "find_phone"
+      }
+    },
+    {
+      "id": "clinc-24",
+      "state": "what oil do i use when changing oil and how do i do it",
+      "expected": {
+        "intent": "oil_change_how"
+      }
+    },
+    {
+      "id": "clinc-25",
+      "state": "will having my shots updated be a good idea, before i travel to south america",
+      "expected": {
+        "intent": "vaccines"
+      }
+    },
+    {
+      "id": "clinc-26",
+      "state": "if i lost my luggage, what should i do next",
+      "expected": {
+        "intent": "lost_luggage"
+      }
+    },
+    {
+      "id": "clinc-27",
+      "state": "change to the woman voice",
+      "expected": {
+        "intent": "change_accent"
+      }
+    },
+    {
+      "id": "clinc-28",
+      "state": "please put in a vacation request",
+      "expected": {
+        "intent": "pto_request"
+      }
+    },
+    {
+      "id": "clinc-29",
+      "state": "can you roll a die for me",
+      "expected": {
+        "intent": "roll_dice"
+      }
+    },
+    {
+      "id": "clinc-30",
+      "state": "how much cash do i have in my various bank accounts",
+      "expected": {
+        "intent": "balance"
+      }
+    },
+    {
+      "id": "clinc-31",
+      "state": "how much have i spent on tires this month",
+      "expected": {
+        "intent": "spending_history"
+      }
+    },
+    {
+      "id": "clinc-32",
+      "state": "would you freeze my bank account",
+      "expected": {
+        "intent": "freeze_account"
+      }
+    }
+  ]
+}
