@@ -9,7 +9,7 @@ from azure.ai.inference.models import SystemMessage, UserMessage
 from azure.core.credentials import AzureKeyCredential
 
 from .base import Provider, RunResult, extract_cached_tokens
-from .common import SYSTEM_PROMPT, normalize_endpoint, strip_json_fences
+from .common import REQUEST_TIMEOUT_S, SYSTEM_PROMPT, normalize_endpoint, strip_json_fences
 
 
 class AzureFoundryProvider(Provider):
@@ -25,6 +25,8 @@ class AzureFoundryProvider(Provider):
         self._client = ChatCompletionsClient(
             endpoint=f"{normalize_endpoint(endpoint)}/models",
             credential=AzureKeyCredential(api_key),
+            connection_timeout=10,
+            read_timeout=REQUEST_TIMEOUT_S,
         )
 
     def run(self, ticket_id: str, state: str, questions: dict[str, Any]) -> RunResult:

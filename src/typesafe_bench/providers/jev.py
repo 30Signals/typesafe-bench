@@ -7,6 +7,7 @@ from typing import Any
 from typesafe_sdk import TypeSafeClient
 
 from .base import Provider, RunResult, extract_cached_tokens
+from .common import REQUEST_TIMEOUT_S
 
 
 class JevProvider(Provider):
@@ -18,7 +19,7 @@ class JevProvider(Provider):
         api_key = os.environ.get(api_key_env)
         if not api_key:
             raise RuntimeError(f"Missing env var {api_key_env} for provider {name}")
-        self._client = TypeSafeClient(api_key=api_key)
+        self._client = TypeSafeClient(api_key=api_key, timeout=REQUEST_TIMEOUT_S)
 
     def run(self, ticket_id: str, state: str, questions: dict[str, Any]) -> RunResult:
         start = time.perf_counter()

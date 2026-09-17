@@ -1,3 +1,8 @@
+# Per-request timeout (seconds). Slowest observed model (kimi-k26) runs
+# ~20s/call; this leaves generous headroom while still failing a genuinely
+# hung request instead of blocking the whole benchmark run.
+REQUEST_TIMEOUT_S = 60.0
+
 SYSTEM_PROMPT = """\
 You are a structured-decision engine. You will be given the content of a support
 ticket and a set of typed questions. Answer ALL questions about the ticket and

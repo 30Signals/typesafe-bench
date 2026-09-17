@@ -5,8 +5,10 @@ import csv
 import json
 import os
 import statistics
+import threading
+from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
-from typing import Any
+from typing import Any, Callable, TextIO
 
 import yaml
 from dotenv import load_dotenv
@@ -128,24 +130,50 @@ def run_benchmark(
     providers: list[Provider],
     task: dict[str, Any],
     repeats: int,
+    on_result: Callable[[RunResult], None] | None = None,
+    on_provider_done: Callable[[list[RunResult]], None] | None = None,
+    max_workers: int | None = None,
 ) -> list[RunResult]:
+    """Runs one provider per worker thread, concurrently -- these are all
+    I/O-bound HTTP calls to independent endpoints, so a slow model (e.g.
+    kimi-k26) no longer blocks the others from progressing. Tickets within
+    a single provider still run sequentially (order doesn't affect
+    correctness, just keeps one model's own calls from contending with
+    themselves). `on_result`/`on_provider_done` and the shared `results`
+    list are only ever touched under `lock`, so callbacks (CSV writes,
+    print) never interleave across threads."""
     questions = task["questions"]
     tickets = task["tickets"]
     results: list[RunResult] = []
     total = len(providers) * len(tickets) * repeats
     done = 0
-    for provider in providers:
+    lock = threading.Lock()
+
+    def run_provider(provider: Provider) -> None:
+        nonlocal done
         for ticket in tickets:
             for _ in range(repeats):
                 result = provider.run(ticket["id"], ticket["state"], questions)
                 result.correct = _score_correct(result, ticket.get("expected"))
-                results.append(result)
-                done += 1
-                status = "ERROR" if result.error else "ok"
-                print(
-                    f"[{done}/{total}] {provider.name:<16} {ticket['id']:<4} "
-                    f"{result.latency_s:6.3f}s {status}"
-                )
+                with lock:
+                    results.append(result)
+                    if on_result is not None:
+                        on_result(result)
+                    done += 1
+                    status = "ERROR" if result.error else "ok"
+                    print(
+                        f"[{done}/{total}] {provider.name:<16} {ticket['id']:<4} "
+                        f"{result.latency_s:6.3f}s {status}"
+                    )
+        if on_provider_done is not None:
+            with lock:
+                on_provider_done(results)
+
+    workers = max_workers or len(providers)
+    with ThreadPoolExecutor(max_workers=workers) as executor:
+        futures = [executor.submit(run_provider, provider) for provider in providers]
+        for future in futures:
+            future.result()
     return results
 
 
@@ -231,31 +259,60 @@ def summarize(
     return rows
 
 
+RAW_CSV_FIELDS = [
+    "model", "ticket_id", "latency_s", "input_tokens", "output_tokens",
+    "cached_input_tokens", "cache_write_tokens", "correct", "error", "answers", "raw_usage",
+]
+
+
+def _raw_csv_row(r: RunResult) -> list[Any]:
+    return [
+        r.model_name,
+        r.ticket_id,
+        r.latency_s,
+        r.input_tokens,
+        r.output_tokens,
+        r.cached_input_tokens,
+        r.cache_write_tokens,
+        r.correct,
+        r.error or "",
+        json.dumps(r.answers) if r.answers else "",
+        json.dumps(r.raw_usage) if r.raw_usage else "",
+    ]
+
+
+class RawResultsWriter:
+    """Writes raw_results.csv incrementally, flushing after every row, so a
+    killed/crashed run leaves a usable partial CSV instead of losing
+    everything (the harness previously only wrote results after the full
+    run finished)."""
+
+    def __init__(self, path: Path):
+        self._file: TextIO = path.open("w", newline="", encoding="utf-8")
+        self._writer = csv.writer(self._file)
+        self._writer.writerow(RAW_CSV_FIELDS)
+        self._file.flush()
+
+    def write(self, result: RunResult) -> None:
+        self._writer.writerow(_raw_csv_row(result))
+        self._file.flush()
+
+    def close(self) -> None:
+        self._file.close()
+
+    def __enter__(self) -> "RawResultsWriter":
+        return self
+
+    def __exit__(self, *exc_info: Any) -> None:
+        self.close()
+
+
 def write_raw_csv(results: list[RunResult], path: Path) -> None:
     with path.open("w", newline="", encoding="utf-8") as f:
         writer = csv.writer(f)
-        writer.writerow(
-            [
-                "model", "ticket_id", "latency_s", "input_tokens", "output_tokens",
-                "cached_input_tokens", "cache_write_tokens", "correct", "error", "answers", "raw_usage",
-            ]
-        )
+        writer.writerow(RAW_CSV_FIELDS)
         for r in results:
-            writer.writerow(
-                [
-                    r.model_name,
-                    r.ticket_id,
-                    r.latency_s,
-                    r.input_tokens,
-                    r.output_tokens,
-                    r.cached_input_tokens,
-                    r.cache_write_tokens,
-                    r.correct,
-                    r.error or "",
-                    json.dumps(r.answers) if r.answers else "",
-                    json.dumps(r.raw_usage) if r.raw_usage else "",
-                ]
-            )
+            writer.writerow(_raw_csv_row(r))
 
 
 def write_summary_csv(rows: list[dict[str, Any]], path: Path) -> None:
@@ -279,6 +336,12 @@ def main() -> None:
         default=None,
         help="restrict to these provider names (e.g. jev-latest gpt-luna)",
     )
+    parser.add_argument(
+        "--max-workers",
+        type=int,
+        default=None,
+        help="providers to run concurrently (default: all selected providers at once)",
+    )
     args = parser.parse_args()
 
     load_dotenv(REPO_ROOT / ".env")
@@ -296,14 +359,24 @@ def main() -> None:
 
     prices = price_lookup(models_config)
 
-    results = run_benchmark(providers, task, args.repeats)
-
     out_dir = Path(args.out_dir)
     out_dir.mkdir(parents=True, exist_ok=True)
-    write_raw_csv(results, out_dir / "raw_results.csv")
+    summary_path = out_dir / "summary.csv"
+
+    with RawResultsWriter(out_dir / "raw_results.csv") as raw_writer:
+        results = run_benchmark(
+            providers,
+            task,
+            args.repeats,
+            on_result=raw_writer.write,
+            # Refresh summary.csv after each provider finishes so a killed
+            # run still leaves usable partial results, not just raw rows.
+            on_provider_done=lambda so_far: write_summary_csv(summarize(so_far, prices), summary_path),
+            max_workers=args.max_workers,
+        )
 
     rows = summarize(results, prices)
-    write_summary_csv(rows, out_dir / "summary.csv")
+    write_summary_csv(rows, summary_path)
 
     print("\n=== Summary (sorted by mean latency) ===")
     print(tabulate(rows, headers="keys", tablefmt="github"))

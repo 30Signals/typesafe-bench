@@ -1,0 +1,2475 @@
+{
+  "task_id": "clinc150",
+  "description": "CLINC150 intent classification with out-of-scope detection (Larson et al., 2019, CC BY 3.0): one Choice judgment per ticket picking the intent out of 150 categories across 10 domains, or 'oos' if none apply. Sampled from the test split, seed=42, n=300 in-scope + 30 oos. Source: https://github.com/clinc/oos-eval",
+  "questions": {
+    "intent": {
+      "type": "choice",
+      "instructions": "Which intent best matches this query? If it doesn't clearly match any listed intent, answer 'oos'.",
+      "criteria": {
+        "accept_reservations": "accept reservations",
+        "account_blocked": "account blocked",
+        "alarm": "alarm",
+        "application_status": "application status",
+        "apr": "apr",
+        "are_you_a_bot": "are you a bot",
+        "balance": "balance",
+        "bill_balance": "bill balance",
+        "bill_due": "bill due",
+        "book_flight": "book flight",
+        "book_hotel": "book hotel",
+        "calculator": "calculator",
+        "calendar": "calendar",
+        "calendar_update": "calendar update",
+        "calories": "calories",
+        "cancel": "cancel",
+        "cancel_reservation": "cancel reservation",
+        "car_rental": "car rental",
+        "card_declined": "card declined",
+        "carry_on": "carry on",
+        "change_accent": "change accent",
+        "change_ai_name": "change ai name",
+        "change_language": "change language",
+        "change_speed": "change speed",
+        "change_user_name": "change user name",
+        "change_volume": "change volume",
+        "confirm_reservation": "confirm reservation",
+        "cook_time": "cook time",
+        "credit_limit": "credit limit",
+        "credit_limit_change": "credit limit change",
+        "credit_score": "credit score",
+        "current_location": "current location",
+        "damaged_card": "damaged card",
+        "date": "date",
+        "definition": "definition",
+        "direct_deposit": "direct deposit",
+        "directions": "directions",
+        "distance": "distance",
+        "do_you_have_pets": "do you have pets",
+        "exchange_rate": "exchange rate",
+        "expiration_date": "expiration date",
+        "find_phone": "find phone",
+        "flight_status": "flight status",
+        "flip_coin": "flip coin",
+        "food_last": "food last",
+        "freeze_account": "freeze account",
+        "fun_fact": "fun fact",
+        "gas": "gas",
+        "gas_type": "gas type",
+        "goodbye": "goodbye",
+        "greeting": "greeting",
+        "how_busy": "how busy",
+        "how_old_are_you": "how old are you",
+        "improve_credit_score": "improve credit score",
+        "income": "income",
+        "ingredient_substitution": "ingredient substitution",
+        "ingredients_list": "ingredients list",
+        "insurance": "insurance",
+        "insurance_change": "insurance change",
+        "interest_rate": "interest rate",
+        "international_fees": "international fees",
+        "international_visa": "international visa",
+        "jump_start": "jump start",
+        "last_maintenance": "last maintenance",
+        "lost_luggage": "lost luggage",
+        "make_call": "make call",
+        "maybe": "maybe",
+        "meal_suggestion": "meal suggestion",
+        "meaning_of_life": "meaning of life",
+        "measurement_conversion": "measurement conversion",
+        "meeting_schedule": "meeting schedule",
+        "min_payment": "min payment",
+        "mpg": "mpg",
+        "new_card": "new card",
+        "next_holiday": "next holiday",
+        "next_song": "next song",
+        "no": "no",
+        "nutrition_info": "nutrition info",
+        "oil_change_how": "oil change how",
+        "oil_change_when": "oil change when",
+        "order": "order",
+        "order_checks": "order checks",
+        "order_status": "order status",
+        "pay_bill": "pay bill",
+        "payday": "payday",
+        "pin_change": "pin change",
+        "play_music": "play music",
+        "plug_type": "plug type",
+        "pto_balance": "pto balance",
+        "pto_request": "pto request",
+        "pto_request_status": "pto request status",
+        "pto_used": "pto used",
+        "recipe": "recipe",
+        "redeem_rewards": "redeem rewards",
+        "reminder": "reminder",
+        "reminder_update": "reminder update",
+        "repeat": "repeat",
+        "replacement_card_duration": "replacement card duration",
+        "report_fraud": "report fraud",
+        "report_lost_card": "report lost card",
+        "reset_settings": "reset settings",
+        "restaurant_reservation": "restaurant reservation",
+        "restaurant_reviews": "restaurant reviews",
+        "restaurant_suggestion": "restaurant suggestion",
+        "rewards_balance": "rewards balance",
+        "roll_dice": "roll dice",
+        "rollover_401k": "rollover 401k",
+        "routing": "routing",
+        "schedule_maintenance": "schedule maintenance",
+        "schedule_meeting": "schedule meeting",
+        "share_location": "share location",
+        "shopping_list": "shopping list",
+        "shopping_list_update": "shopping list update",
+        "smart_home": "smart home",
+        "spelling": "spelling",
+        "spending_history": "spending history",
+        "sync_device": "sync device",
+        "taxes": "taxes",
+        "tell_joke": "tell joke",
+        "text": "text",
+        "thank_you": "thank you",
+        "time": "time",
+        "timer": "timer",
+        "timezone": "timezone",
+        "tire_change": "tire change",
+        "tire_pressure": "tire pressure",
+        "todo_list": "todo list",
+        "todo_list_update": "todo list update",
+        "traffic": "traffic",
+        "transactions": "transactions",
+        "transfer": "transfer",
+        "translate": "translate",
+        "travel_alert": "travel alert",
+        "travel_notification": "travel notification",
+        "travel_suggestion": "travel suggestion",
+        "uber": "uber",
+        "update_playlist": "update playlist",
+        "user_name": "user name",
+        "vaccines": "vaccines",
+        "w2": "w2",
+        "weather": "weather",
+        "what_are_your_hobbies": "what are your hobbies",
+        "what_can_i_ask_you": "what can i ask you",
+        "what_is_your_name": "what is your name",
+        "what_song": "what song",
+        "where_are_you_from": "where are you from",
+        "whisper_mode": "whisper mode",
+        "who_do_you_work_for": "who do you work for",
+        "who_made_you": "who made you",
+        "yes": "yes",
+        "oos": "none of the above -- the query does not clearly match any other listed intent"
+      }
+    }
+  },
+  "tickets": [
+    {
+      "id": "clinc-0",
+      "state": "for this design, what company did it",
+      "expected": {
+        "intent": "who_made_you"
+      }
+    },
+    {
+      "id": "clinc-1",
+      "state": "when should i get my oil changed",
+      "expected": {
+        "intent": "oil_change_when"
+      }
+    },
+    {
+      "id": "clinc-2",
+      "state": "what's the minimum payment",
+      "expected": {
+        "intent": "min_payment"
+      }
+    },
+    {
+      "id": "clinc-3",
+      "state": "save my text on my laptop hard drive",
+      "expected": {
+        "intent": "oos"
+      }
+    },
+    {
+      "id": "clinc-4",
+      "state": "i think someone jacked my bank account",
+      "expected": {
+        "intent": "report_fraud"
+      }
+    },
+    {
+      "id": "clinc-5",
+      "state": "what is the expiration date for honey",
+      "expected": {
+        "intent": "food_last"
+      }
+    },
+    {
+      "id": "clinc-6",
+      "state": "is vaccination necessary for travel to asia",
+      "expected": {
+        "intent": "vaccines"
+      }
+    },
+    {
+      "id": "clinc-7",
+      "state": "yes, that's right",
+      "expected": {
+        "intent": "yes"
+      }
+    },
+    {
+      "id": "clinc-8",
+      "state": "when is my electricity due date",
+      "expected": {
+        "intent": "bill_due"
+      }
+    },
+    {
+      "id": "clinc-9",
+      "state": "what do my pto days amount to",
+      "expected": {
+        "intent": "pto_balance"
+      }
+    },
+    {
+      "id": "clinc-10",
+      "state": "ai answer my questions with my name first which is deb",
+      "expected": {
+        "intent": "change_user_name"
+      }
+    },
+    {
+      "id": "clinc-11",
+      "state": "whats the mpg of this car",
+      "expected": {
+        "intent": "mpg"
+      }
+    },
+    {
+      "id": "clinc-12",
+      "state": "what is the routing number for pnc",
+      "expected": {
+        "intent": "routing"
+      }
+    },
+    {
+      "id": "clinc-13",
+      "state": "i am not in need of my reservation anymore",
+      "expected": {
+        "intent": "cancel_reservation"
+      }
+    },
+    {
+      "id": "clinc-14",
+      "state": "how can i find out what my tire pressure is",
+      "expected": {
+        "intent": "tire_pressure"
+      }
+    },
+    {
+      "id": "clinc-15",
+      "state": "call me mike from now on",
+      "expected": {
+        "intent": "change_user_name"
+      }
+    },
+    {
+      "id": "clinc-16",
+      "state": "computer, call alexa",
+      "expected": {
+        "intent": "make_call"
+      }
+    },
+    {
+      "id": "clinc-17",
+      "state": "did my vacation get approval",
+      "expected": {
+        "intent": "pto_request_status"
+      }
+    },
+    {
+      "id": "clinc-18",
+      "state": "i need an uber for 5 people to go to the statue of liberty",
+      "expected": {
+        "intent": "uber"
+      }
+    },
+    {
+      "id": "clinc-19",
+      "state": "tell me mr joes pizza average wait time",
+      "expected": {
+        "intent": "how_busy"
+      }
+    },
+    {
+      "id": "clinc-20",
+      "state": "i know i should pay my electric bill",
+      "expected": {
+        "intent": "pay_bill"
+      }
+    },
+    {
+      "id": "clinc-21",
+      "state": "tell me where you're from",
+      "expected": {
+        "intent": "where_are_you_from"
+      }
+    },
+    {
+      "id": "clinc-22",
+      "state": "what kind of traffic can i expect at 9:00 on the route to detroit",
+      "expected": {
+        "intent": "traffic"
+      }
+    },
+    {
+      "id": "clinc-23",
+      "state": "restart your actions with the original settings you came with",
+      "expected": {
+        "intent": "reset_settings"
+      }
+    },
+    {
+      "id": "clinc-24",
+      "state": "\"i'm going on a flight from lax and going to phl, which is only $120 on june 15th",
+      "expected": {
+        "intent": "book_flight"
+      }
+    },
+    {
+      "id": "clinc-25",
+      "state": "can you tell me the credit card application status",
+      "expected": {
+        "intent": "application_status"
+      }
+    },
+    {
+      "id": "clinc-26",
+      "state": "how long before i can eat at chic fil a",
+      "expected": {
+        "intent": "how_busy"
+      }
+    },
+    {
+      "id": "clinc-27",
+      "state": "how much did i spend on my most recent transaction",
+      "expected": {
+        "intent": "transactions"
+      }
+    },
+    {
+      "id": "clinc-28",
+      "state": "set the ceiling fan to low",
+      "expected": {
+        "intent": "smart_home"
+      }
+    },
+    {
+      "id": "clinc-29",
+      "state": "what does the average cost of an engagement ring",
+      "expected": {
+        "intent": "oos"
+      }
+    },
+    {
+      "id": "clinc-30",
+      "state": "tell me what types of questions i can ask you",
+      "expected": {
+        "intent": "what_can_i_ask_you"
+      }
+    },
+    {
+      "id": "clinc-31",
+      "state": "a hidden government facility",
+      "expected": {
+        "intent": "where_are_you_from"
+      }
+    },
+    {
+      "id": "clinc-32",
+      "state": "what is the name of the person who made you",
+      "expected": {
+        "intent": "who_made_you"
+      }
+    },
+    {
+      "id": "clinc-33",
+      "state": "could you please inform me what health plan i am currently on",
+      "expected": {
+        "intent": "insurance"
+      }
+    },
+    {
+      "id": "clinc-34",
+      "state": "do you know the total for taxes for my income",
+      "expected": {
+        "intent": "taxes"
+      }
+    },
+    {
+      "id": "clinc-35",
+      "state": "i need my dinner reservation canceled",
+      "expected": {
+        "intent": "cancel_reservation"
+      }
+    },
+    {
+      "id": "clinc-36",
+      "state": "lets start calling you allan",
+      "expected": {
+        "intent": "change_ai_name"
+      }
+    },
+    {
+      "id": "clinc-37",
+      "state": "tell me today's date",
+      "expected": {
+        "intent": "date"
+      }
+    },
+    {
+      "id": "clinc-38",
+      "state": "how many people died in yesterday's storm",
+      "expected": {
+        "intent": "oos"
+      }
+    },
+    {
+      "id": "clinc-39",
+      "state": "call alexa at home",
+      "expected": {
+        "intent": "make_call"
+      }
+    },
+    {
+      "id": "clinc-40",
+      "state": "speak with a male british accent",
+      "expected": {
+        "intent": "change_accent"
+      }
+    },
+    {
+      "id": "clinc-41",
+      "state": "today is what day of the week",
+      "expected": {
+        "intent": "date"
+      }
+    },
+    {
+      "id": "clinc-42",
+      "state": "how do i use my card reward points for my next flight",
+      "expected": {
+        "intent": "redeem_rewards"
+      }
+    },
+    {
+      "id": "clinc-43",
+      "state": "i need for you to get me the status of my american airlines flight",
+      "expected": {
+        "intent": "flight_status"
+      }
+    },
+    {
+      "id": "clinc-44",
+      "state": "please add this song to my country music playlist",
+      "expected": {
+        "intent": "update_playlist"
+      }
+    },
+    {
+      "id": "clinc-45",
+      "state": "how much have i spent on tires this month",
+      "expected": {
+        "intent": "spending_history"
+      }
+    },
+    {
+      "id": "clinc-46",
+      "state": "what mpg does this car get in the city",
+      "expected": {
+        "intent": "mpg"
+      }
+    },
+    {
+      "id": "clinc-47",
+      "state": "when will my payment be deposited",
+      "expected": {
+        "intent": "payday"
+      }
+    },
+    {
+      "id": "clinc-48",
+      "state": "tell me the date 5 days from now",
+      "expected": {
+        "intent": "date"
+      }
+    },
+    {
+      "id": "clinc-49",
+      "state": "tell me which wifi network you are connected to right now",
+      "expected": {
+        "intent": "oos"
+      }
+    },
+    {
+      "id": "clinc-50",
+      "state": "could you call me a different name, please",
+      "expected": {
+        "intent": "change_user_name"
+      }
+    },
+    {
+      "id": "clinc-51",
+      "state": "what taxes do i owe",
+      "expected": {
+        "intent": "taxes"
+      }
+    },
+    {
+      "id": "clinc-52",
+      "state": "how do i say bathroom in italian",
+      "expected": {
+        "intent": "translate"
+      }
+    },
+    {
+      "id": "clinc-53",
+      "state": "what day am i on on vacation and how much do i got left",
+      "expected": {
+        "intent": "pto_balance"
+      }
+    },
+    {
+      "id": "clinc-54",
+      "state": "can you book a meeting room for friday at 9:00 am",
+      "expected": {
+        "intent": "schedule_meeting"
+      }
+    },
+    {
+      "id": "clinc-55",
+      "state": "what date is it tomorrow",
+      "expected": {
+        "intent": "date"
+      }
+    },
+    {
+      "id": "clinc-56",
+      "state": "give me the weather forecast for today",
+      "expected": {
+        "intent": "oos"
+      }
+    },
+    {
+      "id": "clinc-57",
+      "state": "what did you just say",
+      "expected": {
+        "intent": "repeat"
+      }
+    },
+    {
+      "id": "clinc-58",
+      "state": "set a 1 minute timer",
+      "expected": {
+        "intent": "timer"
+      }
+    },
+    {
+      "id": "clinc-59",
+      "state": "use phone to call alexa",
+      "expected": {
+        "intent": "make_call"
+      }
+    },
+    {
+      "id": "clinc-60",
+      "state": "how long will it takes to get a new credit card",
+      "expected": {
+        "intent": "replacement_card_duration"
+      }
+    },
+    {
+      "id": "clinc-61",
+      "state": "many thank",
+      "expected": {
+        "intent": "thank_you"
+      }
+    },
+    {
+      "id": "clinc-62",
+      "state": "please set an alarm",
+      "expected": {
+        "intent": "alarm"
+      }
+    },
+    {
+      "id": "clinc-63",
+      "state": "can you please let me know the status of my capital one application",
+      "expected": {
+        "intent": "application_status"
+      }
+    },
+    {
+      "id": "clinc-64",
+      "state": "can you get me the scores from the games that were played last night",
+      "expected": {
+        "intent": "oos"
+      }
+    },
+    {
+      "id": "clinc-65",
+      "state": "call me shane",
+      "expected": {
+        "intent": "change_user_name"
+      }
+    },
+    {
+      "id": "clinc-66",
+      "state": "remove wrestlemania from my calendar for may 7th",
+      "expected": {
+        "intent": "calendar_update"
+      }
+    },
+    {
+      "id": "clinc-67",
+      "state": "how do i set up a direct deposit",
+      "expected": {
+        "intent": "direct_deposit"
+      }
+    },
+    {
+      "id": "clinc-68",
+      "state": "i think this transaction is bogus",
+      "expected": {
+        "intent": "report_fraud"
+      }
+    },
+    {
+      "id": "clinc-69",
+      "state": "what do you like to do besides work",
+      "expected": {
+        "intent": "what_are_your_hobbies"
+      }
+    },
+    {
+      "id": "clinc-70",
+      "state": "what are the travel alerts for the us",
+      "expected": {
+        "intent": "travel_alert"
+      }
+    },
+    {
+      "id": "clinc-71",
+      "state": "where do we get our w2 forms",
+      "expected": {
+        "intent": "w2"
+      }
+    },
+    {
+      "id": "clinc-72",
+      "state": "roll those dice once",
+      "expected": {
+        "intent": "roll_dice"
+      }
+    },
+    {
+      "id": "clinc-73",
+      "state": "what can you do to make yourself useful",
+      "expected": {
+        "intent": "what_can_i_ask_you"
+      }
+    },
+    {
+      "id": "clinc-74",
+      "state": "whisper mode, please",
+      "expected": {
+        "intent": "whisper_mode"
+      }
+    },
+    {
+      "id": "clinc-75",
+      "state": "get mom on the phone",
+      "expected": {
+        "intent": "make_call"
+      }
+    },
+    {
+      "id": "clinc-76",
+      "state": "can you roll a die for me",
+      "expected": {
+        "intent": "roll_dice"
+      }
+    },
+    {
+      "id": "clinc-77",
+      "state": "order me some doritos, please",
+      "expected": {
+        "intent": "order"
+      }
+    },
+    {
+      "id": "clinc-78",
+      "state": "i would like to jump start my car",
+      "expected": {
+        "intent": "jump_start"
+      }
+    },
+    {
+      "id": "clinc-79",
+      "state": "are you actually a person",
+      "expected": {
+        "intent": "are_you_a_bot"
+      }
+    },
+    {
+      "id": "clinc-80",
+      "state": "what is the time in est",
+      "expected": {
+        "intent": "time"
+      }
+    },
+    {
+      "id": "clinc-81",
+      "state": "what's on my to-buy list",
+      "expected": {
+        "intent": "shopping_list"
+      }
+    },
+    {
+      "id": "clinc-82",
+      "state": "if i lost my luggage, what should i do next",
+      "expected": {
+        "intent": "lost_luggage"
+      }
+    },
+    {
+      "id": "clinc-83",
+      "state": "tell me my car's tire pressure",
+      "expected": {
+        "intent": "tire_pressure"
+      }
+    },
+    {
+      "id": "clinc-84",
+      "state": "how much money do i make",
+      "expected": {
+        "intent": "income"
+      }
+    },
+    {
+      "id": "clinc-85",
+      "state": "have i already got eggs down on the shopping list",
+      "expected": {
+        "intent": "shopping_list"
+      }
+    },
+    {
+      "id": "clinc-86",
+      "state": "what's something interesting about bees",
+      "expected": {
+        "intent": "fun_fact"
+      }
+    },
+    {
+      "id": "clinc-87",
+      "state": "confirm the john reservation at applebee's",
+      "expected": {
+        "intent": "confirm_reservation"
+      }
+    },
+    {
+      "id": "clinc-88",
+      "state": "what kind of traits do vampires have",
+      "expected": {
+        "intent": "oos"
+      }
+    },
+    {
+      "id": "clinc-89",
+      "state": "how do i get started making homemade pizza dough",
+      "expected": {
+        "intent": "recipe"
+      }
+    },
+    {
+      "id": "clinc-90",
+      "state": "pull up some recommendations for places serving fish in maine",
+      "expected": {
+        "intent": "restaurant_suggestion"
+      }
+    },
+    {
+      "id": "clinc-91",
+      "state": "what is needed to make lasagna",
+      "expected": {
+        "intent": "ingredients_list"
+      }
+    },
+    {
+      "id": "clinc-92",
+      "state": "what day's my pay coming next",
+      "expected": {
+        "intent": "payday"
+      }
+    },
+    {
+      "id": "clinc-93",
+      "state": "milk will go bad in my fridge when",
+      "expected": {
+        "intent": "food_last"
+      }
+    },
+    {
+      "id": "clinc-94",
+      "state": "alter your accent",
+      "expected": {
+        "intent": "change_accent"
+      }
+    },
+    {
+      "id": "clinc-95",
+      "state": "how is the traffic normally driving into downtown washington, dc, from baltimore at 4:00 pm",
+      "expected": {
+        "intent": "traffic"
+      }
+    },
+    {
+      "id": "clinc-96",
+      "state": "can someone tell me why my check engine light is on",
+      "expected": {
+        "intent": "schedule_maintenance"
+      }
+    },
+    {
+      "id": "clinc-97",
+      "state": "please buy me something",
+      "expected": {
+        "intent": "order"
+      }
+    },
+    {
+      "id": "clinc-98",
+      "state": "how do i apply for a new credit card",
+      "expected": {
+        "intent": "new_card"
+      }
+    },
+    {
+      "id": "clinc-99",
+      "state": "is cheesecake factory busy right now",
+      "expected": {
+        "intent": "how_busy"
+      }
+    },
+    {
+      "id": "clinc-100",
+      "state": "what do i do to order new checkbooks for my well's fargo account",
+      "expected": {
+        "intent": "order_checks"
+      }
+    },
+    {
+      "id": "clinc-101",
+      "state": "check how many days off i've taken",
+      "expected": {
+        "intent": "pto_used"
+      }
+    },
+    {
+      "id": "clinc-102",
+      "state": "denver's timezone is a mystery, i wonder where its located",
+      "expected": {
+        "intent": "timezone"
+      }
+    },
+    {
+      "id": "clinc-103",
+      "state": "hello there, good morning",
+      "expected": {
+        "intent": "greeting"
+      }
+    },
+    {
+      "id": "clinc-104",
+      "state": "what is dog in spanish",
+      "expected": {
+        "intent": "translate"
+      }
+    },
+    {
+      "id": "clinc-105",
+      "state": "tell me how many blue ties i own",
+      "expected": {
+        "intent": "oos"
+      }
+    },
+    {
+      "id": "clinc-106",
+      "state": "what company did this design",
+      "expected": {
+        "intent": "who_made_you"
+      }
+    },
+    {
+      "id": "clinc-107",
+      "state": "what oil do i use when changing oil and how do i do it",
+      "expected": {
+        "intent": "oil_change_how"
+      }
+    },
+    {
+      "id": "clinc-108",
+      "state": "i need to know what traffic is going to be like at 3:00 pm on the new jersey turnpike heading into camden from north jersey",
+      "expected": {
+        "intent": "traffic"
+      }
+    },
+    {
+      "id": "clinc-109",
+      "state": "tell me what's on my todo list",
+      "expected": {
+        "intent": "todo_list"
+      }
+    },
+    {
+      "id": "clinc-110",
+      "state": "i would like to hear the reminders that i listed on my things to remember list, please",
+      "expected": {
+        "intent": "reminder"
+      }
+    },
+    {
+      "id": "clinc-111",
+      "state": "how long can i freeze tofu before it goes bad",
+      "expected": {
+        "intent": "food_last"
+      }
+    },
+    {
+      "id": "clinc-112",
+      "state": "can i store bread in the freezer indefinitely and it will still be okay",
+      "expected": {
+        "intent": "food_last"
+      }
+    },
+    {
+      "id": "clinc-113",
+      "state": "i need to know what 25 times 38 is",
+      "expected": {
+        "intent": "calculator"
+      }
+    },
+    {
+      "id": "clinc-114",
+      "state": "how do i know when to get the tires changed on my car",
+      "expected": {
+        "intent": "tire_change"
+      }
+    },
+    {
+      "id": "clinc-115",
+      "state": "it appears my luggage is lost",
+      "expected": {
+        "intent": "lost_luggage"
+      }
+    },
+    {
+      "id": "clinc-116",
+      "state": "i need to use pto on october 5th to october 10th",
+      "expected": {
+        "intent": "pto_request"
+      }
+    },
+    {
+      "id": "clinc-117",
+      "state": "do i have a fraudulent transaction on my account",
+      "expected": {
+        "intent": "report_fraud"
+      }
+    },
+    {
+      "id": "clinc-118",
+      "state": "search for a chili recipe for me",
+      "expected": {
+        "intent": "recipe"
+      }
+    },
+    {
+      "id": "clinc-119",
+      "state": "where did mandarin originate from",
+      "expected": {
+        "intent": "oos"
+      }
+    },
+    {
+      "id": "clinc-120",
+      "state": "this charge is bs",
+      "expected": {
+        "intent": "report_fraud"
+      }
+    },
+    {
+      "id": "clinc-121",
+      "state": "delete jury duty from my calendar for may 7th",
+      "expected": {
+        "intent": "calendar_update"
+      }
+    },
+    {
+      "id": "clinc-122",
+      "state": "i need you to tell me the credit limit for my republic bank card",
+      "expected": {
+        "intent": "credit_limit"
+      }
+    },
+    {
+      "id": "clinc-123",
+      "state": "does osteria francescana take reservations",
+      "expected": {
+        "intent": "accept_reservations"
+      }
+    },
+    {
+      "id": "clinc-124",
+      "state": "what's the nutrition info for a cucumber",
+      "expected": {
+        "intent": "nutrition_info"
+      }
+    },
+    {
+      "id": "clinc-125",
+      "state": "what is the number of pto days i have left",
+      "expected": {
+        "intent": "pto_balance"
+      }
+    },
+    {
+      "id": "clinc-126",
+      "state": "how many vacation days are remaining on my time",
+      "expected": {
+        "intent": "pto_balance"
+      }
+    },
+    {
+      "id": "clinc-127",
+      "state": "please verify my reservation for john at bardenay",
+      "expected": {
+        "intent": "confirm_reservation"
+      }
+    },
+    {
+      "id": "clinc-128",
+      "state": "i'm going to need an uber for 4 people to go to patty's bar",
+      "expected": {
+        "intent": "uber"
+      }
+    },
+    {
+      "id": "clinc-129",
+      "state": "i could use a laugh, got any jokes",
+      "expected": {
+        "intent": "tell_joke"
+      }
+    },
+    {
+      "id": "clinc-130",
+      "state": "help me wake up with an alarm at 5:30am",
+      "expected": {
+        "intent": "alarm"
+      }
+    },
+    {
+      "id": "clinc-131",
+      "state": "i want to know what my recent transaction was",
+      "expected": {
+        "intent": "transactions"
+      }
+    },
+    {
+      "id": "clinc-132",
+      "state": "simulate rolling a dice and tell me what it lands on",
+      "expected": {
+        "intent": "roll_dice"
+      }
+    },
+    {
+      "id": "clinc-133",
+      "state": "when will i arrive at hy-vee",
+      "expected": {
+        "intent": "distance"
+      }
+    },
+    {
+      "id": "clinc-134",
+      "state": "how to get the right medicine",
+      "expected": {
+        "intent": "oos"
+      }
+    },
+    {
+      "id": "clinc-135",
+      "state": "place an order for my whole shopping list",
+      "expected": {
+        "intent": "order"
+      }
+    },
+    {
+      "id": "clinc-136",
+      "state": "what is the square root of 95",
+      "expected": {
+        "intent": "calculator"
+      }
+    },
+    {
+      "id": "clinc-137",
+      "state": "how long do i need to cook chicken",
+      "expected": {
+        "intent": "cook_time"
+      }
+    },
+    {
+      "id": "clinc-138",
+      "state": "generate a list of the past 10 judge executives",
+      "expected": {
+        "intent": "oos"
+      }
+    },
+    {
+      "id": "clinc-139",
+      "state": "can you see if i have any vacation days available for a request",
+      "expected": {
+        "intent": "pto_balance"
+      }
+    },
+    {
+      "id": "clinc-140",
+      "state": "do you have friendly or unfriendly pets",
+      "expected": {
+        "intent": "do_you_have_pets"
+      }
+    },
+    {
+      "id": "clinc-141",
+      "state": "will peas work instead of carrots",
+      "expected": {
+        "intent": "ingredient_substitution"
+      }
+    },
+    {
+      "id": "clinc-142",
+      "state": "when is my car due for its next oil change",
+      "expected": {
+        "intent": "oil_change_when"
+      }
+    },
+    {
+      "id": "clinc-143",
+      "state": "can you confirm the reservation at fleming's for jane",
+      "expected": {
+        "intent": "confirm_reservation"
+      }
+    },
+    {
+      "id": "clinc-144",
+      "state": "just toss a coin",
+      "expected": {
+        "intent": "flip_coin"
+      }
+    },
+    {
+      "id": "clinc-145",
+      "state": "i want a hotel with good review in honolulu, can you find one",
+      "expected": {
+        "intent": "book_hotel"
+      }
+    },
+    {
+      "id": "clinc-146",
+      "state": "the place you were born is",
+      "expected": {
+        "intent": "where_are_you_from"
+      }
+    },
+    {
+      "id": "clinc-147",
+      "state": "when is my car due for an tire change",
+      "expected": {
+        "intent": "tire_change"
+      }
+    },
+    {
+      "id": "clinc-148",
+      "state": "can you sell stocks for me",
+      "expected": {
+        "intent": "oos"
+      }
+    },
+    {
+      "id": "clinc-149",
+      "state": "would you repeat what you said earlier",
+      "expected": {
+        "intent": "repeat"
+      }
+    },
+    {
+      "id": "clinc-150",
+      "state": "what's the word for trees in norway",
+      "expected": {
+        "intent": "translate"
+      }
+    },
+    {
+      "id": "clinc-151",
+      "state": "what song is this one",
+      "expected": {
+        "intent": "what_song"
+      }
+    },
+    {
+      "id": "clinc-152",
+      "state": "how can i get a limit increase on my discover card",
+      "expected": {
+        "intent": "credit_limit_change"
+      }
+    },
+    {
+      "id": "clinc-153",
+      "state": "find me a recipe for chili",
+      "expected": {
+        "intent": "recipe"
+      }
+    },
+    {
+      "id": "clinc-154",
+      "state": "change to the woman voice",
+      "expected": {
+        "intent": "change_accent"
+      }
+    },
+    {
+      "id": "clinc-155",
+      "state": "i think i've misplaced my phone",
+      "expected": {
+        "intent": "find_phone"
+      }
+    },
+    {
+      "id": "clinc-156",
+      "state": "where would the routing number for first utah be located",
+      "expected": {
+        "intent": "routing"
+      }
+    },
+    {
+      "id": "clinc-157",
+      "state": "if something is 15% off $35, how much is it",
+      "expected": {
+        "intent": "calculator"
+      }
+    },
+    {
+      "id": "clinc-158",
+      "state": "can you roll an eight sided die and tell me what it comes up as",
+      "expected": {
+        "intent": "roll_dice"
+      }
+    },
+    {
+      "id": "clinc-159",
+      "state": "is my routing number on my account page",
+      "expected": {
+        "intent": "routing"
+      }
+    },
+    {
+      "id": "clinc-160",
+      "state": "tack on a gallon of milk to the grocery list",
+      "expected": {
+        "intent": "shopping_list_update"
+      }
+    },
+    {
+      "id": "clinc-161",
+      "state": "would you let me know what the meaning is life is",
+      "expected": {
+        "intent": "meaning_of_life"
+      }
+    },
+    {
+      "id": "clinc-162",
+      "state": "i need some suggestions for dinner places tonight",
+      "expected": {
+        "intent": "restaurant_suggestion"
+      }
+    },
+    {
+      "id": "clinc-163",
+      "state": "tell me how to increase credit limit for chase card",
+      "expected": {
+        "intent": "credit_limit_change"
+      }
+    },
+    {
+      "id": "clinc-164",
+      "state": "i need to convert kilos to pounds",
+      "expected": {
+        "intent": "measurement_conversion"
+      }
+    },
+    {
+      "id": "clinc-165",
+      "state": "heard any good jokes",
+      "expected": {
+        "intent": "tell_joke"
+      }
+    },
+    {
+      "id": "clinc-166",
+      "state": "how do i get stains out of the carpet",
+      "expected": {
+        "intent": "oos"
+      }
+    },
+    {
+      "id": "clinc-167",
+      "state": "should i do a complete stop at red lights",
+      "expected": {
+        "intent": "oos"
+      }
+    },
+    {
+      "id": "clinc-168",
+      "state": "are the electric plugs the same over in that country",
+      "expected": {
+        "intent": "plug_type"
+      }
+    },
+    {
+      "id": "clinc-169",
+      "state": "call to mom",
+      "expected": {
+        "intent": "make_call"
+      }
+    },
+    {
+      "id": "clinc-170",
+      "state": "please go ahead and change my name",
+      "expected": {
+        "intent": "change_user_name"
+      }
+    },
+    {
+      "id": "clinc-171",
+      "state": "would you freeze my bank account",
+      "expected": {
+        "intent": "freeze_account"
+      }
+    },
+    {
+      "id": "clinc-172",
+      "state": "make a call for me to the vet",
+      "expected": {
+        "intent": "make_call"
+      }
+    },
+    {
+      "id": "clinc-173",
+      "state": "when will i know if my visa card application was approved",
+      "expected": {
+        "intent": "application_status"
+      }
+    },
+    {
+      "id": "clinc-174",
+      "state": "create emergency phone numbers list",
+      "expected": {
+        "intent": "oos"
+      }
+    },
+    {
+      "id": "clinc-175",
+      "state": "what's the status of by delta flight",
+      "expected": {
+        "intent": "flight_status"
+      }
+    },
+    {
+      "id": "clinc-176",
+      "state": "it was a pleasure talking to you",
+      "expected": {
+        "intent": "goodbye"
+      }
+    },
+    {
+      "id": "clinc-177",
+      "state": "why is my bank account locked",
+      "expected": {
+        "intent": "account_blocked"
+      }
+    },
+    {
+      "id": "clinc-178",
+      "state": "repeat what the weather will be like",
+      "expected": {
+        "intent": "transfer"
+      }
+    },
+    {
+      "id": "clinc-179",
+      "state": "i want a flight from new york to san francisco using delta",
+      "expected": {
+        "intent": "book_flight"
+      }
+    },
+    {
+      "id": "clinc-180",
+      "state": "am i supposed to attend any meetings today",
+      "expected": {
+        "intent": "meeting_schedule"
+      }
+    },
+    {
+      "id": "clinc-181",
+      "state": "can we move onto the next song",
+      "expected": {
+        "intent": "next_song"
+      }
+    },
+    {
+      "id": "clinc-182",
+      "state": "i need you to talk to me about your hobbies",
+      "expected": {
+        "intent": "what_are_your_hobbies"
+      }
+    },
+    {
+      "id": "clinc-183",
+      "state": "scan you find me a chicken recipe",
+      "expected": {
+        "intent": "recipe"
+      }
+    },
+    {
+      "id": "clinc-184",
+      "state": "when's the next day off",
+      "expected": {
+        "intent": "next_holiday"
+      }
+    },
+    {
+      "id": "clinc-185",
+      "state": "what's the best golf club to use on the lower nine",
+      "expected": {
+        "intent": "oos"
+      }
+    },
+    {
+      "id": "clinc-186",
+      "state": "book me a flight to dallas from st, paul, minnesota on delta airlines",
+      "expected": {
+        "intent": "book_flight"
+      }
+    },
+    {
+      "id": "clinc-187",
+      "state": "what subjects are you experienced in",
+      "expected": {
+        "intent": "what_can_i_ask_you"
+      }
+    },
+    {
+      "id": "clinc-188",
+      "state": "would you let me know the status of my american airlines flight",
+      "expected": {
+        "intent": "flight_status"
+      }
+    },
+    {
+      "id": "clinc-189",
+      "state": "what's the best career search website",
+      "expected": {
+        "intent": "oos"
+      }
+    },
+    {
+      "id": "clinc-190",
+      "state": "what kind of traffic can i expect driving to newark, new jersey on i-95 from philadelphia at noon",
+      "expected": {
+        "intent": "traffic"
+      }
+    },
+    {
+      "id": "clinc-191",
+      "state": "i saw suspicious activity on my bank account",
+      "expected": {
+        "intent": "report_fraud"
+      }
+    },
+    {
+      "id": "clinc-192",
+      "state": "what's the status of my jetblue flight",
+      "expected": {
+        "intent": "flight_status"
+      }
+    },
+    {
+      "id": "clinc-193",
+      "state": "please stop the current process",
+      "expected": {
+        "intent": "cancel"
+      }
+    },
+    {
+      "id": "clinc-194",
+      "state": "where can i buy new shingles",
+      "expected": {
+        "intent": "oos"
+      }
+    },
+    {
+      "id": "clinc-195",
+      "state": "can you increase my credit limit to $1000",
+      "expected": {
+        "intent": "credit_limit_change"
+      }
+    },
+    {
+      "id": "clinc-196",
+      "state": "what is 400 times 2",
+      "expected": {
+        "intent": "calculator"
+      }
+    },
+    {
+      "id": "clinc-197",
+      "state": "how do i sign up for a new allstatedplan",
+      "expected": {
+        "intent": "insurance_change"
+      }
+    },
+    {
+      "id": "clinc-198",
+      "state": "can you find me the apr listed on the statement for my citi mastercard",
+      "expected": {
+        "intent": "apr"
+      }
+    },
+    {
+      "id": "clinc-199",
+      "state": "show allison how to get to me",
+      "expected": {
+        "intent": "share_location"
+      }
+    },
+    {
+      "id": "clinc-200",
+      "state": "i need my routing number for my checking account at bb&t bank",
+      "expected": {
+        "intent": "routing"
+      }
+    },
+    {
+      "id": "clinc-201",
+      "state": "put a block on bank of amerian immediately",
+      "expected": {
+        "intent": "freeze_account"
+      }
+    },
+    {
+      "id": "clinc-202",
+      "state": "can you check if my credit card application has been processed",
+      "expected": {
+        "intent": "application_status"
+      }
+    },
+    {
+      "id": "clinc-203",
+      "state": "check how much i spent this week",
+      "expected": {
+        "intent": "spending_history"
+      }
+    },
+    {
+      "id": "clinc-204",
+      "state": "can you share something funny about traveling",
+      "expected": {
+        "intent": "tell_joke"
+      }
+    },
+    {
+      "id": "clinc-205",
+      "state": "did the application for my visa card finish",
+      "expected": {
+        "intent": "application_status"
+      }
+    },
+    {
+      "id": "clinc-206",
+      "state": "clear my calendar for may 3rd",
+      "expected": {
+        "intent": "calendar_update"
+      }
+    },
+    {
+      "id": "clinc-207",
+      "state": "what is the total of my state taxes",
+      "expected": {
+        "intent": "taxes"
+      }
+    },
+    {
+      "id": "clinc-208",
+      "state": "how much money am i earning",
+      "expected": {
+        "intent": "income"
+      }
+    },
+    {
+      "id": "clinc-209",
+      "state": "what kind of glue is used for gluing pipes together",
+      "expected": {
+        "intent": "oos"
+      }
+    },
+    {
+      "id": "clinc-210",
+      "state": "are the reviews ned get's good",
+      "expected": {
+        "intent": "restaurant_reviews"
+      }
+    },
+    {
+      "id": "clinc-211",
+      "state": "tell me how to spent \"frightened",
+      "expected": {
+        "intent": "spelling"
+      }
+    },
+    {
+      "id": "clinc-212",
+      "state": "can i get someone to check my check engine light",
+      "expected": {
+        "intent": "schedule_maintenance"
+      }
+    },
+    {
+      "id": "clinc-213",
+      "state": "i want you paired to my phone",
+      "expected": {
+        "intent": "sync_device"
+      }
+    },
+    {
+      "id": "clinc-214",
+      "state": "what am i paying in taxes",
+      "expected": {
+        "intent": "taxes"
+      }
+    },
+    {
+      "id": "clinc-215",
+      "state": "is beer legal in this state",
+      "expected": {
+        "intent": "oos"
+      }
+    },
+    {
+      "id": "clinc-216",
+      "state": "my auto tires need to be checked out so where can i get an appointment",
+      "expected": {
+        "intent": "schedule_maintenance"
+      }
+    },
+    {
+      "id": "clinc-217",
+      "state": "i want some nike's, is there enough in my wells fargo account",
+      "expected": {
+        "intent": "balance"
+      }
+    },
+    {
+      "id": "clinc-218",
+      "state": "thanks for your help!",
+      "expected": {
+        "intent": "thank_you"
+      }
+    },
+    {
+      "id": "clinc-219",
+      "state": "may i finish washing then i give you please",
+      "expected": {
+        "intent": "oos"
+      }
+    },
+    {
+      "id": "clinc-220",
+      "state": "can you tell me your birthday",
+      "expected": {
+        "intent": "how_old_are_you"
+      }
+    },
+    {
+      "id": "clinc-221",
+      "state": "what are the amount of vacation days i have",
+      "expected": {
+        "intent": "pto_balance"
+      }
+    },
+    {
+      "id": "clinc-222",
+      "state": "are you allowed to call someone a dirty name as part of free speech",
+      "expected": {
+        "intent": "oos"
+      }
+    },
+    {
+      "id": "clinc-223",
+      "state": "flip a coin i choose heads",
+      "expected": {
+        "intent": "flip_coin"
+      }
+    },
+    {
+      "id": "clinc-224",
+      "state": "change name for me",
+      "expected": {
+        "intent": "change_user_name"
+      }
+    },
+    {
+      "id": "clinc-225",
+      "state": "when is it cheapest to travel to hawaii",
+      "expected": {
+        "intent": "oos"
+      }
+    },
+    {
+      "id": "clinc-226",
+      "state": "what is the gas mileage of my car",
+      "expected": {
+        "intent": "mpg"
+      }
+    },
+    {
+      "id": "clinc-227",
+      "state": "can you dim the brightness of my screen",
+      "expected": {
+        "intent": "oos"
+      }
+    },
+    {
+      "id": "clinc-228",
+      "state": "when will i received a replacement card",
+      "expected": {
+        "intent": "replacement_card_duration"
+      }
+    },
+    {
+      "id": "clinc-229",
+      "state": "i need my bank account frozen",
+      "expected": {
+        "intent": "freeze_account"
+      }
+    },
+    {
+      "id": "clinc-230",
+      "state": "will you tell me my bank balance",
+      "expected": {
+        "intent": "balance"
+      }
+    },
+    {
+      "id": "clinc-231",
+      "state": "tell me the weather",
+      "expected": {
+        "intent": "weather"
+      }
+    },
+    {
+      "id": "clinc-232",
+      "state": "is there an uber that drives to the bank on 5th that can hold 3 people",
+      "expected": {
+        "intent": "uber"
+      }
+    },
+    {
+      "id": "clinc-233",
+      "state": "reset to your original settings",
+      "expected": {
+        "intent": "reset_settings"
+      }
+    },
+    {
+      "id": "clinc-234",
+      "state": "current weather",
+      "expected": {
+        "intent": "weather"
+      }
+    },
+    {
+      "id": "clinc-235",
+      "state": "help me to transfer my 401k",
+      "expected": {
+        "intent": "rollover_401k"
+      }
+    },
+    {
+      "id": "clinc-236",
+      "state": "is my apr rate above average",
+      "expected": {
+        "intent": "apr"
+      }
+    },
+    {
+      "id": "clinc-237",
+      "state": "what does serendipity mean",
+      "expected": {
+        "intent": "definition"
+      }
+    },
+    {
+      "id": "clinc-238",
+      "state": "do you know what song is playing on the speaker",
+      "expected": {
+        "intent": "what_song"
+      }
+    },
+    {
+      "id": "clinc-239",
+      "state": "tell me how to go about reporting a damaged card",
+      "expected": {
+        "intent": "damaged_card"
+      }
+    },
+    {
+      "id": "clinc-240",
+      "state": "what area did you come from",
+      "expected": {
+        "intent": "where_are_you_from"
+      }
+    },
+    {
+      "id": "clinc-241",
+      "state": "make slower your speech",
+      "expected": {
+        "intent": "change_speed"
+      }
+    },
+    {
+      "id": "clinc-242",
+      "state": "consult the gq website to find what men wear to weddings",
+      "expected": {
+        "intent": "oos"
+      }
+    },
+    {
+      "id": "clinc-243",
+      "state": "tell me how i can file a pleading in circuit court",
+      "expected": {
+        "intent": "oos"
+      }
+    },
+    {
+      "id": "clinc-244",
+      "state": "how do i share my location with kate and mike",
+      "expected": {
+        "intent": "share_location"
+      }
+    },
+    {
+      "id": "clinc-245",
+      "state": "it it possible to take pto from the 8th to the 11th",
+      "expected": {
+        "intent": "pto_request"
+      }
+    },
+    {
+      "id": "clinc-246",
+      "state": "could you find out if my bank charges transaction fees on my american card if use internationally",
+      "expected": {
+        "intent": "international_fees"
+      }
+    },
+    {
+      "id": "clinc-247",
+      "state": "for my savings account i would like to know the interest rate",
+      "expected": {
+        "intent": "interest_rate"
+      }
+    },
+    {
+      "id": "clinc-248",
+      "state": "double the speaking speed please",
+      "expected": {
+        "intent": "change_speed"
+      }
+    },
+    {
+      "id": "clinc-249",
+      "state": "is a socket converter necessary if i'm travelling to london",
+      "expected": {
+        "intent": "plug_type"
+      }
+    },
+    {
+      "id": "clinc-250",
+      "state": "what's the estimated travel time to get to dc via bus",
+      "expected": {
+        "intent": "distance"
+      }
+    },
+    {
+      "id": "clinc-251",
+      "state": "what's your designation",
+      "expected": {
+        "intent": "user_name"
+      }
+    },
+    {
+      "id": "clinc-252",
+      "state": "what is a well reviewed book for a teenage girl to read",
+      "expected": {
+        "intent": "oos"
+      }
+    },
+    {
+      "id": "clinc-253",
+      "state": "please put in a vacation request",
+      "expected": {
+        "intent": "pto_request"
+      }
+    },
+    {
+      "id": "clinc-254",
+      "state": "review chapter 6 with my son and verify his math homework answers",
+      "expected": {
+        "intent": "oos"
+      }
+    },
+    {
+      "id": "clinc-255",
+      "state": "what does the gas meter read",
+      "expected": {
+        "intent": "gas"
+      }
+    },
+    {
+      "id": "clinc-256",
+      "state": "confirm my reservation for joe at hoss's",
+      "expected": {
+        "intent": "confirm_reservation"
+      }
+    },
+    {
+      "id": "clinc-257",
+      "state": "i apprecaite the help from you",
+      "expected": {
+        "intent": "thank_you"
+      }
+    },
+    {
+      "id": "clinc-258",
+      "state": "i need to know the answer to 10000 multiplied by 44",
+      "expected": {
+        "intent": "calculator"
+      }
+    },
+    {
+      "id": "clinc-259",
+      "state": "book a car rental to miami florida today",
+      "expected": {
+        "intent": "car_rental"
+      }
+    },
+    {
+      "id": "clinc-260",
+      "state": "i would like to know who your boss is",
+      "expected": {
+        "intent": "who_do_you_work_for"
+      }
+    },
+    {
+      "id": "clinc-261",
+      "state": "can you play the song that goes like, \"starships were meant to fly",
+      "expected": {
+        "intent": "play_music"
+      }
+    },
+    {
+      "id": "clinc-262",
+      "state": "can you overnight me a few checkbooks",
+      "expected": {
+        "intent": "order_checks"
+      }
+    },
+    {
+      "id": "clinc-263",
+      "state": "can you please say that again",
+      "expected": {
+        "intent": "repeat"
+      }
+    },
+    {
+      "id": "clinc-264",
+      "state": "who do i contact about updating my insurance",
+      "expected": {
+        "intent": "insurance_change"
+      }
+    },
+    {
+      "id": "clinc-265",
+      "state": "how many points earned do i have with my american express card",
+      "expected": {
+        "intent": "rewards_balance"
+      }
+    },
+    {
+      "id": "clinc-266",
+      "state": "how long do i have to wait to get a day off",
+      "expected": {
+        "intent": "next_holiday"
+      }
+    },
+    {
+      "id": "clinc-267",
+      "state": "check my schedule for meetings today",
+      "expected": {
+        "intent": "meeting_schedule"
+      }
+    },
+    {
+      "id": "clinc-268",
+      "state": "i'll be travelling to russia from april 1 through april 20 and need my financial institute apprised of it",
+      "expected": {
+        "intent": "travel_notification"
+      }
+    },
+    {
+      "id": "clinc-269",
+      "state": "can i bring perfume on the plane or what is the size limit",
+      "expected": {
+        "intent": "carry_on"
+      }
+    },
+    {
+      "id": "clinc-270",
+      "state": "please put my account on hold",
+      "expected": {
+        "intent": "freeze_account"
+      }
+    },
+    {
+      "id": "clinc-271",
+      "state": "i am not sure",
+      "expected": {
+        "intent": "maybe"
+      }
+    },
+    {
+      "id": "clinc-272",
+      "state": "i would like to change the name on my capital one account",
+      "expected": {
+        "intent": "pin_change"
+      }
+    },
+    {
+      "id": "clinc-273",
+      "state": "please begin a timer",
+      "expected": {
+        "intent": "timer"
+      }
+    },
+    {
+      "id": "clinc-274",
+      "state": "i'd like to know what song this is",
+      "expected": {
+        "intent": "what_song"
+      }
+    },
+    {
+      "id": "clinc-275",
+      "state": "can you please instruct me on the proper way to change the oil in my car",
+      "expected": {
+        "intent": "oil_change_how"
+      }
+    },
+    {
+      "id": "clinc-276",
+      "state": "should i go to a car maintenance",
+      "expected": {
+        "intent": "schedule_maintenance"
+      }
+    },
+    {
+      "id": "clinc-277",
+      "state": "your speech slower it",
+      "expected": {
+        "intent": "change_speed"
+      }
+    },
+    {
+      "id": "clinc-278",
+      "state": "michael will reserve a table for two at 7:00pm for olive garden",
+      "expected": {
+        "intent": "restaurant_reservation"
+      }
+    },
+    {
+      "id": "clinc-279",
+      "state": "what did i tell you to call me",
+      "expected": {
+        "intent": "user_name"
+      }
+    },
+    {
+      "id": "clinc-280",
+      "state": "how long will i have to wait at cheesecake factory",
+      "expected": {
+        "intent": "how_busy"
+      }
+    },
+    {
+      "id": "clinc-281",
+      "state": "are the reviews for ned's good",
+      "expected": {
+        "intent": "restaurant_reviews"
+      }
+    },
+    {
+      "id": "clinc-282",
+      "state": "does france use a socket converter",
+      "expected": {
+        "intent": "plug_type"
+      }
+    },
+    {
+      "id": "clinc-283",
+      "state": "alexa, connect to the phone now",
+      "expected": {
+        "intent": "sync_device"
+      }
+    },
+    {
+      "id": "clinc-284",
+      "state": "i'm afraid my luggage has gone missing",
+      "expected": {
+        "intent": "lost_luggage"
+      }
+    },
+    {
+      "id": "clinc-285",
+      "state": "i didn't understand you",
+      "expected": {
+        "intent": "repeat"
+      }
+    },
+    {
+      "id": "clinc-286",
+      "state": "call sal",
+      "expected": {
+        "intent": "make_call"
+      }
+    },
+    {
+      "id": "clinc-287",
+      "state": "could i get some more checkbooks sent to me",
+      "expected": {
+        "intent": "order_checks"
+      }
+    },
+    {
+      "id": "clinc-288",
+      "state": "will having my shots updated be a good idea, before i travel to south america",
+      "expected": {
+        "intent": "vaccines"
+      }
+    },
+    {
+      "id": "clinc-289",
+      "state": "text courtney and inform her about the detour",
+      "expected": {
+        "intent": "text"
+      }
+    },
+    {
+      "id": "clinc-290",
+      "state": "i like the female voice, switch please",
+      "expected": {
+        "intent": "change_accent"
+      }
+    },
+    {
+      "id": "clinc-291",
+      "state": "does sweden use the same kind of socket or do i need a converter",
+      "expected": {
+        "intent": "plug_type"
+      }
+    },
+    {
+      "id": "clinc-292",
+      "state": "what's the average time to boston when riding a bus",
+      "expected": {
+        "intent": "distance"
+      }
+    },
+    {
+      "id": "clinc-293",
+      "state": "what is the distance between the goal posts in football",
+      "expected": {
+        "intent": "oos"
+      }
+    },
+    {
+      "id": "clinc-294",
+      "state": "what is the proper cooking time for this",
+      "expected": {
+        "intent": "cook_time"
+      }
+    },
+    {
+      "id": "clinc-295",
+      "state": "i'd like to transfer $400 from household to savings account",
+      "expected": {
+        "intent": "transfer"
+      }
+    },
+    {
+      "id": "clinc-296",
+      "state": "find the closest cvs near galleria mall",
+      "expected": {
+        "intent": "directions"
+      }
+    },
+    {
+      "id": "clinc-297",
+      "state": "how much cash do i have in my various bank accounts",
+      "expected": {
+        "intent": "balance"
+      }
+    },
+    {
+      "id": "clinc-298",
+      "state": "add eggs to my shopping list if it's not already there",
+      "expected": {
+        "intent": "shopping_list_update"
+      }
+    },
+    {
+      "id": "clinc-299",
+      "state": "is it alright to switch applesauce for oil",
+      "expected": {
+        "intent": "ingredient_substitution"
+      }
+    },
+    {
+      "id": "clinc-300",
+      "state": "i would like the song playing right now put on my driving playlist",
+      "expected": {
+        "intent": "update_playlist"
+      }
+    },
+    {
+      "id": "clinc-301",
+      "state": "can i substitute butter for oil",
+      "expected": {
+        "intent": "ingredient_substitution"
+      }
+    },
+    {
+      "id": "clinc-302",
+      "state": "change my name to bob",
+      "expected": {
+        "intent": "change_user_name"
+      }
+    },
+    {
+      "id": "clinc-303",
+      "state": "my list of reminders contains what",
+      "expected": {
+        "intent": "reminder"
+      }
+    },
+    {
+      "id": "clinc-304",
+      "state": "what day did i last have the oil in my car changed",
+      "expected": {
+        "intent": "last_maintenance"
+      }
+    },
+    {
+      "id": "clinc-305",
+      "state": "will you remove the dinner with june on saturday the 4th at 7pm from my calendar",
+      "expected": {
+        "intent": "calendar_update"
+      }
+    },
+    {
+      "id": "clinc-306",
+      "state": "tell my bank's fraud department i'm going to mexico",
+      "expected": {
+        "intent": "travel_notification"
+      }
+    },
+    {
+      "id": "clinc-307",
+      "state": "does my apr rate suck",
+      "expected": {
+        "intent": "apr"
+      }
+    },
+    {
+      "id": "clinc-308",
+      "state": "send jack a text saying hi",
+      "expected": {
+        "intent": "text"
+      }
+    },
+    {
+      "id": "clinc-309",
+      "state": "what is the updated points that i earned with synovus card",
+      "expected": {
+        "intent": "rewards_balance"
+      }
+    },
+    {
+      "id": "clinc-310",
+      "state": "what are the rules for traveling with toothpaste",
+      "expected": {
+        "intent": "carry_on"
+      }
+    },
+    {
+      "id": "clinc-311",
+      "state": "please let lisa and chris know my location information",
+      "expected": {
+        "intent": "share_location"
+      }
+    },
+    {
+      "id": "clinc-312",
+      "state": "what is the current weather like",
+      "expected": {
+        "intent": "weather"
+      }
+    },
+    {
+      "id": "clinc-313",
+      "state": "i want the interest rate for my checking account",
+      "expected": {
+        "intent": "interest_rate"
+      }
+    },
+    {
+      "id": "clinc-314",
+      "state": "what's the amount of my income",
+      "expected": {
+        "intent": "income"
+      }
+    },
+    {
+      "id": "clinc-315",
+      "state": "if i wanted to spend the lowest for my electric bill, then how much would it be",
+      "expected": {
+        "intent": "min_payment"
+      }
+    },
+    {
+      "id": "clinc-316",
+      "state": "can i put in a pto request for monday to wednesday",
+      "expected": {
+        "intent": "pto_request"
+      }
+    },
+    {
+      "id": "clinc-317",
+      "state": "i need to add a person to my bank account",
+      "expected": {
+        "intent": "oos"
+      }
+    },
+    {
+      "id": "clinc-318",
+      "state": "who assembled you",
+      "expected": {
+        "intent": "who_made_you"
+      }
+    },
+    {
+      "id": "clinc-319",
+      "state": "how much moola is in my bank accounts",
+      "expected": {
+        "intent": "balance"
+      }
+    },
+    {
+      "id": "clinc-320",
+      "state": "i am in need of new checks i'm completely out of mine",
+      "expected": {
+        "intent": "order_checks"
+      }
+    },
+    {
+      "id": "clinc-321",
+      "state": "can you place an order for the olive oil i just finished",
+      "expected": {
+        "intent": "order"
+      }
+    },
+    {
+      "id": "clinc-322",
+      "state": "do you know when i should get my tires changed next",
+      "expected": {
+        "intent": "tire_change"
+      }
+    },
+    {
+      "id": "clinc-323",
+      "state": "do you speak english",
+      "expected": {
+        "intent": "change_language"
+      }
+    },
+    {
+      "id": "clinc-324",
+      "state": "will i be charged a transaction fee on my discover card in cuba",
+      "expected": {
+        "intent": "international_fees"
+      }
+    },
+    {
+      "id": "clinc-325",
+      "state": "i wanna know the carry-on rules for the flight i have",
+      "expected": {
+        "intent": "carry_on"
+      }
+    },
+    {
+      "id": "clinc-326",
+      "state": "tell me when my water bill is due",
+      "expected": {
+        "intent": "bill_due"
+      }
+    },
+    {
+      "id": "clinc-327",
+      "state": "can you disconnect yourself from my phone",
+      "expected": {
+        "intent": "sync_device"
+      }
+    },
+    {
+      "id": "clinc-328",
+      "state": "i would like to check my rewards for my credit card",
+      "expected": {
+        "intent": "rewards_balance"
+      }
+    },
+    {
+      "id": "clinc-329",
+      "state": "what is the miles per gallon",
+      "expected": {
+        "intent": "mpg"
+      }
+    }
+  ]
+}

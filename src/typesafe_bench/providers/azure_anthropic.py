@@ -7,7 +7,7 @@ from typing import Any
 import anthropic
 
 from .base import Provider, RunResult, extract_cache_write_tokens, extract_cached_tokens
-from .common import SYSTEM_PROMPT, normalize_endpoint, strip_json_fences
+from .common import REQUEST_TIMEOUT_S, SYSTEM_PROMPT, normalize_endpoint, strip_json_fences
 
 
 class AzureAnthropicProvider(Provider):
@@ -33,7 +33,9 @@ class AzureAnthropicProvider(Provider):
         self.name = name
         self.deployment = deployment
         self._client = anthropic.Anthropic(
-            base_url=f"{normalize_endpoint(endpoint)}/anthropic", api_key=api_key
+            base_url=f"{normalize_endpoint(endpoint)}/anthropic",
+            api_key=api_key,
+            timeout=REQUEST_TIMEOUT_S,
         )
 
     def run(self, ticket_id: str, state: str, questions: dict[str, Any]) -> RunResult:
