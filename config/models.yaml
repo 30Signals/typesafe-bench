@@ -17,6 +17,14 @@
 # instead of input_price_per_1m. Leave any of these as `null` if unknown --
 # cost will be reported as "n/a" for that model, and cached-token pricing
 # just falls back to the standard input rate.
+#
+# api_style: how this deployment is actually called on Azure AI Foundry.
+#   - "chat_completions" (default): the OpenAI-compatible Chat Completions
+#     API via azure-ai-inference. Works for GPT-family and most other models.
+#   - "anthropic": Claude deployments on Foundry only respond to the native
+#     Anthropic Messages API (<endpoint>/anthropic), not chat_completions --
+#     set this explicitly for any Claude model rather than relying on the
+#     name-based guess the code falls back to.
 
 jev:
   api_key_env: TYPESAFE_API_KEY
@@ -50,12 +58,14 @@ models:
 
   - name: claude-haiku
     deployment: claude-haiku-4-5
+    api_style: anthropic
     input_price_per_1m: 1.0
     cached_input_price_per_1m: 0.10
     output_price_per_1m: 5
 
   - name: claude-sonnet
     deployment: claude-sonnet-5
+    api_style: anthropic
     input_price_per_1m: 2.0
     cached_input_price_per_1m: 0.20
     output_price_per_1m: 10.0

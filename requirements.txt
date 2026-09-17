@@ -1,6 +1,7 @@
 typesafe-sdk
 azure-ai-inference
 azure-core
+anthropic
 pyyaml
 python-dotenv
 tabulate

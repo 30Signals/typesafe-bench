@@ -13,6 +13,7 @@ class RunResult:
     output_tokens: int | None
     answers: dict[str, Any] | None
     cached_input_tokens: int | None = None
+    cache_write_tokens: int | None = None
     raw_usage: dict[str, Any] | None = field(default=None)
     error: str | None = None
 
@@ -41,6 +42,18 @@ def extract_cached_tokens(usage_dict: dict[str, Any] | None) -> int | None:
         if isinstance(nested, dict) and nested.get("cached_tokens") is not None:
             return nested["cached_tokens"]
 
+    return None
+
+
+def extract_cache_write_tokens(usage_dict: dict[str, Any] | None) -> int | None:
+    """Anthropic-style: tokens newly written to the prompt cache on this call
+    (billed at a premium, unlike cache reads which are discounted). Only
+    meaningful for APIs that support an explicit cache-control opt-in."""
+    if not usage_dict:
+        return None
+    for key in ("cache_creation_input_tokens", "cache_write_tokens"):
+        if usage_dict.get(key) is not None:
+            return usage_dict[key]
     return None
 
 

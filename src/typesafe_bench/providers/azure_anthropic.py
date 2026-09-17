@@ -4,62 +4,65 @@ import json
 import time
 from typing import Any
 
-from azure.ai.inference import ChatCompletionsClient
-from azure.ai.inference.models import SystemMessage, UserMessage
-from azure.core.credentials import AzureKeyCredential
+import anthropic
 
-from .base import Provider, RunResult, extract_cached_tokens
+from .base import Provider, RunResult, extract_cache_write_tokens, extract_cached_tokens
 from .common import SYSTEM_PROMPT, normalize_endpoint, strip_json_fences
 
 
-class AzureFoundryProvider(Provider):
-    """Generic adapter for any model deployed on a shared Azure AI Foundry
-    resource, reached via the unified azure-ai-inference ChatCompletionsClient.
-    Works the same way regardless of whether the deployment is a GPT or Claude
-    model -- each model under benchmark is just a deployment name on the same
-    endpoint/key."""
+class AzureAnthropicProvider(Provider):
+    """Adapter for Claude models deployed on Azure AI Foundry.
+
+    Foundry only exposes Claude through the native Anthropic Messages API at
+    <endpoint>/anthropic -- NOT the OpenAI-style Chat Completions API that
+    AzureFoundryProvider/azure-ai-inference use (that returns a 404
+    'api_not_supported' for Claude deployments). So this talks to that route
+    directly with the official `anthropic` SDK, using the same Azure
+    resource endpoint/key as everything else in models.yaml.
+
+    This also means Claude is the one model family here where prompt caching
+    is opt-in rather than automatic: the static system prompt (instructions +
+    question definitions, identical across every ticket) is marked with an
+    explicit `cache_control` breakpoint so the *first* call writes it to
+    cache (`cache_creation_input_tokens`) and subsequent calls read it back
+    at a discount (`cache_read_input_tokens`, surfaced here as
+    cached_input_tokens).
+    """
 
     def __init__(self, name: str, deployment: str, endpoint: str, api_key: str):
         self.name = name
         self.deployment = deployment
-        self._client = ChatCompletionsClient(
-            endpoint=f"{normalize_endpoint(endpoint)}/models",
-            credential=AzureKeyCredential(api_key),
+        self._client = anthropic.Anthropic(
+            base_url=f"{normalize_endpoint(endpoint)}/anthropic", api_key=api_key
         )
 
     def run(self, ticket_id: str, state: str, questions: dict[str, Any]) -> RunResult:
-        # Static content (instructions + question definitions, identical on
-        # every call for this task) goes in the system message, which is a
-        # stable prefix across all tickets. Only the variable ticket text
-        # goes in the user message. This ordering matters: prefix-based
-        # prompt caching (OpenAI's automatic caching, Anthropic's
-        # cache-control breakpoints) only helps the portion of the request
-        # that is byte-identical from the start -- putting the ticket text
-        # first, as an earlier version of this code did, would have broken
-        # the shared prefix and made every call effectively uncached.
-        system_prompt = (
-            f"{SYSTEM_PROMPT}\nQuestions (JSON):\n{json.dumps(questions, indent=2)}"
-        )
-        user_prompt = f"Ticket:\n{state}"
-        messages = [
-            SystemMessage(content=system_prompt),
-            UserMessage(content=user_prompt),
-        ]
+        system_prompt = f"{SYSTEM_PROMPT}\nQuestions (JSON):\n{json.dumps(questions, indent=2)}"
 
         start = time.perf_counter()
         try:
-            response = self._client.complete(
-                messages=messages,
+            response = self._client.messages.create(
                 model=self.deployment,
-                response_format="json_object",
+                max_tokens=1024,
+                system=[
+                    {
+                        "type": "text",
+                        "text": system_prompt,
+                        "cache_control": {"type": "ephemeral"},
+                    }
+                ],
+                messages=[{"role": "user", "content": f"Ticket:\n{state}"}],
             )
             latency = time.perf_counter() - start
             usage = getattr(response, "usage", None)
-            input_tokens = getattr(usage, "prompt_tokens", None) if usage else None
-            output_tokens = getattr(usage, "completion_tokens", None) if usage else None
             raw_usage = _usage_to_dict(usage)
+            input_tokens = getattr(usage, "input_tokens", None) if usage else None
+            output_tokens = getattr(usage, "output_tokens", None) if usage else None
             cached_input_tokens = extract_cached_tokens(raw_usage)
-            raw = response.choices[0].message.content
+            cache_write_tokens = extract_cache_write_tokens(raw_usage)
+            raw = "".join(
+                block.text for block in response.content if getattr(block, "type", None) == "text"
+            )
             try:
                 answers = json.loads(strip_json_fences(raw))
             except (json.JSONDecodeError, TypeError):
@@ -70,6 +73,7 @@ class AzureFoundryProvider(Provider):
                     input_tokens=input_tokens,
                     output_tokens=output_tokens,
                     cached_input_tokens=cached_input_tokens,
+                    cache_write_tokens=cache_write_tokens,
                     raw_usage=raw_usage,
                     answers=None,
                     error=f"non-JSON response: {raw!r}",
@@ -81,6 +85,7 @@ class AzureFoundryProvider(Provider):
                 input_tokens=input_tokens,
                 output_tokens=output_tokens,
                 cached_input_tokens=cached_input_tokens,
+                cache_write_tokens=cache_write_tokens,
                 raw_usage=raw_usage,
                 answers=answers,
             )
@@ -98,12 +103,9 @@ class AzureFoundryProvider(Provider):
 
 
 def _usage_to_dict(usage: Any) -> dict[str, Any] | None:
-    """azure-ai-inference usage objects vary by underlying model provider
-    (OpenAI-style vs. Anthropic-style fields); dump whatever shape comes back
-    so downstream code (and the raw CSV) can inspect it rather than losing it."""
     if usage is None:
         return None
-    for method_name in ("as_dict", "to_dict"):
+    for method_name in ("model_dump", "as_dict", "to_dict"):
         method = getattr(usage, method_name, None)
         if callable(method):
             try:

@@ -12,7 +12,7 @@ import yaml
 from dotenv import load_dotenv
 from tabulate import tabulate
 
-from .providers import AzureFoundryProvider, JevProvider, Provider, RunResult
+from .providers import AzureAnthropicProvider, AzureFoundryProvider, JevProvider, Provider, RunResult
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
 
@@ -40,8 +40,10 @@ def build_providers(models_config: dict[str, Any]) -> list[Provider]:
                 "for the shared Azure AI Foundry resource"
             )
         for m in azure_models:
+            api_style = m.get("api_style") or _guess_api_style(m["name"], m["deployment"])
+            provider_cls = AzureAnthropicProvider if api_style == "anthropic" else AzureFoundryProvider
             providers.append(
-                AzureFoundryProvider(
+                provider_cls(
                     name=m["name"],
                     deployment=m["deployment"],
                     endpoint=endpoint,
@@ -49,6 +51,19 @@ def build_providers(models_config: dict[str, Any]) -> list[Provider]:
                 )
             )
     return providers
+
+
+def _guess_api_style(name: str, deployment: str) -> str:
+    """Azure AI Foundry exposes Claude deployments only through the native
+    Anthropic Messages API, not the OpenAI-style Chat Completions API every
+    other model here uses -- default to that when the model looks like a
+    Claude deployment. Set `api_style: anthropic` explicitly in
+    config/models.yaml instead of relying on this if the name doesn't
+    contain 'claude'/'anthropic'."""
+    haystack = f"{name} {deployment}".lower()
+    if "claude" in haystack or "anthropic" in haystack:
+        return "anthropic"
+    return "chat_completions"
 
 
 Prices = tuple[float | None, float | None, float | None]  # (input, cached_input, output)
@@ -142,6 +157,7 @@ def summarize(
         ]
         costs = [c for c in costs if c is not None]
         cached_counts = [r.cached_input_tokens for r in ok if r.cached_input_tokens is not None]
+        cache_write_counts = [r.cache_write_tokens for r in ok if r.cache_write_tokens is not None]
 
         def pct(data: list[float], p: float) -> float | None:
             if not data:
@@ -170,6 +186,9 @@ def summarize(
                 "avg_cached_input_tokens": round(statistics.mean(cached_counts), 1)
                 if cached_counts
                 else None,
+                "avg_cache_write_tokens": round(statistics.mean(cache_write_counts), 1)
+                if cache_write_counts
+                else None,
                 "avg_cost_usd_per_call": round(statistics.mean(costs), 6) if costs else None,
                 "total_cost_usd": round(sum(costs), 6) if costs else None,
             }
@@ -184,7 +203,7 @@ def write_raw_csv(results: list[RunResult], path: Path) -> None:
         writer.writerow(
             [
                 "model", "ticket_id", "latency_s", "input_tokens", "output_tokens",
-                "cached_input_tokens", "error", "answers", "raw_usage",
+                "cached_input_tokens", "cache_write_tokens", "error", "answers", "raw_usage",
             ]
         )
         for r in results:
@@ -196,6 +215,7 @@ def write_raw_csv(results: list[RunResult], path: Path) -> None:
                     r.input_tokens,
                     r.output_tokens,
                     r.cached_input_tokens,
+                    r.cache_write_tokens,
                     r.error or "",
                     json.dumps(r.answers) if r.answers else "",
                     json.dumps(r.raw_usage) if r.raw_usage else "",

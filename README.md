@@ -35,11 +35,26 @@ Then edit `config/models.yaml`:
       deployment: gpt-luna # the actual Azure Foundry deployment name
       input_price_per_1m: null
       output_price_per_1m: null
+
+    - name: claude-sonnet
+      deployment: claude-sonnet-5
+      api_style: anthropic  # Claude on Foundry needs the native Anthropic API, not chat_completions
+      input_price_per_1m: null
+      output_price_per_1m: null
   ```
 - Fill in `input_price_per_1m` / `output_price_per_1m` for each model you
   have real pricing for (Azure Foundry pricing is plan-specific). Jev's
   input price defaults to typesafe.ai's published $42/1B tokens; its output
   price is not currently published.
+
+## Verify setup
+
+Before a full run, sanity-check that every configured model is reachable
+with one trivial call each:
+
+```bash
+python check_connection.py
+```
 
 ## Run
 
@@ -65,14 +80,36 @@ Options:
 
 ## Prompt caching
 
-If a provider's response reports a cached-token count (OpenAI-style
+Every prompt is built so the static instructions + question definitions
+(identical on every call for a given task) form the system message/prompt —
+a stable prefix — and only the ticket text varies. This ordering is required
+for prefix-based caching to have any chance of working at all.
+
+If a provider's response reports a cached-token count, the harness picks it
+up (provider-agnostic field detection: OpenAI-style
 `prompt_tokens_details.cached_tokens`, Anthropic-style
-`cache_read_input_tokens`, etc.), the harness picks it up automatically and
-records it as `cached_input_tokens`. When `cached_input_price_per_1m` is set
-for that model in `config/models.yaml`, cost for those tokens is computed at
-that (typically discounted) rate instead of the standard input price.
+`cache_read_input_tokens`, etc.) and records it as `cached_input_tokens`
+(cache reads) and `cache_write_tokens` (cache writes, Anthropic-only).
 Unrecognized usage shapes still show up in `raw_usage` in the raw CSV even
-if the harness can't map them to a field.
+when the harness can't map them to a field. When `cached_input_price_per_1m`
+is set for a model, cost for cache-read tokens is computed at that
+(discounted) rate instead of the standard input price.
+
+**Claude is opt-in, not automatic.** Unlike OpenAI-style models (which
+auto-cache long repeated prefixes with no extra request fields), Azure
+Foundry's Claude deployments only speak the native Anthropic Messages API
+(`<endpoint>/anthropic` — routed automatically via `api_style: anthropic`
+in `config/models.yaml`) and require an explicit `cache_control: ephemeral`
+breakpoint on the prefix to write it to cache at all — this harness sets
+that breakpoint on the system prompt for every Claude call.
+
+**Minimum cacheable length still applies.** Anthropic won't cache a prefix
+shorter than ~1024 tokens (Sonnet/Opus) or ~2048 tokens (Haiku), regardless
+of `cache_control`. The bundled `tasks/ticket_triage.json` system prompt is
+only ~350-400 tokens, so on this task Claude's `cache_write_tokens` will
+legitimately stay 0 — that's expected, not a bug. To actually exercise
+caching on Claude, the static shared content would need to grow past that
+floor (more policy text, examples, question definitions, etc.).
 
 ## Notes
 
