@@ -1,0 +1,301 @@
+{
+  "task_id": "banking77",
+  "description": "BANKING77 intent classification (Casanueva et al., 2020, CC BY 4.0): one Choice judgment per ticket picking the customer's intent out of 77 banking-specific categories. Sampled from the test split, seed=42, n=30. Source: https://github.com/PolyAI-LDN/task-specific-datasets",
+  "questions": {
+    "intent": {
+      "type": "choice",
+      "instructions": "Which banking intent best matches this customer query?",
+      "criteria": {
+        "card_arrival": "card arrival",
+        "card_linking": "card linking",
+        "exchange_rate": "exchange rate",
+        "card_payment_wrong_exchange_rate": "card payment wrong exchange rate",
+        "extra_charge_on_statement": "extra charge on statement",
+        "pending_cash_withdrawal": "pending cash withdrawal",
+        "fiat_currency_support": "fiat currency support",
+        "card_delivery_estimate": "card delivery estimate",
+        "automatic_top_up": "automatic top up",
+        "card_not_working": "card not working",
+        "exchange_via_app": "exchange via app",
+        "lost_or_stolen_card": "lost or stolen card",
+        "age_limit": "age limit",
+        "pin_blocked": "pin blocked",
+        "contactless_not_working": "contactless not working",
+        "top_up_by_bank_transfer_charge": "top up by bank transfer charge",
+        "pending_top_up": "pending top up",
+        "cancel_transfer": "cancel transfer",
+        "top_up_limits": "top up limits",
+        "wrong_amount_of_cash_received": "wrong amount of cash received",
+        "card_payment_fee_charged": "card payment fee charged",
+        "transfer_not_received_by_recipient": "transfer not received by recipient",
+        "supported_cards_and_currencies": "supported cards and currencies",
+        "getting_virtual_card": "getting virtual card",
+        "card_acceptance": "card acceptance",
+        "top_up_reverted": "top up reverted",
+        "balance_not_updated_after_cheque_or_cash_deposit": "balance not updated after cheque or cash deposit",
+        "card_payment_not_recognised": "card payment not recognised",
+        "edit_personal_details": "edit personal details",
+        "why_verify_identity": "why verify identity",
+        "unable_to_verify_identity": "unable to verify identity",
+        "get_physical_card": "get physical card",
+        "visa_or_mastercard": "visa or mastercard",
+        "topping_up_by_card": "topping up by card",
+        "disposable_card_limits": "disposable card limits",
+        "compromised_card": "compromised card",
+        "atm_support": "atm support",
+        "direct_debit_payment_not_recognised": "direct debit payment not recognised",
+        "passcode_forgotten": "passcode forgotten",
+        "declined_cash_withdrawal": "declined cash withdrawal",
+        "pending_card_payment": "pending card payment",
+        "lost_or_stolen_phone": "lost or stolen phone",
+        "request_refund": "request refund",
+        "declined_transfer": "declined transfer",
+        "Refund_not_showing_up": "Refund not showing up",
+        "declined_card_payment": "declined card payment",
+        "pending_transfer": "pending transfer",
+        "terminate_account": "terminate account",
+        "card_swallowed": "card swallowed",
+        "transaction_charged_twice": "transaction charged twice",
+        "verify_source_of_funds": "verify source of funds",
+        "transfer_timing": "transfer timing",
+        "reverted_card_payment?": "reverted card payment?",
+        "change_pin": "change pin",
+        "beneficiary_not_allowed": "beneficiary not allowed",
+        "transfer_fee_charged": "transfer fee charged",
+        "receiving_money": "receiving money",
+        "failed_transfer": "failed transfer",
+        "transfer_into_account": "transfer into account",
+        "verify_top_up": "verify top up",
+        "getting_spare_card": "getting spare card",
+        "top_up_by_cash_or_cheque": "top up by cash or cheque",
+        "order_physical_card": "order physical card",
+        "virtual_card_not_working": "virtual card not working",
+        "wrong_exchange_rate_for_cash_withdrawal": "wrong exchange rate for cash withdrawal",
+        "get_disposable_virtual_card": "get disposable virtual card",
+        "top_up_failed": "top up failed",
+        "balance_not_updated_after_bank_transfer": "balance not updated after bank transfer",
+        "cash_withdrawal_not_recognised": "cash withdrawal not recognised",
+        "exchange_charge": "exchange charge",
+        "top_up_by_card_charge": "top up by card charge",
+        "activate_my_card": "activate my card",
+        "cash_withdrawal_charge": "cash withdrawal charge",
+        "card_about_to_expire": "card about to expire",
+        "apple_pay_or_google_pay": "apple pay or google pay",
+        "verify_my_identity": "verify my identity",
+        "country_support": "country support"
+      }
+    }
+  },
+  "tickets": [
+    {
+      "id": "b77-0",
+      "state": "Can i get a single use virtual card",
+      "expected": {
+        "intent": "get_disposable_virtual_card"
+      }
+    },
+    {
+      "id": "b77-1",
+      "state": "Can you freeze my card it was stolen",
+      "expected": {
+        "intent": "lost_or_stolen_card"
+      }
+    },
+    {
+      "id": "b77-2",
+      "state": "The exchange rates are?",
+      "expected": {
+        "intent": "exchange_rate"
+      }
+    },
+    {
+      "id": "b77-3",
+      "state": "What all am I required to show for the identity check?",
+      "expected": {
+        "intent": "verify_my_identity"
+      }
+    },
+    {
+      "id": "b77-4",
+      "state": "got married and need to change name",
+      "expected": {
+        "intent": "edit_personal_details"
+      }
+    },
+    {
+      "id": "b77-5",
+      "state": "My top-up showed as complete, but it's no longer there! What's going on here?",
+      "expected": {
+        "intent": "top_up_reverted"
+      }
+    },
+    {
+      "id": "b77-6",
+      "state": "Is my currency okay to add money with?",
+      "expected": {
+        "intent": "supported_cards_and_currencies"
+      }
+    },
+    {
+      "id": "b77-7",
+      "state": "I couldn't use my contactless this morning, it wasn't accepted.",
+      "expected": {
+        "intent": "contactless_not_working"
+      }
+    },
+    {
+      "id": "b77-8",
+      "state": "What kind of documents do I need for the identity check?",
+      "expected": {
+        "intent": "verify_my_identity"
+      }
+    },
+    {
+      "id": "b77-9",
+      "state": "I need AUD not GBP, how do I change it?",
+      "expected": {
+        "intent": "exchange_via_app"
+      }
+    },
+    {
+      "id": "b77-10",
+      "state": "Is there a fee to exchange foreign money?",
+      "expected": {
+        "intent": "exchange_charge"
+      }
+    },
+    {
+      "id": "b77-11",
+      "state": "Do I need any kind of documentation for the identity check?",
+      "expected": {
+        "intent": "verify_my_identity"
+      }
+    },
+    {
+      "id": "b77-12",
+      "state": "What extra charges are there?",
+      "expected": {
+        "intent": "transfer_fee_charged"
+      }
+    },
+    {
+      "id": "b77-13",
+      "state": "Is there a way to top-up automatically?",
+      "expected": {
+        "intent": "automatic_top_up"
+      }
+    },
+    {
+      "id": "b77-14",
+      "state": "Can I give a second card to my daughter?",
+      "expected": {
+        "intent": "getting_spare_card"
+      }
+    },
+    {
+      "id": "b77-15",
+      "state": "My transfers are being declined. IT has always worked for me but now it's declining my card. I've tried several times.",
+      "expected": {
+        "intent": "declined_transfer"
+      }
+    },
+    {
+      "id": "b77-16",
+      "state": "You did not apply the correct exchange rate for an item that I bought.",
+      "expected": {
+        "intent": "card_payment_wrong_exchange_rate"
+      }
+    },
+    {
+      "id": "b77-17",
+      "state": "the card payment exchange rate is wrong",
+      "expected": {
+        "intent": "card_payment_wrong_exchange_rate"
+      }
+    },
+    {
+      "id": "b77-18",
+      "state": "My card stopped working",
+      "expected": {
+        "intent": "card_not_working"
+      }
+    },
+    {
+      "id": "b77-19",
+      "state": "Which cards do you guys support? I want to top up using my credit card.",
+      "expected": {
+        "intent": "supported_cards_and_currencies"
+      }
+    },
+    {
+      "id": "b77-20",
+      "state": "Where can I go to get a virtual card?",
+      "expected": {
+        "intent": "getting_virtual_card"
+      }
+    },
+    {
+      "id": "b77-21",
+      "state": "How long does a funds transfer take from one back to another?",
+      "expected": {
+        "intent": "transfer_timing"
+      }
+    },
+    {
+      "id": "b77-22",
+      "state": "How can I top up with this cheque I got?",
+      "expected": {
+        "intent": "top_up_by_cash_or_cheque"
+      }
+    },
+    {
+      "id": "b77-23",
+      "state": "How do your exchange rates work?",
+      "expected": {
+        "intent": "exchange_rate"
+      }
+    },
+    {
+      "id": "b77-24",
+      "state": "The transfer keeps failing , I tried to transfer some money to friends this morning but it keeps getting rejected for some reason, Would you please check the issue ?",
+      "expected": {
+        "intent": "failed_transfer"
+      }
+    },
+    {
+      "id": "b77-25",
+      "state": "When would my card be charged an extra fee for a transaction?",
+      "expected": {
+        "intent": "card_payment_fee_charged"
+      }
+    },
+    {
+      "id": "b77-26",
+      "state": "When my card expires do you send a new card?",
+      "expected": {
+        "intent": "card_about_to_expire"
+      }
+    },
+    {
+      "id": "b77-27",
+      "state": "I think my top up did not work",
+      "expected": {
+        "intent": "top_up_failed"
+      }
+    },
+    {
+      "id": "b77-28",
+      "state": "How do I use my new card?",
+      "expected": {
+        "intent": "activate_my_card"
+      }
+    },
+    {
+      "id": "b77-29",
+      "state": "Why was I charged a fee for a transfer?",
+      "expected": {
+        "intent": "transfer_fee_charged"
+      }
+    }
+  ]
+}

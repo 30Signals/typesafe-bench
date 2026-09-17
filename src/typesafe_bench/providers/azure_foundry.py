@@ -55,10 +55,20 @@ class AzureFoundryProvider(Provider):
             )
             latency = time.perf_counter() - start
             usage = getattr(response, "usage", None)
-            input_tokens = getattr(usage, "prompt_tokens", None) if usage else None
+            total_prompt_tokens = getattr(usage, "prompt_tokens", None) if usage else None
             output_tokens = getattr(usage, "completion_tokens", None) if usage else None
             raw_usage = _usage_to_dict(usage)
             cached_input_tokens = extract_cached_tokens(raw_usage)
+            # OpenAI-style `prompt_tokens` includes the cached portion as a
+            # subset (unlike Anthropic, where cache tokens are reported
+            # separately from input_tokens) -- normalize so `input_tokens`
+            # always means "new, full-price" tokens across every provider,
+            # which is what runner.cost_usd assumes.
+            input_tokens = (
+                total_prompt_tokens - (cached_input_tokens or 0)
+                if total_prompt_tokens is not None
+                else None
+            )
             raw = response.choices[0].message.content
             try:
                 answers = json.loads(strip_json_fences(raw))

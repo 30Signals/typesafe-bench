@@ -13,11 +13,28 @@ publish/commit as-is.
 
 ## Task
 
-`tasks/ticket_triage.json` defines a support-ticket triage task: one Jev-style
-call per ticket asking three questions at once (a Noul, a Choice, and a Score),
-matching typesafe.ai's own worked example so Jev runs on a task it's designed for.
-Every other model is asked the same three questions over the same ticket text via
-one JSON structured-output call, for an apples-to-apples per-request comparison.
+Default: `tasks/banking77.json` — a sample of the
+[BANKING77](https://github.com/PolyAI-LDN/task-specific-datasets) intent
+classification dataset (Casanueva et al., 2020, CC BY 4.0). One Choice
+judgment per ticket, picking the customer's intent out of 77 real banking
+categories, over real customer queries. Each ticket carries a ground-truth
+`expected` label, so results include an `accuracy` column alongside cost and
+latency — not just cost/latency as before. Regenerate or resample it with:
+
+```bash
+python scripts/build_banking77_task.py --n 30 --seed 42
+```
+
+Options: `--n` (ticket count), `--split train|test`, `--seed`, `--out`.
+
+Also included: `tasks/ticket_triage.json`, a synthetic support-ticket task
+asking three judgments at once (a Noul, a Choice, and a Score) per ticket,
+matching typesafe.ai's own worked example. It has no ground truth (cost/
+latency only) but exercises multiple question types in one call, unlike
+BANKING77's single Choice question. Use it with `--task tasks/ticket_triage.json`.
+
+Every model is asked the same question(s) over the same ticket text via one
+JSON structured-output call, for an apples-to-apples per-request comparison.
 
 ## Setup
 
@@ -70,12 +87,15 @@ Options:
 
 ## Output
 
-- `results/raw_results.csv` — every individual call: latency, tokens, cached
-  tokens, answers, errors, and the full raw `usage` payload the API returned
-  (field names for cache/cost info differ per provider, so the raw JSON is
-  kept for inspection even when the harness can't parse it)
+- `results/raw_results.csv` — every individual call: latency, tokens, cache
+  read/write tokens, whether the answer matched ground truth (`correct`,
+  blank if the task has no `expected` for that ticket), answers, errors, and
+  the full raw `usage` payload the API returned (field names for cache/cost
+  info differ per provider, so the raw JSON is kept for inspection even when
+  the harness can't parse it)
 - `results/summary.csv` — per-model mean/p50/p95 latency, avg tokens, avg
-  cached tokens, avg & total cost
+  cache read/write tokens, avg & total cost, and `accuracy` (blank if the
+  task has no ground truth)
 - Same summary printed to stdout as a table
 
 ## Prompt caching
@@ -88,12 +108,21 @@ for prefix-based caching to have any chance of working at all.
 If a provider's response reports a cached-token count, the harness picks it
 up (provider-agnostic field detection: OpenAI-style
 `prompt_tokens_details.cached_tokens`, Anthropic-style
-`cache_read_input_tokens`, etc.) and records it as `cached_input_tokens`
-(cache reads) and `cache_write_tokens` (cache writes, Anthropic-only).
-Unrecognized usage shapes still show up in `raw_usage` in the raw CSV even
-when the harness can't map them to a field. When `cached_input_price_per_1m`
-is set for a model, cost for cache-read tokens is computed at that
-(discounted) rate instead of the standard input price.
+`cache_read_input_tokens`/`cache_creation_input_tokens`, etc.) and records
+it as `cached_input_tokens` (cache reads) and `cache_write_tokens` (cache
+writes, Anthropic-only). Unrecognized usage shapes still show up in
+`raw_usage` in the raw CSV even when the harness can't map them to a field.
+
+**Token accounting is normalized across providers before cost is computed.**
+OpenAI-style APIs report `prompt_tokens` as a total that *includes* the
+cached subset; Anthropic reports cache read/write tokens as fully separate
+counts alongside a smaller `input_tokens`. Both providers convert to the
+same shape before building a result: `input_tokens` always means "new,
+full-price" tokens, with `cached_input_tokens`/`cache_write_tokens` billed
+on top at their own rates (`cached_input_price_per_1m`,
+`cache_write_price_per_1m`) when configured, falling back to the standard
+input rate otherwise. Mixing up these two accounting styles would silently
+under- or over-count cost for whichever provider used the other convention.
 
 **Claude is opt-in, not automatic.** Unlike OpenAI-style models (which
 auto-cache long repeated prefixes with no extra request fields), Azure
@@ -105,11 +134,12 @@ that breakpoint on the system prompt for every Claude call.
 
 **Minimum cacheable length still applies.** Anthropic won't cache a prefix
 shorter than ~1024 tokens (Sonnet/Opus) or ~2048 tokens (Haiku), regardless
-of `cache_control`. The bundled `tasks/ticket_triage.json` system prompt is
-only ~350-400 tokens, so on this task Claude's `cache_write_tokens` will
-legitimately stay 0 — that's expected, not a bug. To actually exercise
-caching on Claude, the static shared content would need to grow past that
-floor (more policy text, examples, question definitions, etc.).
+of `cache_control`. `tasks/ticket_triage.json`'s system prompt is only
+~350-400 tokens, so on that task Claude's `cache_write_tokens` will
+legitimately stay 0 — that's expected, not a bug. `tasks/banking77.json`'s
+77-option Choice criteria push the system prompt well past that floor, so
+caching (and OpenAI's automatic caching, which has its own ~1024-token
+minimum) actually engages on that task.
 
 ## Notes
 
@@ -117,7 +147,8 @@ floor (more policy text, examples, question definitions, etc.).
   machine — not a server-side timing figure, so absolute latency is affected
   by your network path to each endpoint's region.
 - Cost is computed as `tokens * price_per_1m` (see Prompt caching above for
-  cached tokens). Any model missing a price in `config/models.yaml` reports
-  cost as blank/n/a rather than 0.
-- This benchmark measures cost/latency only; it does not score answer
-  accuracy against ground truth.
+  the cache read/write accounting). Any model missing a price in
+  `config/models.yaml` reports cost as blank/n/a rather than 0.
+- Accuracy is only reported for tasks whose tickets carry an `expected`
+  ground-truth mapping (e.g. `tasks/banking77.json`); it's an exact,
+  case-insensitive string match on the answer, not partial credit.

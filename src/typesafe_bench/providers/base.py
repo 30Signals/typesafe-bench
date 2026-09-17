@@ -15,6 +15,7 @@ class RunResult:
     cached_input_tokens: int | None = None
     cache_write_tokens: int | None = None
     raw_usage: dict[str, Any] | None = field(default=None)
+    correct: bool | None = None
     error: str | None = None
 
 

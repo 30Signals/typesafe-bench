@@ -11,12 +11,12 @@
 # them (see .env.example). This file is safe to commit/publish as-is.
 #
 # input_price_per_1m / output_price_per_1m are USD per 1,000,000 tokens.
-# cached_input_price_per_1m is the discounted rate for prompt-cache hits, if
-# the provider offers one -- if the API returns a cached-token count for a
-# call and this is set, that portion of input tokens is billed at this rate
-# instead of input_price_per_1m. Leave any of these as `null` if unknown --
-# cost will be reported as "n/a" for that model, and cached-token pricing
-# just falls back to the standard input rate.
+# cached_input_price_per_1m is the discounted rate for prompt-cache reads and
+# cache_write_price_per_1m the (usually premium, Anthropic-only) rate for
+# writing to the cache -- if the API returns a cache-read/write token count
+# for a call and the matching price is set, that portion is billed at that
+# rate instead of input_price_per_1m. Leave any of these as `null` if
+# unknown -- cost falls back to the standard input rate for that portion.
 #
 # api_style: how this deployment is actually called on Azure AI Foundry.
 #   - "chat_completions" (default): the OpenAI-compatible Chat Completions
@@ -61,6 +61,7 @@ models:
     api_style: anthropic
     input_price_per_1m: 1.0
     cached_input_price_per_1m: 0.10
+    cache_write_price_per_1m: null   # Anthropic typically charges a ~1.25x premium; fill in if known
     output_price_per_1m: 5
 
   - name: claude-sonnet
@@ -68,6 +69,7 @@ models:
     api_style: anthropic
     input_price_per_1m: 2.0
     cached_input_price_per_1m: 0.20
+    cache_write_price_per_1m: null   # Anthropic typically charges a ~1.25x premium; fill in if known
     output_price_per_1m: 10.0
 
   - name: kimi-k26
