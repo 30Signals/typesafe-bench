@@ -19,7 +19,15 @@ classification dataset (Casanueva et al., 2020, CC BY 4.0). One Choice
 judgment per ticket, picking the customer's intent out of 77 real banking
 categories, over real customer queries. Each ticket carries a ground-truth
 `expected` label, so results include an `accuracy` column alongside cost and
-latency — not just cost/latency as before. Regenerate or resample it with:
+latency — not just cost/latency as before.
+
+Each category's criterion is more than a bare label name: it's paired with a
+few real example queries pulled from the train split (disjoint from the
+sampled tickets), since several BANKING77 categories are near-synonyms a
+label name alone doesn't disambiguate (`order_physical_card` vs.
+`get_physical_card`, `beneficiary_not_allowed` vs. `failed_transfer`/
+`declined_transfer`, etc.) — every benchmarked model gets the same examples,
+so it's still apples-to-apples. Regenerate or resample it with:
 
 ```bash
 python scripts/build_banking77_task.py --n 30 --seed 42

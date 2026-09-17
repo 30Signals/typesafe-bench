@@ -1,0 +1,2191 @@
+{
+  "task_id": "banking77",
+  "description": "BANKING77 intent classification (Casanueva et al., 2020, CC BY 4.0): one Choice judgment per ticket picking the customer's intent out of 77 banking-specific categories. Sampled from the test split, seed=42, n=300. Source: https://github.com/PolyAI-LDN/task-specific-datasets",
+  "questions": {
+    "intent": {
+      "type": "choice",
+      "instructions": "Which banking intent best matches this customer query?",
+      "criteria": {
+        "card_arrival": "card arrival -- e.g. \"When will I get my new card?\"; \"Do you have info about the card on delivery?\"; \"My card has not been delivered yet and its been a week since I ordered it, please help\"",
+        "card_linking": "card linking -- e.g. \"I found my card, am I able to put it back into the app?\"; \"I want to reactivate my card, I thought I had lost it but I found it.\"; \"I want to reactivate my card, I thought I had lost it but found it again this morning.\"",
+        "exchange_rate": "exchange rate -- e.g. \"Could you tell me what your exchange rates are?\"; \"Where can I find your exchange rates?\"; \"Your exchange rates are coming from where?\"",
+        "card_payment_wrong_exchange_rate": "card payment wrong exchange rate -- e.g. \"I didn't receive the correct exchange rate for an item that I bought.\"; \"My exchange rate was wrong for an Item I bought!\"; \"I purchased something abroad but the exchange rate is incorrect.\"",
+        "extra_charge_on_statement": "extra charge on statement -- e.g. \"What is the dollar that I have pending on my statement there?\"; \"What is the reason for the extra fee on my statement?\"; \"I was charged $1 in a transaction.\"",
+        "pending_cash_withdrawal": "pending cash withdrawal -- e.g. \"I noticed on my online statement that an ATM withdrawal I made early is still pending.  Is this accurate?\"; \"What does it mean to have a pending cash withdrawal?\"; \"My cash withdrawal shows pending, why?\"",
+        "fiat_currency_support": "fiat currency support -- e.g. \"I would like for someone to tell me which fiat currencies that your company supports.\"; \"Do you provide currency exchange to Euros?\"; \"Is the EUR accepted for exchanges?\"",
+        "card_delivery_estimate": "card delivery estimate -- e.g. \"I ordered my card a couple weeks ago and haven't received it yet. When can I expect it?\"; \"Can I choose the day it's delivered?\"; \"I would like to make sure it is delivered on a certain date.\"",
+        "automatic_top_up": "automatic top up -- e.g. \"Is there a function where I can top-up automatically?\"; \"How do I activate auto top-up when traveling?\"; \"When I travel, can it automatically add money in certain intervals?\"",
+        "card_not_working": "card not working -- e.g. \"My card doesn't seem to work anymore\"; \"My card is not working when I try to use it.\"; \"Why is my card not working anymore?\"",
+        "exchange_via_app": "exchange via app -- e.g. \"How can I exchange currencies with this app?\"; \"How can I convert currencies?\"; \"Can this app be used to exchange currencies?\"",
+        "lost_or_stolen_card": "lost or stolen card -- e.g. \"Has there been any activity on my card today?\"; \"What should I do if I think my card was stolen?\"; \"I lost my card n need a new one.\"",
+        "age_limit": "age limit -- e.g. \"I am 16 and just started working at McDonalds can I deposit my checks at your bank?\"; \"How old do you have to be to open an account?\"; \"Would it be possible to open up an account for children?\"",
+        "pin_blocked": "pin blocked -- e.g. \"Can I unblock my PIN in the app?\"; \"I cannot use my PIN.\"; \"\nI put the wrong pin too many times and now it is blocked. Can you help me unblock it?\"",
+        "contactless_not_working": "contactless not working -- e.g. \"Would reinstalling the app solve the problem?\"; \"I'm confused. My contactless is suddenly not working anywhere that I try to use it. How do I fix it?\"; \"My contactless is non-functional.\"",
+        "top_up_by_bank_transfer_charge": "top up by bank transfer charge -- e.g. \"Can I do a SWIFT transfer?\"; \"Can I transfer money using the SWIFT service?\"; \"What kind of fee is there to top-up my account?\"",
+        "pending_top_up": "pending top up -- e.g. \"Should my top up still be pending?\"; \"Why hasn't my top up gone through?\"; \"My top up did not go through yet.\"",
+        "cancel_transfer": "cancel transfer -- e.g. \"Please help me, there is a transaction in the incorrect account.\"; \"Cancelling a transaction\"; \"I need to cancel a transfer I made.\"",
+        "top_up_limits": "top up limits -- e.g. \"How can I information on my limit for top-ups?\"; \"What is the maximum I can top up?\"; \"How often am I able to top-up?\"",
+        "wrong_amount_of_cash_received": "wrong amount of cash received -- e.g. \"I tried withdrawing but my cash is not showing up?\"; \"Why is my withdrawal wrong? I took out $100 but only received $20.\"; \"The ATM did not give me as much cash as I requested.\"",
+        "card_payment_fee_charged": "card payment fee charged -- e.g. \"I was spending cash with my card and got a fee.\"; \"What is the fee charged for using my card?\"; \"I have never been charged a card payment fee before. Why did this change?\"",
+        "transfer_not_received_by_recipient": "transfer not received by recipient -- e.g. \"A transaction I did to my friend hasn't arrived yet, why?\"; \"The app isn't showing my transactions\"; \"I sent some money to somebody a couple of hours ago, and they still have yet to receive it.  They really need the money, how much longer are they going to have to wait?\"",
+        "supported_cards_and_currencies": "supported cards and currencies -- e.g. \"Are cards from the US accepted?\"; \"What currencies do you accept for adding money to my account?\"; \"Will my other US credit card be accepted?\"",
+        "getting_virtual_card": "getting virtual card -- e.g. \"Where can i find the virtual card?\"; \"how to i go about getting my virtual card\"; \"I'd like more info on getting a virtual card.\"",
+        "card_acceptance": "card acceptance -- e.g. \"You accepts my card?\"; \"Is there a list of where I can use my card?\"; \"Are there limits as to where my card will be accepted?\"",
+        "top_up_reverted": "top up reverted -- e.g. \"Why has my top-up been returned to my account?\"; \"Please explain why the funds I added were returned to my account.\"; \"I topped up but the app declined it\"",
+        "balance_not_updated_after_cheque_or_cash_deposit": "balance not updated after cheque or cash deposit -- e.g. \"What's going on with my balance? Shouldn't it be a bit higher since I deposited a cheque a day ago?\"; \"Where did the money I deposit go??\"; \"why hasn't my cash arrived yet from my cheque?!\"",
+        "card_payment_not_recognised": "card payment not recognised -- e.g. \"There is a payment that is not mine in the App.\"; \"There are a couple of payments with my card shown in the app that I really didn't make myself. Why is it happened?\"; \"Just today there was a purchase on my card that wasn't done by me. Can this be reversed and my card be frozen? I can't have this continue!\"",
+        "edit_personal_details": "edit personal details -- e.g. \"How do I change my name after marriage\"; \"How do I update my address?\"; \"I need to change details about my personal account.\"",
+        "why_verify_identity": "why verify identity -- e.g. \"I don't understand why you want so much of my personal info.\"; \"How to verify my identity\"; \"Why do I need to verify my account?\"",
+        "unable_to_verify_identity": "unable to verify identity -- e.g. \"Why isn't my id verifying?\"; \"What's wrong with my ID? I can't verify it.\"; \"The app doesn't think that I am myself\"",
+        "get_physical_card": "get physical card -- e.g. \"Do I have a card PIN?\"; \"I haven't been sent my new pin!\"; \"I can't find the card PIN.\"",
+        "visa_or_mastercard": "visa or mastercard -- e.g. \"I prefer to get a Mastercard.\"; \"Can I choose between Visa or MasterCard?\"; \"Why can I not choose the card i want?\"",
+        "topping_up_by_card": "topping up by card -- e.g. \"Can i top up by card?\"; \"I tried topping up using my card, but the money is gone?\"; \"How can I transfer money using my credit card?\"",
+        "disposable_card_limits": "disposable card limits -- e.g. \"Can i make several disposable cardsper day?\"; \"Could you tell me about the restrictions that are on the disposable cards?\"; \"Is there a limit on the number of times I can use a disposable card?\"",
+        "compromised_card": "compromised card -- e.g. \"I think that someone may be using my card, but I'm not sure,.\"; \"My card must have used my card as there are some transactions that I haven't done myself..\"; \"What steps can I take if someone else is using my card?\"",
+        "atm_support": "atm support -- e.g. \"Is there a way to find an ATM around me?\"; \"ATMs, which ones will accept this card?\"; \"Can this card be used at all ATMs?\"",
+        "direct_debit_payment_not_recognised": "direct debit payment not recognised -- e.g. \"I can't recognise this Direct Debit payment.\"; \"I just found a payment from a while back in my account that I didn't make.  Can I still dispute it even though it was a couple of months ago?\"; \"I have a direct debit I didn't set up\"",
+        "passcode_forgotten": "passcode forgotten -- e.g. \"I forgot my password to get into the app!\"; \"passcode retrieval\"; \"What is my password?\"",
+        "declined_cash_withdrawal": "declined cash withdrawal -- e.g. \"I tried to withdraw cash from the ATM machine and it did not work. Can you tell me why?\"; \"Why was my cash withdrawal cancelled at the ATM?\"; \"I can't get any money from my account.\"",
+        "pending_card_payment": "pending card payment -- e.g. \"I need to know when a payment will actually go through. I completed a payment using my card but it is just showing as pending at this point and it has been a while ago.\"; \"Why is it saying I have a pending payment?\"; \"How long does it take for a new purchase to stop being considered pending?\"",
+        "lost_or_stolen_phone": "lost or stolen phone -- e.g. \"Help!  What should I do?  My phone was stolen yesterday.\"; \"What should I do if my phone is lost or stolen?\"; \"I was recently mugged and would like to know if I have to have access to the app to use your services and how I would go about setting up your services on a new device belonging to a current user?\"",
+        "request_refund": "request refund -- e.g. \"Can i have the item refunded?\"; \"I would like to cancel my previous purchase.\"; \"I bought something that I need a refund for.\"",
+        "declined_transfer": "declined transfer -- e.g. \"How can I find a way to transfer money without it being rejected?\"; \"Why are all my transfers failing?  I have the details right and they won't complete.  I've been trying all day and they still won't go through, this is URGENT, please help.\"; \"I have no idea why but my transfers keep getting declined. I have double checked all the recipient details several times already and they're definitely correct.\"",
+        "Refund_not_showing_up": "Refund not showing up -- e.g. \"I requested a refund from a merchant a while ago, and upon repeatedly checking my statement, the merchant has yet to refund me my money.  I don't know what's going on, or why the money is getting into my account--could you please help?\"; \"My refund has not arrived, and I am unsure why. Who do I contact?\"; \"I still don't have a refund.\"",
+        "declined_card_payment": "declined card payment -- e.g. \"When I use my card, it says decline?\"; \"I made a card payment, but it has been declined?\"; \"Tell me why my card payment was declined.\"",
+        "pending_transfer": "pending transfer -- e.g. \"Why does my transfer say it is pending?\"; \"What is the average pending time for a transaction?\"; \"There has been a transfer pending in my account and I wanted to know how long it is going to take to go  through.\"",
+        "terminate_account": "terminate account -- e.g. \"how do i cancel my account\"; \"Delete all of my account information and my account right now.\"; \"I don't want this account anymore, how do I delete it?\"",
+        "card_swallowed": "card swallowed -- e.g. \"How do I get my card back quickly from a bank machine that it?\"; \"An ATM machine didn't return my card.\"; \"How do I get my card back after the ATM swallowed it.\"",
+        "transaction_charged_twice": "transaction charged twice -- e.g. \"How can I fix this?  There is a double charge on my account.\"; \"Hello. I just noticed I was charged two times for a restaurant I visited this week. Can you reverse the additional charge?\"; \"Why have I been charged twice?\"",
+        "verify_source_of_funds": "verify source of funds -- e.g. \"where did my funds come from?\"; \"is there a way to see where funds come from\"; \"Please explain to me how to know where my funds are from.\"",
+        "transfer_timing": "transfer timing -- e.g. \"How long does it take for a transfer to be in my account?\"; \"I must make a transfer from China and it is urgent. How long before the transfer is complete?\"; \"How long do I wait for a transfer from the United States?\"",
+        "reverted_card_payment?": "reverted card payment? -- e.g. \"Why was a payment cancelled on my account?\"; \"Can you tell me why my card payment was cancelled?\"; \"My card has an issue, the payment has been deferred.\"",
+        "change_pin": "change pin -- e.g. \"I really need to know how to change my pin.\"; \"Is it possible for me to change my PIN number?\"; \"Please let me know how to change my PIN?\"",
+        "beneficiary_not_allowed": "beneficiary not allowed -- e.g. \"Why couldn't I transfer funds to my beneficiary?\"; \"Why is this not letting me exchange crypto? I need help making this transaction go through.\"; \"I am getting an error stating my transfer is not possible while transferring money. Let me know the issue as its the first time i am getting error, earlier it used to work.\"",
+        "transfer_fee_charged": "transfer fee charged -- e.g. \"Why do I see a fee when I do a transfer?\"; \"I found a transfer fee - is that correct?\"; \"Why was a fee charged to me for transferring money?\"",
+        "receiving_money": "receiving money -- e.g. \"Can I receive money in a different countries money?\"; \"I have obtained the salary in GBP, will it need to be configured?\"; \"Can I transfer my paycheck to the account?\"",
+        "failed_transfer": "failed transfer -- e.g. \"The app says my transfer failed\"; \"Why won't my transfer go through?\"; \"I think my transfer failed. What do I do now?\"",
+        "transfer_into_account": "transfer into account -- e.g. \"What can I expect if I use bank transfer to top up my account?\"; \"How can I move money from an account at another bank to this one?\"; \"How can I deposit money to my account?\"",
+        "verify_top_up": "verify top up -- e.g. \"What does top-up verification do?\"; \"Where do I find the verification code for the card I'm topping up?\"; \"Why does a top- up need to be verify?\"",
+        "getting_spare_card": "getting spare card -- e.g. \"Are extra charges added for sending out additional cards?\"; \"Would it be possible for me to get a second card?\"; \"I need another card for a member of my family. Is this possible? How soon can I get one?\"",
+        "top_up_by_cash_or_cheque": "top up by cash or cheque -- e.g. \"Is there somewhere I can send a check to add to my account?\"; \"Can I top up using cash?\"; \"Can I top up using my cheque?\"",
+        "order_physical_card": "order physical card -- e.g. \"How would I go about getting a physical card to use in stores?\"; \"How much is a physical card?\"; \"What are the places that you deliver cards to?\"",
+        "virtual_card_not_working": "virtual card not working -- e.g. \"This disposable virtual card is not working.\"; \"I tried paying with my disposable virtual card earlier but it was rejected. What can I do to fix this?\"; \"My virtual card is just not going through.\"",
+        "wrong_exchange_rate_for_cash_withdrawal": "wrong exchange rate for cash withdrawal -- e.g. \"My exchange rate is wrong when I get cash.\"; \"When I got cash I believe that the exchange rate was wrong\"; \"Hi, I have withdrawn cash from the ATM on holiday and i guess withdrawal amount has been overcharged. I did it as i was not aware of these charges.\"",
+        "get_disposable_virtual_card": "get disposable virtual card -- e.g. \"can i get a virtual card online\"; \"What are the benefits of a disposable card?\"; \"Are there virtual disposable cards?\"",
+        "top_up_failed": "top up failed -- e.g. \"Hey, I attempted to top up my card today and for some reason it didn't work. When I did it the other way it worked just fine. Could you help me figure out why this is happening please?\"; \"Why did my top-up fail?\"; \"I did a bank transfer to top up, but the money is not available.\"",
+        "balance_not_updated_after_bank_transfer": "balance not updated after bank transfer -- e.g. \"My latest transfer seems to be missing.\"; \"Is something wrong with my account, my balance didn't change after I transferred some money\"; \"Why am I still waiting for a transfer?\"",
+        "cash_withdrawal_not_recognised": "cash withdrawal not recognised -- e.g. \"I have a cash withdrawal in my statement. Why is that?\"; \"My app shows cash I didn't get.\"; \"I hope you can help me. Someone has stolen my wallet and now I have noticed that they have been taking money from my account.\"",
+        "exchange_charge": "exchange charge -- e.g. \"Are there discounts for frequent currency exchanges?\"; \"Do I need to pay more for exchanging currencies?\"; \"Can I have a discount if I exchange currency often?\"",
+        "top_up_by_card_charge": "top up by card charge -- e.g. \"I topped off my card is that something you will charge me for?\"; \"Are there any charges for European bank card for top up?\"; \"how much for topping up by card?\"",
+        "activate_my_card": "activate my card -- e.g. \"can you assist me in activating my card?\"; \"I would like to activate my card what do I need to do?\"; \"My new card needs activating.\"",
+        "cash_withdrawal_charge": "cash withdrawal charge -- e.g. \"I withdrew money and got a fee, please explain\"; \"Why am I being charged to withdrawal money?\"; \"Make me understand why I am charged an extra fee when I use the ATM.\"",
+        "card_about_to_expire": "card about to expire -- e.g. \"My card's expiration is approaching, how do I replace it.\"; \"What is the process when my card is due to expire?\"; \"How do I know when my card will expire?\"",
+        "apple_pay_or_google_pay": "apple pay or google pay -- e.g. \"Can I top-up via Apple Pay?\"; \"Can I use the apple watch to make a top-up?\"; \"google pay top up did not work\"",
+        "verify_my_identity": "verify my identity -- e.g. \"What are the steps for identity checks?\"; \"I need to verify my identity. How do I do that?\"; \"What documentation is needed for the identity check?\"",
+        "country_support": "country support -- e.g. \"How do I sign up for a card if I'm in America?\"; \"I live in Germany. Is that one of the countries you are in? What other countries are you in?\"; \"Where are you cards supported?\""
+      }
+    }
+  },
+  "tickets": [
+    {
+      "id": "b77-0",
+      "state": "Can i get a single use virtual card",
+      "expected": {
+        "intent": "get_disposable_virtual_card"
+      }
+    },
+    {
+      "id": "b77-1",
+      "state": "Can you freeze my card it was stolen",
+      "expected": {
+        "intent": "lost_or_stolen_card"
+      }
+    },
+    {
+      "id": "b77-2",
+      "state": "The exchange rates are?",
+      "expected": {
+        "intent": "exchange_rate"
+      }
+    },
+    {
+      "id": "b77-3",
+      "state": "What all am I required to show for the identity check?",
+      "expected": {
+        "intent": "verify_my_identity"
+      }
+    },
+    {
+      "id": "b77-4",
+      "state": "got married and need to change name",
+      "expected": {
+        "intent": "edit_personal_details"
+      }
+    },
+    {
+      "id": "b77-5",
+      "state": "My top-up showed as complete, but it's no longer there! What's going on here?",
+      "expected": {
+        "intent": "top_up_reverted"
+      }
+    },
+    {
+      "id": "b77-6",
+      "state": "Is my currency okay to add money with?",
+      "expected": {
+        "intent": "supported_cards_and_currencies"
+      }
+    },
+    {
+      "id": "b77-7",
+      "state": "I couldn't use my contactless this morning, it wasn't accepted.",
+      "expected": {
+        "intent": "contactless_not_working"
+      }
+    },
+    {
+      "id": "b77-8",
+      "state": "What kind of documents do I need for the identity check?",
+      "expected": {
+        "intent": "verify_my_identity"
+      }
+    },
+    {
+      "id": "b77-9",
+      "state": "I need AUD not GBP, how do I change it?",
+      "expected": {
+        "intent": "exchange_via_app"
+      }
+    },
+    {
+      "id": "b77-10",
+      "state": "Is there a fee to exchange foreign money?",
+      "expected": {
+        "intent": "exchange_charge"
+      }
+    },
+    {
+      "id": "b77-11",
+      "state": "Do I need any kind of documentation for the identity check?",
+      "expected": {
+        "intent": "verify_my_identity"
+      }
+    },
+    {
+      "id": "b77-12",
+      "state": "What extra charges are there?",
+      "expected": {
+        "intent": "transfer_fee_charged"
+      }
+    },
+    {
+      "id": "b77-13",
+      "state": "Is there a way to top-up automatically?",
+      "expected": {
+        "intent": "automatic_top_up"
+      }
+    },
+    {
+      "id": "b77-14",
+      "state": "Can I give a second card to my daughter?",
+      "expected": {
+        "intent": "getting_spare_card"
+      }
+    },
+    {
+      "id": "b77-15",
+      "state": "My transfers are being declined. IT has always worked for me but now it's declining my card. I've tried several times.",
+      "expected": {
+        "intent": "declined_transfer"
+      }
+    },
+    {
+      "id": "b77-16",
+      "state": "You did not apply the correct exchange rate for an item that I bought.",
+      "expected": {
+        "intent": "card_payment_wrong_exchange_rate"
+      }
+    },
+    {
+      "id": "b77-17",
+      "state": "the card payment exchange rate is wrong",
+      "expected": {
+        "intent": "card_payment_wrong_exchange_rate"
+      }
+    },
+    {
+      "id": "b77-18",
+      "state": "My card stopped working",
+      "expected": {
+        "intent": "card_not_working"
+      }
+    },
+    {
+      "id": "b77-19",
+      "state": "Which cards do you guys support? I want to top up using my credit card.",
+      "expected": {
+        "intent": "supported_cards_and_currencies"
+      }
+    },
+    {
+      "id": "b77-20",
+      "state": "Where can I go to get a virtual card?",
+      "expected": {
+        "intent": "getting_virtual_card"
+      }
+    },
+    {
+      "id": "b77-21",
+      "state": "How long does a funds transfer take from one back to another?",
+      "expected": {
+        "intent": "transfer_timing"
+      }
+    },
+    {
+      "id": "b77-22",
+      "state": "How can I top up with this cheque I got?",
+      "expected": {
+        "intent": "top_up_by_cash_or_cheque"
+      }
+    },
+    {
+      "id": "b77-23",
+      "state": "How do your exchange rates work?",
+      "expected": {
+        "intent": "exchange_rate"
+      }
+    },
+    {
+      "id": "b77-24",
+      "state": "The transfer keeps failing , I tried to transfer some money to friends this morning but it keeps getting rejected for some reason, Would you please check the issue ?",
+      "expected": {
+        "intent": "failed_transfer"
+      }
+    },
+    {
+      "id": "b77-25",
+      "state": "When would my card be charged an extra fee for a transaction?",
+      "expected": {
+        "intent": "card_payment_fee_charged"
+      }
+    },
+    {
+      "id": "b77-26",
+      "state": "When my card expires do you send a new card?",
+      "expected": {
+        "intent": "card_about_to_expire"
+      }
+    },
+    {
+      "id": "b77-27",
+      "state": "I think my top up did not work",
+      "expected": {
+        "intent": "top_up_failed"
+      }
+    },
+    {
+      "id": "b77-28",
+      "state": "How do I use my new card?",
+      "expected": {
+        "intent": "activate_my_card"
+      }
+    },
+    {
+      "id": "b77-29",
+      "state": "Why was I charged a fee for a transfer?",
+      "expected": {
+        "intent": "transfer_fee_charged"
+      }
+    },
+    {
+      "id": "b77-30",
+      "state": "I want to get an item refunded",
+      "expected": {
+        "intent": "request_refund"
+      }
+    },
+    {
+      "id": "b77-31",
+      "state": "Are US credit cards accepted?",
+      "expected": {
+        "intent": "supported_cards_and_currencies"
+      }
+    },
+    {
+      "id": "b77-32",
+      "state": "Why do you keep declining my payment? I tried several times already with this card and it's just not working",
+      "expected": {
+        "intent": "declined_card_payment"
+      }
+    },
+    {
+      "id": "b77-33",
+      "state": "I need to get some more physical cards.",
+      "expected": {
+        "intent": "getting_spare_card"
+      }
+    },
+    {
+      "id": "b77-34",
+      "state": "How can I modify my details?",
+      "expected": {
+        "intent": "edit_personal_details"
+      }
+    },
+    {
+      "id": "b77-35",
+      "state": "I think something went wrong with my card delivery as I haven't received it yet.",
+      "expected": {
+        "intent": "card_arrival"
+      }
+    },
+    {
+      "id": "b77-36",
+      "state": "Can you look into my top up please.  I made it over three hours ago and yet it's still pending.",
+      "expected": {
+        "intent": "pending_top_up"
+      }
+    },
+    {
+      "id": "b77-37",
+      "state": "I just got my card and want to use it, how do I activate my card?",
+      "expected": {
+        "intent": "activate_my_card"
+      }
+    },
+    {
+      "id": "b77-38",
+      "state": "If the transfer details have already but reviewed and confirmed that they are correct, what other reason would cause my transfer to be declined?",
+      "expected": {
+        "intent": "declined_transfer"
+      }
+    },
+    {
+      "id": "b77-39",
+      "state": "How many times can I use a disposable card?",
+      "expected": {
+        "intent": "disposable_card_limits"
+      }
+    },
+    {
+      "id": "b77-40",
+      "state": "I need to update my info.",
+      "expected": {
+        "intent": "edit_personal_details"
+      }
+    },
+    {
+      "id": "b77-41",
+      "state": "What us the fee to transfer money from my bank?",
+      "expected": {
+        "intent": "top_up_by_bank_transfer_charge"
+      }
+    },
+    {
+      "id": "b77-42",
+      "state": "I need support options, I want to top my card",
+      "expected": {
+        "intent": "supported_cards_and_currencies"
+      }
+    },
+    {
+      "id": "b77-43",
+      "state": "Tell me how many transactions I can do with a disposable card.",
+      "expected": {
+        "intent": "disposable_card_limits"
+      }
+    },
+    {
+      "id": "b77-44",
+      "state": "Can I change to another currency?",
+      "expected": {
+        "intent": "exchange_via_app"
+      }
+    },
+    {
+      "id": "b77-45",
+      "state": "How can I resolve a problem where my card won't go through at all?",
+      "expected": {
+        "intent": "card_not_working"
+      }
+    },
+    {
+      "id": "b77-46",
+      "state": "I need a new passcode.",
+      "expected": {
+        "intent": "passcode_forgotten"
+      }
+    },
+    {
+      "id": "b77-47",
+      "state": "How can i check if my card is working?",
+      "expected": {
+        "intent": "card_not_working"
+      }
+    },
+    {
+      "id": "b77-48",
+      "state": "Where can I withdrawal my money?",
+      "expected": {
+        "intent": "atm_support"
+      }
+    },
+    {
+      "id": "b77-49",
+      "state": "Someone is using my account to do online shopping! Please freeze it asap",
+      "expected": {
+        "intent": "compromised_card"
+      }
+    },
+    {
+      "id": "b77-50",
+      "state": "Can I send a cheque to do my top ups?",
+      "expected": {
+        "intent": "top_up_by_cash_or_cheque"
+      }
+    },
+    {
+      "id": "b77-51",
+      "state": "There is a payment that is not mine in the app.  Please advise/",
+      "expected": {
+        "intent": "card_payment_not_recognised"
+      }
+    },
+    {
+      "id": "b77-52",
+      "state": "Why is there an extra 1 pound charge on my card?",
+      "expected": {
+        "intent": "extra_charge_on_statement"
+      }
+    },
+    {
+      "id": "b77-53",
+      "state": "I got my American Express in Apple Bay but top up is not working",
+      "expected": {
+        "intent": "apple_pay_or_google_pay"
+      }
+    },
+    {
+      "id": "b77-54",
+      "state": "i want to close an account but im not sure about setting up a new one in the future, what do you recommend",
+      "expected": {
+        "intent": "terminate_account"
+      }
+    },
+    {
+      "id": "b77-55",
+      "state": "why isnt my account allowing transfers",
+      "expected": {
+        "intent": "beneficiary_not_allowed"
+      }
+    },
+    {
+      "id": "b77-56",
+      "state": "How old do I need to be to open an account?",
+      "expected": {
+        "intent": "age_limit"
+      }
+    },
+    {
+      "id": "b77-57",
+      "state": "Can you help me reset my password?",
+      "expected": {
+        "intent": "passcode_forgotten"
+      }
+    },
+    {
+      "id": "b77-58",
+      "state": "Will it automatically top-up or do I need to do that manually if there isn't much cash left?",
+      "expected": {
+        "intent": "automatic_top_up"
+      }
+    },
+    {
+      "id": "b77-59",
+      "state": "Can this be used to receive my salary?",
+      "expected": {
+        "intent": "receiving_money"
+      }
+    },
+    {
+      "id": "b77-60",
+      "state": "I cannot verify my identity",
+      "expected": {
+        "intent": "unable_to_verify_identity"
+      }
+    },
+    {
+      "id": "b77-61",
+      "state": "When I got cash, my exchange rate was wrong.",
+      "expected": {
+        "intent": "wrong_exchange_rate_for_cash_withdrawal"
+      }
+    },
+    {
+      "id": "b77-62",
+      "state": "Why doesn't my disposable virtual card work?",
+      "expected": {
+        "intent": "virtual_card_not_working"
+      }
+    },
+    {
+      "id": "b77-63",
+      "state": "There is a direct debit that's not mine.",
+      "expected": {
+        "intent": "direct_debit_payment_not_recognised"
+      }
+    },
+    {
+      "id": "b77-64",
+      "state": "Can you give me information about verification code?",
+      "expected": {
+        "intent": "verify_top_up"
+      }
+    },
+    {
+      "id": "b77-65",
+      "state": "I didn't receive the right amount of cash back",
+      "expected": {
+        "intent": "wrong_amount_of_cash_received"
+      }
+    },
+    {
+      "id": "b77-66",
+      "state": "How come you charge for cash withdrawals? I withdrew cash after buying groceries today, and there seems to be a new fee",
+      "expected": {
+        "intent": "cash_withdrawal_charge"
+      }
+    },
+    {
+      "id": "b77-67",
+      "state": "I'm just wondering when my card will get here.",
+      "expected": {
+        "intent": "card_delivery_estimate"
+      }
+    },
+    {
+      "id": "b77-68",
+      "state": "I am seeing an extra fee on my statement what is that for?",
+      "expected": {
+        "intent": "extra_charge_on_statement"
+      }
+    },
+    {
+      "id": "b77-69",
+      "state": "How long until my transfer will be available to me",
+      "expected": {
+        "intent": "balance_not_updated_after_bank_transfer"
+      }
+    },
+    {
+      "id": "b77-70",
+      "state": "Can you tell me where I can order a virtual card?",
+      "expected": {
+        "intent": "getting_virtual_card"
+      }
+    },
+    {
+      "id": "b77-71",
+      "state": "Why do you require so many identity details?",
+      "expected": {
+        "intent": "why_verify_identity"
+      }
+    },
+    {
+      "id": "b77-72",
+      "state": "If there isn't much money left can it automatically top-up?",
+      "expected": {
+        "intent": "automatic_top_up"
+      }
+    },
+    {
+      "id": "b77-73",
+      "state": "Where are the virtual cards located?",
+      "expected": {
+        "intent": "getting_virtual_card"
+      }
+    },
+    {
+      "id": "b77-74",
+      "state": "Can I get some money exchanged?",
+      "expected": {
+        "intent": "exchange_via_app"
+      }
+    },
+    {
+      "id": "b77-75",
+      "state": "How long do transfer pend for?",
+      "expected": {
+        "intent": "pending_transfer"
+      }
+    },
+    {
+      "id": "b77-76",
+      "state": "I would like to order a disposable virtual card. How can I do this?",
+      "expected": {
+        "intent": "get_disposable_virtual_card"
+      }
+    },
+    {
+      "id": "b77-77",
+      "state": "What is this direct debit I am seeing?",
+      "expected": {
+        "intent": "direct_debit_payment_not_recognised"
+      }
+    },
+    {
+      "id": "b77-78",
+      "state": "OMG!  I'm trying to load my card and it wont top up!  I desperately need the money either on my card or in my bank, where is it?",
+      "expected": {
+        "intent": "pending_top_up"
+      }
+    },
+    {
+      "id": "b77-79",
+      "state": "Someone has taken my money and I don't know who",
+      "expected": {
+        "intent": "direct_debit_payment_not_recognised"
+      }
+    },
+    {
+      "id": "b77-80",
+      "state": "How many miles away is the ATM?",
+      "expected": {
+        "intent": "atm_support"
+      }
+    },
+    {
+      "id": "b77-81",
+      "state": "I've just moved address from a place in Durham to a place in Walton-On-The-Naze.  I have a new landlord at my new house and they haven't got my payment but I know I sent it on time, can you check they got it please?",
+      "expected": {
+        "intent": "transfer_not_received_by_recipient"
+      }
+    },
+    {
+      "id": "b77-82",
+      "state": "I need to cancel my card that got stolen a little while ago. Someone has already taken some money out and I don't want them to take anymore. Can you please do that?",
+      "expected": {
+        "intent": "cash_withdrawal_not_recognised"
+      }
+    },
+    {
+      "id": "b77-83",
+      "state": "Why would there be a payment on my account I don't recognize?",
+      "expected": {
+        "intent": "card_payment_not_recognised"
+      }
+    },
+    {
+      "id": "b77-84",
+      "state": "What are the steps to activating a new card?",
+      "expected": {
+        "intent": "activate_my_card"
+      }
+    },
+    {
+      "id": "b77-85",
+      "state": "does it cost to exchange currencies?",
+      "expected": {
+        "intent": "exchange_charge"
+      }
+    },
+    {
+      "id": "b77-86",
+      "state": "Why caused my top up to not work?",
+      "expected": {
+        "intent": "top_up_failed"
+      }
+    },
+    {
+      "id": "b77-87",
+      "state": "Can I have my card delivered on a specific day?",
+      "expected": {
+        "intent": "card_delivery_estimate"
+      }
+    },
+    {
+      "id": "b77-88",
+      "state": "Where can you deliver cards?",
+      "expected": {
+        "intent": "order_physical_card"
+      }
+    },
+    {
+      "id": "b77-89",
+      "state": "can i get a description of how to use a disposable virtual card",
+      "expected": {
+        "intent": "get_disposable_virtual_card"
+      }
+    },
+    {
+      "id": "b77-90",
+      "state": "I transferred the wrong amount and would like to cancel the transaction.",
+      "expected": {
+        "intent": "cancel_transfer"
+      }
+    },
+    {
+      "id": "b77-91",
+      "state": "I couldn't make a transfer to a beneficiary!",
+      "expected": {
+        "intent": "beneficiary_not_allowed"
+      }
+    },
+    {
+      "id": "b77-92",
+      "state": "I can't top up my account using my American Express with Apple Pay.",
+      "expected": {
+        "intent": "apple_pay_or_google_pay"
+      }
+    },
+    {
+      "id": "b77-93",
+      "state": "Is it possible to tell if my top up has reverted?",
+      "expected": {
+        "intent": "top_up_reverted"
+      }
+    },
+    {
+      "id": "b77-94",
+      "state": "What does it mean when my top up is saying  still pending?",
+      "expected": {
+        "intent": "pending_top_up"
+      }
+    },
+    {
+      "id": "b77-95",
+      "state": "This company is terrible! Can you delete my account?",
+      "expected": {
+        "intent": "terminate_account"
+      }
+    },
+    {
+      "id": "b77-96",
+      "state": "My passcode doesn't work",
+      "expected": {
+        "intent": "passcode_forgotten"
+      }
+    },
+    {
+      "id": "b77-97",
+      "state": "What can I do about some payments on my card I didn't make.  Please put a freeze on my card till we can figure this out.",
+      "expected": {
+        "intent": "card_payment_not_recognised"
+      }
+    },
+    {
+      "id": "b77-98",
+      "state": "I have a disposable virtual card here, so would you tell me what to do with it?",
+      "expected": {
+        "intent": "get_disposable_virtual_card"
+      }
+    },
+    {
+      "id": "b77-99",
+      "state": "Will there be any extra fees for European bank card for top up?",
+      "expected": {
+        "intent": "top_up_by_card_charge"
+      }
+    },
+    {
+      "id": "b77-100",
+      "state": "Please help me make a transfer. I keep receiving an error and I'm trying to make the initial mortgage payment for a flat I'm buying. What is the deal here?",
+      "expected": {
+        "intent": "failed_transfer"
+      }
+    },
+    {
+      "id": "b77-101",
+      "state": "How can I use American Express to add money to my account?",
+      "expected": {
+        "intent": "supported_cards_and_currencies"
+      }
+    },
+    {
+      "id": "b77-102",
+      "state": "Will I get charged for topping off my card?",
+      "expected": {
+        "intent": "top_up_by_card_charge"
+      }
+    },
+    {
+      "id": "b77-103",
+      "state": "Use credit card to transfer money",
+      "expected": {
+        "intent": "topping_up_by_card"
+      }
+    },
+    {
+      "id": "b77-104",
+      "state": "I have a pending transaction in my app. How is it still pending if I pulled the cash out from the ATM earlier?",
+      "expected": {
+        "intent": "pending_cash_withdrawal"
+      }
+    },
+    {
+      "id": "b77-105",
+      "state": "Where is the virtual card located?",
+      "expected": {
+        "intent": "getting_virtual_card"
+      }
+    },
+    {
+      "id": "b77-106",
+      "state": "The rate of exchange for my card payment is incorrect",
+      "expected": {
+        "intent": "card_payment_wrong_exchange_rate"
+      }
+    },
+    {
+      "id": "b77-107",
+      "state": "Do I get a choice between Visa and Mastercard?",
+      "expected": {
+        "intent": "visa_or_mastercard"
+      }
+    },
+    {
+      "id": "b77-108",
+      "state": "I think my phone is either lost or stolen.",
+      "expected": {
+        "intent": "lost_or_stolen_phone"
+      }
+    },
+    {
+      "id": "b77-109",
+      "state": "Can you freeze my account?  I just saw there are transactions on my account that I don't recognize.  How can I fix this?",
+      "expected": {
+        "intent": "card_payment_not_recognised"
+      }
+    },
+    {
+      "id": "b77-110",
+      "state": "Can I exchange currencies?",
+      "expected": {
+        "intent": "fiat_currency_support"
+      }
+    },
+    {
+      "id": "b77-111",
+      "state": "Where is the transaction I made to a friend?",
+      "expected": {
+        "intent": "transfer_not_received_by_recipient"
+      }
+    },
+    {
+      "id": "b77-112",
+      "state": "I don't understand how to top up my account, can you please explain the process?",
+      "expected": {
+        "intent": "transfer_into_account"
+      }
+    },
+    {
+      "id": "b77-113",
+      "state": "going to need a new card what are the fees and time it takes",
+      "expected": {
+        "intent": "card_about_to_expire"
+      }
+    },
+    {
+      "id": "b77-114",
+      "state": "How to decide if I get a Visa or Mastercard?",
+      "expected": {
+        "intent": "visa_or_mastercard"
+      }
+    },
+    {
+      "id": "b77-115",
+      "state": "I sent some money and the receiver can't access it.",
+      "expected": {
+        "intent": "transfer_not_received_by_recipient"
+      }
+    },
+    {
+      "id": "b77-116",
+      "state": "When will my balance update after a transfer?",
+      "expected": {
+        "intent": "balance_not_updated_after_bank_transfer"
+      }
+    },
+    {
+      "id": "b77-117",
+      "state": "How many days does it take until funds are in my account?",
+      "expected": {
+        "intent": "transfer_timing"
+      }
+    },
+    {
+      "id": "b77-118",
+      "state": "Why is a payment showing up on my card as pending?",
+      "expected": {
+        "intent": "pending_card_payment"
+      }
+    },
+    {
+      "id": "b77-119",
+      "state": "Will I be able to get a disposable virtual card as well?",
+      "expected": {
+        "intent": "get_disposable_virtual_card"
+      }
+    },
+    {
+      "id": "b77-120",
+      "state": "How long does it take for a money transfer to show?",
+      "expected": {
+        "intent": "pending_transfer"
+      }
+    },
+    {
+      "id": "b77-121",
+      "state": "How do I make contactless work",
+      "expected": {
+        "intent": "contactless_not_working"
+      }
+    },
+    {
+      "id": "b77-122",
+      "state": "An unauthorized payment is in my app",
+      "expected": {
+        "intent": "card_payment_not_recognised"
+      }
+    },
+    {
+      "id": "b77-123",
+      "state": "I put money into my account for the minimum balance but the application didn't accept.",
+      "expected": {
+        "intent": "top_up_reverted"
+      }
+    },
+    {
+      "id": "b77-124",
+      "state": "Where do I need to live to get support?",
+      "expected": {
+        "intent": "country_support"
+      }
+    },
+    {
+      "id": "b77-125",
+      "state": "Why would a transfer fail?",
+      "expected": {
+        "intent": "failed_transfer"
+      }
+    },
+    {
+      "id": "b77-126",
+      "state": "im not paying this transfer fee",
+      "expected": {
+        "intent": "transfer_fee_charged"
+      }
+    },
+    {
+      "id": "b77-127",
+      "state": "I deposited cash this morning and I am still waiting",
+      "expected": {
+        "intent": "balance_not_updated_after_cheque_or_cash_deposit"
+      }
+    },
+    {
+      "id": "b77-128",
+      "state": "Can I get a card even if I live outside the UK?",
+      "expected": {
+        "intent": "country_support"
+      }
+    },
+    {
+      "id": "b77-129",
+      "state": "How do I verify a top-up?",
+      "expected": {
+        "intent": "verify_top_up"
+      }
+    },
+    {
+      "id": "b77-130",
+      "state": "I tried to buy something online yesterday but it kept saying declined. Tried again today but same thing happened. What's broken?",
+      "expected": {
+        "intent": "declined_transfer"
+      }
+    },
+    {
+      "id": "b77-131",
+      "state": "I don't understand why it says I have to verify the top-up.",
+      "expected": {
+        "intent": "verify_top_up"
+      }
+    },
+    {
+      "id": "b77-132",
+      "state": "I had a payment that I made and it's been some amount of time and would like to know when it's suppose to go though.",
+      "expected": {
+        "intent": "pending_card_payment"
+      }
+    },
+    {
+      "id": "b77-133",
+      "state": "I have a strange direct debit in my statement",
+      "expected": {
+        "intent": "direct_debit_payment_not_recognised"
+      }
+    },
+    {
+      "id": "b77-134",
+      "state": "How do I transfer funds from my American Express into my account?",
+      "expected": {
+        "intent": "supported_cards_and_currencies"
+      }
+    },
+    {
+      "id": "b77-135",
+      "state": "I've been unable to pay contactless with my card for over a week now. Is there a way to fix this issue?",
+      "expected": {
+        "intent": "contactless_not_working"
+      }
+    },
+    {
+      "id": "b77-136",
+      "state": "Hello, My money went through for my purchase but now I got contacted from the seller noting that they didn't receive it. Then the money was returned to my account and I'm not sure why this occurred. So if you can resolve this issue please.",
+      "expected": {
+        "intent": "reverted_card_payment?"
+      }
+    },
+    {
+      "id": "b77-137",
+      "state": "How can I lookup where funds came from?",
+      "expected": {
+        "intent": "verify_source_of_funds"
+      }
+    },
+    {
+      "id": "b77-138",
+      "state": "Help me.  My card doesn't work.",
+      "expected": {
+        "intent": "card_not_working"
+      }
+    },
+    {
+      "id": "b77-139",
+      "state": "Can you help me with a weird charge?  It's a pound charge that never goes away from the statement view on the app I'm using.  It's not described as anything but \"Pending\", and that status has never changed during the last two days.",
+      "expected": {
+        "intent": "extra_charge_on_statement"
+      }
+    },
+    {
+      "id": "b77-140",
+      "state": "Help.  I have a stolen card!",
+      "expected": {
+        "intent": "lost_or_stolen_card"
+      }
+    },
+    {
+      "id": "b77-141",
+      "state": "Do you do SWIFT transfers?",
+      "expected": {
+        "intent": "top_up_by_bank_transfer_charge"
+      }
+    },
+    {
+      "id": "b77-142",
+      "state": "The exchange rate you gave me for my cash withdrawal is wrong",
+      "expected": {
+        "intent": "wrong_exchange_rate_for_cash_withdrawal"
+      }
+    },
+    {
+      "id": "b77-143",
+      "state": "What's going on with the top-up? All it says is pending, pending, pending! I use your service several times a week and have never had a problem before! What's going on here?",
+      "expected": {
+        "intent": "pending_top_up"
+      }
+    },
+    {
+      "id": "b77-144",
+      "state": "When I travel, what will it cost to switch for my currency?",
+      "expected": {
+        "intent": "exchange_charge"
+      }
+    },
+    {
+      "id": "b77-145",
+      "state": "Why did my transfer decline",
+      "expected": {
+        "intent": "declined_transfer"
+      }
+    },
+    {
+      "id": "b77-146",
+      "state": "Can I top up with a cheque?",
+      "expected": {
+        "intent": "top_up_by_cash_or_cheque"
+      }
+    },
+    {
+      "id": "b77-147",
+      "state": "What options do I have for holding currencies?",
+      "expected": {
+        "intent": "fiat_currency_support"
+      }
+    },
+    {
+      "id": "b77-148",
+      "state": "I was declined when I tried to get cash.",
+      "expected": {
+        "intent": "declined_cash_withdrawal"
+      }
+    },
+    {
+      "id": "b77-149",
+      "state": "The ATM did not allow me to withdraw",
+      "expected": {
+        "intent": "declined_cash_withdrawal"
+      }
+    },
+    {
+      "id": "b77-150",
+      "state": "Can I top up by cheque?",
+      "expected": {
+        "intent": "top_up_by_cash_or_cheque"
+      }
+    },
+    {
+      "id": "b77-151",
+      "state": "I want to delete my account. I'm unhappy with the service you're providing.",
+      "expected": {
+        "intent": "terminate_account"
+      }
+    },
+    {
+      "id": "b77-152",
+      "state": "Why did I get a message saying that my transfer is not possible?  I have done this before no problem.  Please fix.",
+      "expected": {
+        "intent": "beneficiary_not_allowed"
+      }
+    },
+    {
+      "id": "b77-153",
+      "state": "I see my top-up was canceled, but why?",
+      "expected": {
+        "intent": "top_up_reverted"
+      }
+    },
+    {
+      "id": "b77-154",
+      "state": "How do I deposit my paycheck to this account?",
+      "expected": {
+        "intent": "receiving_money"
+      }
+    },
+    {
+      "id": "b77-155",
+      "state": "How do I add the card to my account?",
+      "expected": {
+        "intent": "card_linking"
+      }
+    },
+    {
+      "id": "b77-156",
+      "state": "Are there any extra hidden fees for exchanging currencies?",
+      "expected": {
+        "intent": "exchange_charge"
+      }
+    },
+    {
+      "id": "b77-157",
+      "state": "I need a new card since my old one is about to expire.",
+      "expected": {
+        "intent": "card_about_to_expire"
+      }
+    },
+    {
+      "id": "b77-158",
+      "state": "Some idiot stole my card.",
+      "expected": {
+        "intent": "lost_or_stolen_card"
+      }
+    },
+    {
+      "id": "b77-159",
+      "state": "Is there a charge for a foreign currency exchange?",
+      "expected": {
+        "intent": "exchange_charge"
+      }
+    },
+    {
+      "id": "b77-160",
+      "state": "Why was a transfer to an account not allowed?",
+      "expected": {
+        "intent": "beneficiary_not_allowed"
+      }
+    },
+    {
+      "id": "b77-161",
+      "state": "If i'm not in the UK, can I still get a card?",
+      "expected": {
+        "intent": "country_support"
+      }
+    },
+    {
+      "id": "b77-162",
+      "state": "There are some strange charges on my card that I didn't make from a few days ago.  Is my card stolen and if so should I cancel it?  Will I get refunded the charges?",
+      "expected": {
+        "intent": "card_payment_not_recognised"
+      }
+    },
+    {
+      "id": "b77-163",
+      "state": "When can I order a disposable virtual card?",
+      "expected": {
+        "intent": "get_disposable_virtual_card"
+      }
+    },
+    {
+      "id": "b77-164",
+      "state": "Why doesn't the app believe I am who I say I am?",
+      "expected": {
+        "intent": "unable_to_verify_identity"
+      }
+    },
+    {
+      "id": "b77-165",
+      "state": "I requested a refund from a merchant days ago but I do not see it in my account.",
+      "expected": {
+        "intent": "Refund_not_showing_up"
+      }
+    },
+    {
+      "id": "b77-166",
+      "state": "I've already topped up, but I cannot see the funds being available. What happened?",
+      "expected": {
+        "intent": "pending_top_up"
+      }
+    },
+    {
+      "id": "b77-167",
+      "state": "Why hasn't my transfer gone through yet?",
+      "expected": {
+        "intent": "pending_transfer"
+      }
+    },
+    {
+      "id": "b77-168",
+      "state": "still waiting on my new card",
+      "expected": {
+        "intent": "card_arrival"
+      }
+    },
+    {
+      "id": "b77-169",
+      "state": "If my card is about to expire, do I need to order a new one?",
+      "expected": {
+        "intent": "card_about_to_expire"
+      }
+    },
+    {
+      "id": "b77-170",
+      "state": "How do I order a new card before It expires?",
+      "expected": {
+        "intent": "card_about_to_expire"
+      }
+    },
+    {
+      "id": "b77-171",
+      "state": "I tired to deposit some cash into my account but it's not there",
+      "expected": {
+        "intent": "balance_not_updated_after_cheque_or_cash_deposit"
+      }
+    },
+    {
+      "id": "b77-172",
+      "state": "How long until the money is in my account?",
+      "expected": {
+        "intent": "transfer_timing"
+      }
+    },
+    {
+      "id": "b77-173",
+      "state": "How can I tell what the limit is to top-ups?",
+      "expected": {
+        "intent": "top_up_limits"
+      }
+    },
+    {
+      "id": "b77-174",
+      "state": "When will money be available in my account?",
+      "expected": {
+        "intent": "transfer_timing"
+      }
+    },
+    {
+      "id": "b77-175",
+      "state": "I think I want AUD and not GBP, can you help?",
+      "expected": {
+        "intent": "exchange_via_app"
+      }
+    },
+    {
+      "id": "b77-176",
+      "state": "I took out money from a transaction machine and it exchanged the wrong dollar value amount from another currency!",
+      "expected": {
+        "intent": "wrong_exchange_rate_for_cash_withdrawal"
+      }
+    },
+    {
+      "id": "b77-177",
+      "state": "I am having difficulties to verify my identity.",
+      "expected": {
+        "intent": "unable_to_verify_identity"
+      }
+    },
+    {
+      "id": "b77-178",
+      "state": "how do i get a virtual card for one time use",
+      "expected": {
+        "intent": "get_disposable_virtual_card"
+      }
+    },
+    {
+      "id": "b77-179",
+      "state": "Will I get a real card?",
+      "expected": {
+        "intent": "order_physical_card"
+      }
+    },
+    {
+      "id": "b77-180",
+      "state": "I do not know my passcode.",
+      "expected": {
+        "intent": "passcode_forgotten"
+      }
+    },
+    {
+      "id": "b77-181",
+      "state": "top up did not complete",
+      "expected": {
+        "intent": "pending_top_up"
+      }
+    },
+    {
+      "id": "b77-182",
+      "state": "What is the maximum I can transfer before I incur fees?",
+      "expected": {
+        "intent": "transfer_fee_charged"
+      }
+    },
+    {
+      "id": "b77-183",
+      "state": "What's the deal with no cryptocurrency on your app?",
+      "expected": {
+        "intent": "beneficiary_not_allowed"
+      }
+    },
+    {
+      "id": "b77-184",
+      "state": "I ordered a card but it has not arrived. Help please!",
+      "expected": {
+        "intent": "card_arrival"
+      }
+    },
+    {
+      "id": "b77-185",
+      "state": "What type of deposits do you accept into my account?",
+      "expected": {
+        "intent": "top_up_by_cash_or_cheque"
+      }
+    },
+    {
+      "id": "b77-186",
+      "state": "Why can't I see my topup in my wallet anymore?",
+      "expected": {
+        "intent": "topping_up_by_card"
+      }
+    },
+    {
+      "id": "b77-187",
+      "state": "I want information about the source of funds.",
+      "expected": {
+        "intent": "verify_source_of_funds"
+      }
+    },
+    {
+      "id": "b77-188",
+      "state": "Can I link another card to my account?",
+      "expected": {
+        "intent": "card_linking"
+      }
+    },
+    {
+      "id": "b77-189",
+      "state": "What should I do if I lost my card?",
+      "expected": {
+        "intent": "lost_or_stolen_card"
+      }
+    },
+    {
+      "id": "b77-190",
+      "state": "someone stole my money",
+      "expected": {
+        "intent": "direct_debit_payment_not_recognised"
+      }
+    },
+    {
+      "id": "b77-191",
+      "state": "what is the process for setting up a pin",
+      "expected": {
+        "intent": "get_physical_card"
+      }
+    },
+    {
+      "id": "b77-192",
+      "state": "What stores will take my credit card as payment?",
+      "expected": {
+        "intent": "card_acceptance"
+      }
+    },
+    {
+      "id": "b77-193",
+      "state": "how long does it take to post atm with drawl",
+      "expected": {
+        "intent": "pending_cash_withdrawal"
+      }
+    },
+    {
+      "id": "b77-194",
+      "state": "Where is my card accepted?",
+      "expected": {
+        "intent": "card_acceptance"
+      }
+    },
+    {
+      "id": "b77-195",
+      "state": "how do I top up my money automatically",
+      "expected": {
+        "intent": "automatic_top_up"
+      }
+    },
+    {
+      "id": "b77-196",
+      "state": "Why isn't my top up working using my saved American Express in ApplePay?",
+      "expected": {
+        "intent": "apple_pay_or_google_pay"
+      }
+    },
+    {
+      "id": "b77-197",
+      "state": "I see that I have been charged multiple times for the same transaction.",
+      "expected": {
+        "intent": "transaction_charged_twice"
+      }
+    },
+    {
+      "id": "b77-198",
+      "state": "How long will it take to get to me?",
+      "expected": {
+        "intent": "card_delivery_estimate"
+      }
+    },
+    {
+      "id": "b77-199",
+      "state": "I couldn't do a transfer to an account",
+      "expected": {
+        "intent": "beneficiary_not_allowed"
+      }
+    },
+    {
+      "id": "b77-200",
+      "state": "How old do my children need to be to open an account?",
+      "expected": {
+        "intent": "age_limit"
+      }
+    },
+    {
+      "id": "b77-201",
+      "state": "I used the wrong ping too many times and now the account is blocked.  How do I unblock?",
+      "expected": {
+        "intent": "pin_blocked"
+      }
+    },
+    {
+      "id": "b77-202",
+      "state": "Why is my balance the same?  I processed a transfer.",
+      "expected": {
+        "intent": "balance_not_updated_after_bank_transfer"
+      }
+    },
+    {
+      "id": "b77-203",
+      "state": "Help!  The atm won't give me my card back.",
+      "expected": {
+        "intent": "card_swallowed"
+      }
+    },
+    {
+      "id": "b77-204",
+      "state": "How do people send me money?",
+      "expected": {
+        "intent": "receiving_money"
+      }
+    },
+    {
+      "id": "b77-205",
+      "state": "Topping up my card is not working because I believe the top up is pending",
+      "expected": {
+        "intent": "pending_top_up"
+      }
+    },
+    {
+      "id": "b77-206",
+      "state": "I did not make this card payment.",
+      "expected": {
+        "intent": "card_payment_not_recognised"
+      }
+    },
+    {
+      "id": "b77-207",
+      "state": "I've transferred money before without issue but now I am encountering an error stating that it isn't possible. Why is that?",
+      "expected": {
+        "intent": "beneficiary_not_allowed"
+      }
+    },
+    {
+      "id": "b77-208",
+      "state": "price of physical card",
+      "expected": {
+        "intent": "order_physical_card"
+      }
+    },
+    {
+      "id": "b77-209",
+      "state": "Why did my my transfer get declined?",
+      "expected": {
+        "intent": "declined_transfer"
+      }
+    },
+    {
+      "id": "b77-210",
+      "state": "I made a transaction and it is taking a very long time to go through.",
+      "expected": {
+        "intent": "transfer_not_received_by_recipient"
+      }
+    },
+    {
+      "id": "b77-211",
+      "state": "I am being charged a transfer fee aren't they free?",
+      "expected": {
+        "intent": "transfer_fee_charged"
+      }
+    },
+    {
+      "id": "b77-212",
+      "state": "How do I top up? Can I use my apple watch?",
+      "expected": {
+        "intent": "apple_pay_or_google_pay"
+      }
+    },
+    {
+      "id": "b77-213",
+      "state": "Does topping up my card have a fee?",
+      "expected": {
+        "intent": "top_up_by_card_charge"
+      }
+    },
+    {
+      "id": "b77-214",
+      "state": "I paid with card and I think there was a fee applied.",
+      "expected": {
+        "intent": "card_payment_fee_charged"
+      }
+    },
+    {
+      "id": "b77-215",
+      "state": "Am I able to order a new card and have it sent to me in China?",
+      "expected": {
+        "intent": "card_about_to_expire"
+      }
+    },
+    {
+      "id": "b77-216",
+      "state": "Why can't I find my PIN?",
+      "expected": {
+        "intent": "get_physical_card"
+      }
+    },
+    {
+      "id": "b77-217",
+      "state": "How long does it take to authorise a payment?",
+      "expected": {
+        "intent": "pending_card_payment"
+      }
+    },
+    {
+      "id": "b77-218",
+      "state": "Help!  My wallet was stolen and someone is taking money out.  I need this money!  What can I do?",
+      "expected": {
+        "intent": "cash_withdrawal_not_recognised"
+      }
+    },
+    {
+      "id": "b77-219",
+      "state": "I can't recall my passcode and need to reset it.",
+      "expected": {
+        "intent": "passcode_forgotten"
+      }
+    },
+    {
+      "id": "b77-220",
+      "state": "Why doesn't a return show up im my account from a purchase I made?",
+      "expected": {
+        "intent": "Refund_not_showing_up"
+      }
+    },
+    {
+      "id": "b77-221",
+      "state": "Why has payment been returned?",
+      "expected": {
+        "intent": "reverted_card_payment?"
+      }
+    },
+    {
+      "id": "b77-222",
+      "state": "I submitted my transfer but it has been pending for quite a while and I was wondering what takes so long? why hasn't it completed",
+      "expected": {
+        "intent": "pending_transfer"
+      }
+    },
+    {
+      "id": "b77-223",
+      "state": "How do I open up an account for my child?",
+      "expected": {
+        "intent": "age_limit"
+      }
+    },
+    {
+      "id": "b77-224",
+      "state": "The application reverted my top-up.",
+      "expected": {
+        "intent": "top_up_reverted"
+      }
+    },
+    {
+      "id": "b77-225",
+      "state": "Where can I obtain my virtual card?",
+      "expected": {
+        "intent": "getting_virtual_card"
+      }
+    },
+    {
+      "id": "b77-226",
+      "state": "Do you accept exchanges to EUR?",
+      "expected": {
+        "intent": "fiat_currency_support"
+      }
+    },
+    {
+      "id": "b77-227",
+      "state": "Is there a limit to how many transactions I can make on one disposable card?",
+      "expected": {
+        "intent": "disposable_card_limits"
+      }
+    },
+    {
+      "id": "b77-228",
+      "state": "How often do your exchange rates change",
+      "expected": {
+        "intent": "exchange_rate"
+      }
+    },
+    {
+      "id": "b77-229",
+      "state": "I'd like to have another card",
+      "expected": {
+        "intent": "getting_spare_card"
+      }
+    },
+    {
+      "id": "b77-230",
+      "state": "Can i deposit my salary to this account?",
+      "expected": {
+        "intent": "receiving_money"
+      }
+    },
+    {
+      "id": "b77-231",
+      "state": "I want one of those virtual cards!",
+      "expected": {
+        "intent": "getting_virtual_card"
+      }
+    },
+    {
+      "id": "b77-232",
+      "state": "If I need more cards, are there any fees?",
+      "expected": {
+        "intent": "getting_spare_card"
+      }
+    },
+    {
+      "id": "b77-233",
+      "state": "i want to track the card you sent",
+      "expected": {
+        "intent": "card_arrival"
+      }
+    },
+    {
+      "id": "b77-234",
+      "state": "Does delivery to the US take long?",
+      "expected": {
+        "intent": "card_delivery_estimate"
+      }
+    },
+    {
+      "id": "b77-235",
+      "state": "I've notice I was charged for withdrawing cash, can you explain why?",
+      "expected": {
+        "intent": "cash_withdrawal_charge"
+      }
+    },
+    {
+      "id": "b77-236",
+      "state": "The conversion rate on the ATM that I used with foreign currency was wrong.",
+      "expected": {
+        "intent": "wrong_exchange_rate_for_cash_withdrawal"
+      }
+    },
+    {
+      "id": "b77-237",
+      "state": "I want to know how many different currencies my money can be in",
+      "expected": {
+        "intent": "fiat_currency_support"
+      }
+    },
+    {
+      "id": "b77-238",
+      "state": "help me obtain a virtual card",
+      "expected": {
+        "intent": "getting_virtual_card"
+      }
+    },
+    {
+      "id": "b77-239",
+      "state": "How do I accept exchanges to EU?",
+      "expected": {
+        "intent": "fiat_currency_support"
+      }
+    },
+    {
+      "id": "b77-240",
+      "state": "I bought something in a foreign currency but the rate applied is wrong!",
+      "expected": {
+        "intent": "card_payment_wrong_exchange_rate"
+      }
+    },
+    {
+      "id": "b77-241",
+      "state": "My friends want to top up my account",
+      "expected": {
+        "intent": "topping_up_by_card"
+      }
+    },
+    {
+      "id": "b77-242",
+      "state": "There must be an issue, why has my card been cancelled?",
+      "expected": {
+        "intent": "reverted_card_payment?"
+      }
+    },
+    {
+      "id": "b77-243",
+      "state": "What places will accept my card for payment?",
+      "expected": {
+        "intent": "card_acceptance"
+      }
+    },
+    {
+      "id": "b77-244",
+      "state": "What do i have to do to change my name?",
+      "expected": {
+        "intent": "edit_personal_details"
+      }
+    },
+    {
+      "id": "b77-245",
+      "state": "I think I see a withdraw I did not make.",
+      "expected": {
+        "intent": "cash_withdrawal_not_recognised"
+      }
+    },
+    {
+      "id": "b77-246",
+      "state": "Can you explain why there is a payment showing twice?",
+      "expected": {
+        "intent": "transaction_charged_twice"
+      }
+    },
+    {
+      "id": "b77-247",
+      "state": "Why hasn't my recipient received their money?",
+      "expected": {
+        "intent": "transfer_not_received_by_recipient"
+      }
+    },
+    {
+      "id": "b77-248",
+      "state": "Help! I forgot my PIN and have been locked out of using my card.",
+      "expected": {
+        "intent": "pin_blocked"
+      }
+    },
+    {
+      "id": "b77-249",
+      "state": "My top-up for Google Pay isn't working",
+      "expected": {
+        "intent": "apple_pay_or_google_pay"
+      }
+    },
+    {
+      "id": "b77-250",
+      "state": "How do I top up my card?",
+      "expected": {
+        "intent": "transfer_into_account"
+      }
+    },
+    {
+      "id": "b77-251",
+      "state": "What all is needed to verify the top-up card?",
+      "expected": {
+        "intent": "verify_top_up"
+      }
+    },
+    {
+      "id": "b77-252",
+      "state": "The ATM won't give me my card back.",
+      "expected": {
+        "intent": "card_swallowed"
+      }
+    },
+    {
+      "id": "b77-253",
+      "state": "Will any business take this card?",
+      "expected": {
+        "intent": "card_acceptance"
+      }
+    },
+    {
+      "id": "b77-254",
+      "state": "My card was confiscated by an ATM. How do I get my card back?",
+      "expected": {
+        "intent": "card_swallowed"
+      }
+    },
+    {
+      "id": "b77-255",
+      "state": "I was mugged yesterday and they took everything.  I can't access my app.  What are my next steps?",
+      "expected": {
+        "intent": "lost_or_stolen_phone"
+      }
+    },
+    {
+      "id": "b77-256",
+      "state": "I tried to get $100 but I just got $20",
+      "expected": {
+        "intent": "wrong_amount_of_cash_received"
+      }
+    },
+    {
+      "id": "b77-257",
+      "state": "My card stopped working when I use it",
+      "expected": {
+        "intent": "card_not_working"
+      }
+    },
+    {
+      "id": "b77-258",
+      "state": "Nothing goes through on my card.",
+      "expected": {
+        "intent": "card_not_working"
+      }
+    },
+    {
+      "id": "b77-259",
+      "state": "My bank transfer is still not showing up in my account.",
+      "expected": {
+        "intent": "balance_not_updated_after_bank_transfer"
+      }
+    },
+    {
+      "id": "b77-260",
+      "state": "I need help. I asked for a refund from a merchant a while ago, but I have not gotten my money back. I keep checking my account, but nothing is showing up. What should I do now?",
+      "expected": {
+        "intent": "Refund_not_showing_up"
+      }
+    },
+    {
+      "id": "b77-261",
+      "state": "What ATMs is the card okay to use at?",
+      "expected": {
+        "intent": "atm_support"
+      }
+    },
+    {
+      "id": "b77-262",
+      "state": "How do I contact customer support about a transfer?",
+      "expected": {
+        "intent": "declined_transfer"
+      }
+    },
+    {
+      "id": "b77-263",
+      "state": "Would I be able to get a refund for something I bought?",
+      "expected": {
+        "intent": "request_refund"
+      }
+    },
+    {
+      "id": "b77-264",
+      "state": "This company sucks! Can you delete my account?",
+      "expected": {
+        "intent": "terminate_account"
+      }
+    },
+    {
+      "id": "b77-265",
+      "state": "I have a pending cash withdrawal",
+      "expected": {
+        "intent": "pending_cash_withdrawal"
+      }
+    },
+    {
+      "id": "b77-266",
+      "state": "A cash withdrawal is showing up that I didn't do.",
+      "expected": {
+        "intent": "cash_withdrawal_not_recognised"
+      }
+    },
+    {
+      "id": "b77-267",
+      "state": "How do I know if my top up was unsuccessful?",
+      "expected": {
+        "intent": "top_up_failed"
+      }
+    },
+    {
+      "id": "b77-268",
+      "state": "My top-up isn't working.",
+      "expected": {
+        "intent": "top_up_failed"
+      }
+    },
+    {
+      "id": "b77-269",
+      "state": "How do I change GBP to AUD?",
+      "expected": {
+        "intent": "exchange_via_app"
+      }
+    },
+    {
+      "id": "b77-270",
+      "state": "In terms of holding and exchange, what fiat currencies do you use.",
+      "expected": {
+        "intent": "fiat_currency_support"
+      }
+    },
+    {
+      "id": "b77-271",
+      "state": "My phone was stolen, what do I do?",
+      "expected": {
+        "intent": "lost_or_stolen_phone"
+      }
+    },
+    {
+      "id": "b77-272",
+      "state": "Can I top up from my Apple Watch?",
+      "expected": {
+        "intent": "apple_pay_or_google_pay"
+      }
+    },
+    {
+      "id": "b77-273",
+      "state": "Are there any hindrances to using a disposable virtual card?",
+      "expected": {
+        "intent": "disposable_card_limits"
+      }
+    },
+    {
+      "id": "b77-274",
+      "state": "I believe my card has been stolen, what can I do about this situation? It's urgent.",
+      "expected": {
+        "intent": "lost_or_stolen_card"
+      }
+    },
+    {
+      "id": "b77-275",
+      "state": "I topped up but the app reverted it",
+      "expected": {
+        "intent": "top_up_reverted"
+      }
+    },
+    {
+      "id": "b77-276",
+      "state": "Something went wrong with my withdrawal. The amount of money isn't right.",
+      "expected": {
+        "intent": "wrong_amount_of_cash_received"
+      }
+    },
+    {
+      "id": "b77-277",
+      "state": "I tried using my card and it kept getting declined, Why?",
+      "expected": {
+        "intent": "declined_card_payment"
+      }
+    },
+    {
+      "id": "b77-278",
+      "state": "How do I check my security settings to allow contactless pay?",
+      "expected": {
+        "intent": "contactless_not_working"
+      }
+    },
+    {
+      "id": "b77-279",
+      "state": "what is the most i can top up?",
+      "expected": {
+        "intent": "top_up_limits"
+      }
+    },
+    {
+      "id": "b77-280",
+      "state": "This company is bad, please delete my account.",
+      "expected": {
+        "intent": "terminate_account"
+      }
+    },
+    {
+      "id": "b77-281",
+      "state": "When I topped up, the app reverted my funds.",
+      "expected": {
+        "intent": "top_up_reverted"
+      }
+    },
+    {
+      "id": "b77-282",
+      "state": "Can I get my card expedited?",
+      "expected": {
+        "intent": "card_delivery_estimate"
+      }
+    },
+    {
+      "id": "b77-283",
+      "state": "I'm really stuck. I don't know why but my card payment has not gone through.",
+      "expected": {
+        "intent": "declined_card_payment"
+      }
+    },
+    {
+      "id": "b77-284",
+      "state": "Salary in GBP has been received, does it need to be configured elsewhere?",
+      "expected": {
+        "intent": "receiving_money"
+      }
+    },
+    {
+      "id": "b77-285",
+      "state": "Tell me how I can exchange between different currency.",
+      "expected": {
+        "intent": "exchange_via_app"
+      }
+    },
+    {
+      "id": "b77-286",
+      "state": "I got some cash of an ATM earlier but this shows up as pending in the app. How can this be still pending, I've got the cash already?",
+      "expected": {
+        "intent": "pending_cash_withdrawal"
+      }
+    },
+    {
+      "id": "b77-287",
+      "state": "I'm not sure why my top up request was denied",
+      "expected": {
+        "intent": "top_up_failed"
+      }
+    },
+    {
+      "id": "b77-288",
+      "state": "Hi,  Please help me, as i have transferred some amount but receiver did not get the same amount. He received a bit less. Due to this again i need to transfer the difference.   I have transferred money but beneficiary's account is credited with less amount. Now i have transfer the difference of the amount. I think there is some issue, could you please look into this.",
+      "expected": {
+        "intent": "transfer_fee_charged"
+      }
+    },
+    {
+      "id": "b77-289",
+      "state": "How do I link to my credit card with you?",
+      "expected": {
+        "intent": "card_linking"
+      }
+    },
+    {
+      "id": "b77-290",
+      "state": "I broke my card",
+      "expected": {
+        "intent": "card_not_working"
+      }
+    },
+    {
+      "id": "b77-291",
+      "state": "Can I use my card anywhere I want?",
+      "expected": {
+        "intent": "card_acceptance"
+      }
+    },
+    {
+      "id": "b77-292",
+      "state": "Can i cancel a charge?",
+      "expected": {
+        "intent": "cancel_transfer"
+      }
+    },
+    {
+      "id": "b77-293",
+      "state": "I believe I left my smartphone at the hotel I was staying at.",
+      "expected": {
+        "intent": "lost_or_stolen_phone"
+      }
+    },
+    {
+      "id": "b77-294",
+      "state": "Why have I been charged twice for the same transaction?",
+      "expected": {
+        "intent": "transaction_charged_twice"
+      }
+    },
+    {
+      "id": "b77-295",
+      "state": "I have been charged twice",
+      "expected": {
+        "intent": "transaction_charged_twice"
+      }
+    },
+    {
+      "id": "b77-296",
+      "state": "How long do transfers need to come through? I sent some money to a friend, she needs it urgently, but seems it's still not there yet after a couple hours.",
+      "expected": {
+        "intent": "transfer_not_received_by_recipient"
+      }
+    },
+    {
+      "id": "b77-297",
+      "state": "If my phone is missing, can I block someone from using the app?",
+      "expected": {
+        "intent": "lost_or_stolen_phone"
+      }
+    },
+    {
+      "id": "b77-298",
+      "state": "If I request that my funds be held, what currencies do you use?",
+      "expected": {
+        "intent": "fiat_currency_support"
+      }
+    },
+    {
+      "id": "b77-299",
+      "state": "Hi. I'm a new customer to your system and I think something isn't working right - or maybe it is. Maybe you can confirm. I tried to top up today (my first time ever) and it's been stuck at \"pending\" for over an hour now. Is it supposed to do this or is there something wrong in the system?",
+      "expected": {
+        "intent": "pending_top_up"
+      }
+    }
+  ]
+}

@@ -9,6 +9,13 @@ Reshapes a random sample of the test split into this repo's task schema: one
 Choice question ("intent") with all 77 categories as criteria, and an
 `expected` ground-truth label per ticket so the benchmark can also score
 accuracy, not just cost/latency.
+
+Each criterion is more than just the label name: it's paired with a few real
+example queries pulled from the train split, since several categories are
+near-synonyms (e.g. order_physical_card vs. get_physical_card,
+beneficiary_not_allowed vs. failed_transfer/declined_transfer) that a bare
+label name alone doesn't disambiguate -- every benchmarked model gets these
+same examples, so it's still an apples-to-apples comparison.
 """
 from __future__ import annotations
 
@@ -36,6 +43,33 @@ def _load_rows(csv_text: str) -> list[dict[str, str]]:
     return list(csv.DictReader(io.StringIO(csv_text)))
 
 
+EXAMPLES_PER_LABEL = 3
+
+
+def _build_criteria(
+    categories: list[str],
+    train_rows: list[dict[str, str]],
+    exclude_texts: set[str],
+    seed: int,
+) -> dict[str, str]:
+    by_label: dict[str, list[str]] = {}
+    for row in train_rows:
+        if row["text"] in exclude_texts:
+            continue
+        by_label.setdefault(row["category"], []).append(row["text"])
+
+    rng = random.Random(seed)  # separate from the ticket-sampling rng
+    criteria = {}
+    for label in categories:
+        pool = by_label.get(label, [])
+        examples = rng.sample(pool, min(EXAMPLES_PER_LABEL, len(pool)))
+        description = label.replace("_", " ")
+        if examples:
+            description += " -- e.g. " + "; ".join(f'"{e}"' for e in examples)
+        criteria[label] = description
+    return criteria
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--n", type=int, default=30, help="number of tickets to sample")
@@ -48,12 +82,19 @@ def main() -> None:
     args = parser.parse_args()
 
     categories = json.loads(_fetch(CATEGORIES_URL))
-    rows = _load_rows(_fetch(TRAIN_URL if args.split == "train" else TEST_URL))
+    train_rows = _load_rows(_fetch(TRAIN_URL))
+    rows = train_rows if args.split == "train" else _load_rows(_fetch(TEST_URL))
 
+    # Ticket sampling uses its own rng, seeded and consumed exactly as before
+    # this function existed -- so the same --seed still selects the same
+    # tickets even after adding example-based criteria below (that uses a
+    # separate rng), keeping before/after comparisons apples-to-apples.
     rng = random.Random(args.seed)
     sample = rng.sample(rows, min(args.n, len(rows)))
 
-    criteria = {label: label.replace("_", " ") for label in categories}
+    criteria = _build_criteria(
+        categories, train_rows, exclude_texts={row["text"] for row in sample}, seed=args.seed
+    )
 
     task = {
         "task_id": "banking77",
