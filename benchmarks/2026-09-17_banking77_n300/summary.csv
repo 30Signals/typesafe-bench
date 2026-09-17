@@ -1,0 +1,4 @@
+model,n,errors,latency_mean_s,latency_p50_s,latency_p95_s,avg_input_tokens,avg_output_tokens,avg_cached_input_tokens,avg_cache_write_tokens,avg_cost_usd_per_call,total_cost_usd,accuracy
+jev-latest,300,0,0.473,0.42,0.509,5313.2,828.4,,,0.000223,0.066947,0.873
+gpt-terra,300,0,2.218,1.74,2.947,153.1,29.5,4787.8,,0.001618,0.485472,0.897
+gpt-luna,300,0,2.32,1.529,3.272,71.1,37.2,4869.8,,0.000156,0.046882,0.913
