@@ -1,0 +1,70 @@
+{
+  "task_id": "ticket_triage",
+  "description": "Support-ticket triage: same three judgments asked in one call per ticket, across all models. Mirrors typesafe.ai's own worked example so Jev is benchmarked on a task it was actually designed for.",
+  "questions": {
+    "is_urgent": {
+      "type": "noul",
+      "instructions": "Does this ticket convey urgency (the customer needs action soon, e.g. blocked, losing money, or a live outage)?"
+    },
+    "tone": {
+      "type": "choice",
+      "instructions": "What is the customer's emotional tone in this message?",
+      "criteria": {
+        "calm": "Neutral or matter-of-fact, no signs of frustration",
+        "frustrated": "Some annoyance or impatience, but not hostile",
+        "angry": "Clear anger, hostility, or threats (e.g. to churn, escalate, or complain publicly)"
+      }
+    },
+    "urgency": {
+      "type": "score",
+      "instructions": "How soon does this ticket need a response?",
+      "criteria": [
+        "can_wait: no deadline implied, fine within normal SLA",
+        "this_week: some time pressure but not immediate",
+        "today: needs a response within hours"
+      ]
+    }
+  },
+  "tickets": [
+    {
+      "id": "t1",
+      "state": "Help! My payouts have been failing for 3 days and I'm about to miss payroll. This is a huge problem for my business."
+    },
+    {
+      "id": "t2",
+      "state": "Hi, just wondering if there's a way to export my invoice history as a CSV? No rush, whenever you get a chance."
+    },
+    {
+      "id": "t3",
+      "state": "This is the third time I've had to email about the same billing bug. I'm extremely frustrated and considering canceling my subscription."
+    },
+    {
+      "id": "t4",
+      "state": "Quick question: does your API support pagination on the /transactions endpoint? Docs weren't clear."
+    },
+    {
+      "id": "t5",
+      "state": "URGENT: production is down, customers can't check out, we are losing sales right now. Please call me immediately."
+    },
+    {
+      "id": "t6",
+      "state": "Thanks for the quick fix last time! Small follow up - the dashboard chart still shows the wrong currency symbol for EUR accounts."
+    },
+    {
+      "id": "t7",
+      "state": "I was charged twice this month. Not a huge deal but please refund the duplicate charge when you can."
+    },
+    {
+      "id": "t8",
+      "state": "Absolutely unacceptable. I've been on hold for an hour and no one has responded to my ticket from last week. I want a manager to call me today."
+    },
+    {
+      "id": "t9",
+      "state": "Just curious what your roadmap looks like for multi-currency support. Not urgent, just planning ahead."
+    },
+    {
+      "id": "t10",
+      "state": "Our webhook deliveries have been silently failing since this morning's deploy and we're missing order events. Need this looked at today if possible."
+    }
+  ]
+}

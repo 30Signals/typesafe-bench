@@ -1,0 +1,7 @@
+typesafe-sdk
+azure-ai-inference
+azure-core
+pyyaml
+python-dotenv
+tabulate
+-e .

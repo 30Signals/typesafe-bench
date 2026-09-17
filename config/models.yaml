@@ -1,0 +1,67 @@
+# Models under benchmark.
+#
+# Every model except `jev-latest` is reached through Azure AI Foundry's
+# unified inference API (azure-ai-inference), each with its own dedicated
+# endpoint + key + deployment name (per-model deployment, not a shared
+# resource). Fill in the env var NAMES here; actual secrets go in `.env`
+# (see .env.example).
+#
+# input_price_per_1m / output_price_per_1m are USD per 1,000,000 tokens.
+# Fill these in from your Azure Foundry contract / typesafe.ai console.
+# Leave as `null` if unknown -- cost will be reported as "n/a" for that model.
+
+jev:
+  provider: jev
+  model_id: jev-latest
+  api_key_env: TYPESAFE_API_KEY
+  input_price_per_1m: 42.0     # $42 / 1B input tokens, per typesafe.ai pricing page
+  output_price_per_1m: null    # not published as of 2026-09; fill in if known
+
+azure_models:
+  - name: gpt-luna
+    provider: azure_foundry
+    endpoint_env: AZURE_GPT_LUNA_ENDPOINT
+    api_key_env: AZURE_GPT_LUNA_KEY
+    deployment_env: AZURE_GPT_LUNA_DEPLOYMENT
+    input_price_per_1m: null
+    output_price_per_1m: null
+
+  - name: gpt-sol
+    provider: azure_foundry
+    endpoint_env: AZURE_GPT_SOL_ENDPOINT
+    api_key_env: AZURE_GPT_SOL_KEY
+    deployment_env: AZURE_GPT_SOL_DEPLOYMENT
+    input_price_per_1m: null
+    output_price_per_1m: null
+
+  - name: gpt-terra
+    provider: azure_foundry
+    endpoint_env: AZURE_GPT_TERRA_ENDPOINT
+    api_key_env: AZURE_GPT_TERRA_KEY
+    deployment_env: AZURE_GPT_TERRA_DEPLOYMENT
+    input_price_per_1m: null
+    output_price_per_1m: null
+
+  - name: claude-haiku
+    provider: azure_foundry
+    endpoint_env: AZURE_CLAUDE_HAIKU_ENDPOINT
+    api_key_env: AZURE_CLAUDE_HAIKU_KEY
+    deployment_env: AZURE_CLAUDE_HAIKU_DEPLOYMENT
+    input_price_per_1m: null
+    output_price_per_1m: null
+
+  - name: claude-sonnet
+    provider: azure_foundry
+    endpoint_env: AZURE_CLAUDE_SONNET_ENDPOINT
+    api_key_env: AZURE_CLAUDE_SONNET_KEY
+    deployment_env: AZURE_CLAUDE_SONNET_DEPLOYMENT
+    input_price_per_1m: null
+    output_price_per_1m: null
+
+  - name: claude-opus
+    provider: azure_foundry
+    endpoint_env: AZURE_CLAUDE_OPUS_ENDPOINT
+    api_key_env: AZURE_CLAUDE_OPUS_KEY
+    deployment_env: AZURE_CLAUDE_OPUS_DEPLOYMENT
+    input_price_per_1m: null
+    output_price_per_1m: null
