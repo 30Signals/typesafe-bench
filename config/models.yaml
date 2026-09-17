@@ -1,67 +1,67 @@
 # Models under benchmark.
 #
-# Every model except `jev-latest` is reached through Azure AI Foundry's
-# unified inference API (azure-ai-inference), each with its own dedicated
-# endpoint + key + deployment name (per-model deployment, not a shared
-# resource). Fill in the env var NAMES here; actual secrets go in `.env`
-# (see .env.example).
+# Jev (typesafe.ai) is called via its own API/SDK.
+#
+# All other models are reached through a single Azure AI Foundry resource
+# (one endpoint + one API key), each identified only by its deployment name.
+# To add or swap a model, just add/edit an entry under `models:` -- no code
+# changes needed.
+#
+# Secrets never go in this file -- only the names of the env vars that hold
+# them (see .env.example). This file is safe to commit/publish as-is.
 #
 # input_price_per_1m / output_price_per_1m are USD per 1,000,000 tokens.
-# Fill these in from your Azure Foundry contract / typesafe.ai console.
-# Leave as `null` if unknown -- cost will be reported as "n/a" for that model.
+# cached_input_price_per_1m is the discounted rate for prompt-cache hits, if
+# the provider offers one -- if the API returns a cached-token count for a
+# call and this is set, that portion of input tokens is billed at this rate
+# instead of input_price_per_1m. Leave any of these as `null` if unknown --
+# cost will be reported as "n/a" for that model, and cached-token pricing
+# just falls back to the standard input rate.
 
 jev:
-  provider: jev
-  model_id: jev-latest
   api_key_env: TYPESAFE_API_KEY
+  model_id: jev-latest
   input_price_per_1m: 42.0     # $42 / 1B input tokens, per typesafe.ai pricing page
+  cached_input_price_per_1m: null
   output_price_per_1m: null    # not published as of 2026-09; fill in if known
 
-azure_models:
+azure:
+  endpoint_env: AZURE_FOUNDRY_ENDPOINT
+  api_key_env: AZURE_FOUNDRY_API_KEY
+
+models:
   - name: gpt-luna
-    provider: azure_foundry
-    endpoint_env: AZURE_GPT_LUNA_ENDPOINT
-    api_key_env: AZURE_GPT_LUNA_KEY
-    deployment_env: AZURE_GPT_LUNA_DEPLOYMENT
+    deployment: gpt-luna
     input_price_per_1m: null
+    cached_input_price_per_1m: null
     output_price_per_1m: null
 
   - name: gpt-sol
-    provider: azure_foundry
-    endpoint_env: AZURE_GPT_SOL_ENDPOINT
-    api_key_env: AZURE_GPT_SOL_KEY
-    deployment_env: AZURE_GPT_SOL_DEPLOYMENT
+    deployment: gpt-sol
     input_price_per_1m: null
+    cached_input_price_per_1m: null
     output_price_per_1m: null
 
   - name: gpt-terra
-    provider: azure_foundry
-    endpoint_env: AZURE_GPT_TERRA_ENDPOINT
-    api_key_env: AZURE_GPT_TERRA_KEY
-    deployment_env: AZURE_GPT_TERRA_DEPLOYMENT
+    deployment: gpt-terra
     input_price_per_1m: null
+    cached_input_price_per_1m: null
     output_price_per_1m: null
 
   - name: claude-haiku
-    provider: azure_foundry
-    endpoint_env: AZURE_CLAUDE_HAIKU_ENDPOINT
-    api_key_env: AZURE_CLAUDE_HAIKU_KEY
-    deployment_env: AZURE_CLAUDE_HAIKU_DEPLOYMENT
+    deployment: claude-haiku
     input_price_per_1m: null
+    cached_input_price_per_1m: null
     output_price_per_1m: null
 
   - name: claude-sonnet
-    provider: azure_foundry
-    endpoint_env: AZURE_CLAUDE_SONNET_ENDPOINT
-    api_key_env: AZURE_CLAUDE_SONNET_KEY
-    deployment_env: AZURE_CLAUDE_SONNET_DEPLOYMENT
+    deployment: claude-sonnet
     input_price_per_1m: null
+    cached_input_price_per_1m: null
     output_price_per_1m: null
 
   - name: claude-opus
-    provider: azure_foundry
-    endpoint_env: AZURE_CLAUDE_OPUS_ENDPOINT
-    api_key_env: AZURE_CLAUDE_OPUS_KEY
-    deployment_env: AZURE_CLAUDE_OPUS_DEPLOYMENT
+    deployment: claude-opus
     input_price_per_1m: null
+    cached_input_price_per_1m: null
     output_price_per_1m: null

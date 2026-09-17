@@ -3,6 +3,7 @@ from __future__ import annotations
 import argparse
 import csv
 import json
+import os
 import statistics
 from pathlib import Path
 from typing import Any
@@ -28,39 +29,68 @@ def build_providers(models_config: dict[str, Any]) -> list[Provider]:
         )
     )
 
-    for m in models_config.get("azure_models", []):
-        providers.append(
-            AzureFoundryProvider(
-                name=m["name"],
-                endpoint_env=m["endpoint_env"],
-                api_key_env=m["api_key_env"],
-                deployment_env=m.get("deployment_env"),
+    azure_models = models_config.get("models", [])
+    if azure_models:
+        azure_cfg = models_config["azure"]
+        endpoint = os.environ.get(azure_cfg["endpoint_env"])
+        api_key = os.environ.get(azure_cfg["api_key_env"])
+        if not endpoint or not api_key:
+            raise RuntimeError(
+                f"Missing {azure_cfg['endpoint_env']} and/or {azure_cfg['api_key_env']} "
+                "for the shared Azure AI Foundry resource"
             )
-        )
+        for m in azure_models:
+            providers.append(
+                AzureFoundryProvider(
+                    name=m["name"],
+                    deployment=m["deployment"],
+                    endpoint=endpoint,
+                    api_key=api_key,
+                )
+            )
     return providers
 
 
-def price_lookup(models_config: dict[str, Any]) -> dict[str, tuple[float | None, float | None]]:
-    prices: dict[str, tuple[float | None, float | None]] = {}
+Prices = tuple[float | None, float | None, float | None]  # (input, cached_input, output)
+
+
+def price_lookup(models_config: dict[str, Any]) -> dict[str, Prices]:
+    prices: dict[str, Prices] = {}
     jev_cfg = models_config["jev"]
     prices[jev_cfg["model_id"]] = (
         jev_cfg.get("input_price_per_1m"),
+        jev_cfg.get("cached_input_price_per_1m"),
         jev_cfg.get("output_price_per_1m"),
     )
-    for m in models_config.get("azure_models", []):
-        prices[m["name"]] = (m.get("input_price_per_1m"), m.get("output_price_per_1m"))
+    for m in models_config.get("models", []):
+        prices[m["name"]] = (
+            m.get("input_price_per_1m"),
+            m.get("cached_input_price_per_1m"),
+            m.get("output_price_per_1m"),
+        )
     return prices
 
 
 def cost_usd(
     input_tokens: int | None,
     output_tokens: int | None,
+    cached_input_tokens: int | None,
     price_in: float | None,
+    price_cached_in: float | None,
     price_out: float | None,
 ) -> float | None:
+    """Cached input tokens are billed at `price_cached_in` (typically a
+    discounted rate) instead of `price_in` when both the token count and
+    that price are known; otherwise all input tokens fall back to the
+    standard input price."""
     if input_tokens is None or price_in is None:
         return None
-    cost = (input_tokens / 1_000_000) * price_in
+    cached = cached_input_tokens or 0
+    if cached and price_cached_in is not None:
+        uncached = max(input_tokens - cached, 0)
+        cost = (uncached / 1_000_000) * price_in + (cached / 1_000_000) * price_cached_in
+    else:
+        cost = (input_tokens / 1_000_000) * price_in
     if output_tokens is not None and price_out is not None:
         cost += (output_tokens / 1_000_000) * price_out
     return cost
@@ -91,7 +121,7 @@ def run_benchmark(
 
 
 def summarize(
-    results: list[RunResult], prices: dict[str, tuple[float | None, float | None]]
+    results: list[RunResult], prices: dict[str, Prices]
 ) -> list[dict[str, Any]]:
     by_model: dict[str, list[RunResult]] = {}
     for r in results:
@@ -102,12 +132,16 @@ def summarize(
         ok = [r for r in rs if r.error is None]
         errors = len(rs) - len(ok)
         latencies = sorted(r.latency_s for r in ok) if ok else []
-        price_in, price_out = prices.get(model_name, (None, None))
+        price_in, price_cached_in, price_out = prices.get(model_name, (None, None, None))
         costs = [
-            cost_usd(r.input_tokens, r.output_tokens, price_in, price_out)
+            cost_usd(
+                r.input_tokens, r.output_tokens, r.cached_input_tokens,
+                price_in, price_cached_in, price_out,
+            )
             for r in ok
         ]
         costs = [c for c in costs if c is not None]
+        cached_counts = [r.cached_input_tokens for r in ok if r.cached_input_tokens is not None]
 
         def pct(data: list[float], p: float) -> float | None:
             if not data:
@@ -133,6 +167,9 @@ def summarize(
                 )
                 if any(r.output_tokens is not None for r in ok)
                 else None,
+                "avg_cached_input_tokens": round(statistics.mean(cached_counts), 1)
+                if cached_counts
+                else None,
                 "avg_cost_usd_per_call": round(statistics.mean(costs), 6) if costs else None,
                 "total_cost_usd": round(sum(costs), 6) if costs else None,
             }
@@ -145,7 +182,10 @@ def write_raw_csv(results: list[RunResult], path: Path) -> None:
     with path.open("w", newline="", encoding="utf-8") as f:
         writer = csv.writer(f)
         writer.writerow(
-            ["model", "ticket_id", "latency_s", "input_tokens", "output_tokens", "error", "answers"]
+            [
+                "model", "ticket_id", "latency_s", "input_tokens", "output_tokens",
+                "cached_input_tokens", "error", "answers", "raw_usage",
+            ]
         )
         for r in results:
             writer.writerow(
@@ -155,8 +195,10 @@ def write_raw_csv(results: list[RunResult], path: Path) -> None:
                     r.latency_s,
                     r.input_tokens,
                     r.output_tokens,
+                    r.cached_input_tokens,
                     r.error or "",
                     json.dumps(r.answers) if r.answers else "",
+                    json.dumps(r.raw_usage) if r.raw_usage else "",
                 ]
             )
 

@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 import json
-import os
 import time
 from typing import Any
 
@@ -9,7 +8,7 @@ from azure.ai.inference import ChatCompletionsClient
 from azure.ai.inference.models import SystemMessage, UserMessage
 from azure.core.credentials import AzureKeyCredential
 
-from .base import Provider, RunResult
+from .base import Provider, RunResult, extract_cached_tokens
 
 _SYSTEM_PROMPT = """\
 You are a structured-decision engine. You will be given the content of a support
@@ -28,25 +27,15 @@ using the same question ids you were given.
 
 
 class AzureFoundryProvider(Provider):
-    """Generic adapter for any model deployed on Azure AI Foundry, reached via
-    the unified azure-ai-inference ChatCompletionsClient. Works the same way
-    regardless of whether the underlying deployment is a GPT or Claude model."""
+    """Generic adapter for any model deployed on a shared Azure AI Foundry
+    resource, reached via the unified azure-ai-inference ChatCompletionsClient.
+    Works the same way regardless of whether the deployment is a GPT or Claude
+    model -- each model under benchmark is just a deployment name on the same
+    endpoint/key."""
 
-    def __init__(
-        self,
-        name: str,
-        endpoint_env: str,
-        api_key_env: str,
-        deployment_env: str | None = None,
-    ):
+    def __init__(self, name: str, deployment: str, endpoint: str, api_key: str):
         self.name = name
-        endpoint = os.environ.get(endpoint_env)
-        api_key = os.environ.get(api_key_env)
-        if not endpoint or not api_key:
-            raise RuntimeError(
-                f"Missing {endpoint_env} and/or {api_key_env} for provider {name}"
-            )
-        self.deployment = os.environ.get(deployment_env) if deployment_env else None
+        self.deployment = deployment
         self._client = ChatCompletionsClient(
             endpoint=endpoint, credential=AzureKeyCredential(api_key)
         )
@@ -59,28 +48,32 @@ class AzureFoundryProvider(Provider):
             SystemMessage(content=_SYSTEM_PROMPT),
             UserMessage(content=user_prompt),
         ]
-        kwargs: dict[str, Any] = {"messages": messages, "response_format": "json_object"}
-        if self.deployment:
-            kwargs["model"] = self.deployment
 
         start = time.perf_counter()
         try:
-            response = self._client.complete(**kwargs)
+            response = self._client.complete(
+                messages=messages,
+                model=self.deployment,
+                response_format="json_object",
+            )
             latency = time.perf_counter() - start
             usage = getattr(response, "usage", None)
             input_tokens = getattr(usage, "prompt_tokens", None) if usage else None
             output_tokens = getattr(usage, "completion_tokens", None) if usage else None
+            raw_usage = _usage_to_dict(usage)
+            cached_input_tokens = extract_cached_tokens(raw_usage)
             raw = response.choices[0].message.content
             try:
                 answers = json.loads(raw)
             except (json.JSONDecodeError, TypeError):
-                answers = None
                 return RunResult(
                     model_name=self.name,
                     ticket_id=ticket_id,
                     latency_s=latency,
                     input_tokens=input_tokens,
                     output_tokens=output_tokens,
+                    cached_input_tokens=cached_input_tokens,
+                    raw_usage=raw_usage,
                     answers=None,
                     error=f"non-JSON response: {raw!r}",
                 )
@@ -90,6 +83,8 @@ class AzureFoundryProvider(Provider):
                 latency_s=latency,
                 input_tokens=input_tokens,
                 output_tokens=output_tokens,
+                cached_input_tokens=cached_input_tokens,
+                raw_usage=raw_usage,
                 answers=answers,
             )
         except Exception as exc:  # noqa: BLE001 - record and keep benchmarking
@@ -103,3 +98,22 @@ class AzureFoundryProvider(Provider):
                 answers=None,
                 error=str(exc),
             )
+
+
+def _usage_to_dict(usage: Any) -> dict[str, Any] | None:
+    """azure-ai-inference usage objects vary by underlying model provider
+    (OpenAI-style vs. Anthropic-style fields); dump whatever shape comes back
+    so downstream code (and the raw CSV) can inspect it rather than losing it."""
+    if usage is None:
+        return None
+    for method_name in ("as_dict", "to_dict"):
+        method = getattr(usage, method_name, None)
+        if callable(method):
+            try:
+                return method()
+            except Exception:  # noqa: BLE001
+                pass
+    try:
+        return dict(vars(usage))
+    except TypeError:
+        return None
